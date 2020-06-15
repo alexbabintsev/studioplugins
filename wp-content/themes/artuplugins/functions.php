@@ -135,7 +135,7 @@ add_action('wp_sc_ajax_get_plugins_list',function (){
 
     $rez = [];
     foreach (get_field('products',$user) as $prodd)
-        $rez = ['prod_name'=>get_field('packName',$prodd['product']),'pur_Code'=>$prodd['pur_Code']];
+        $rez[] = ['prod_name'=>get_field('packName',$prodd['product']),'pur_Code'=>$prodd['pur_Code']];
 
     wp_send_json( ['result'=>true,'list'=>$rez] );
 });
