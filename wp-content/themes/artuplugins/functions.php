@@ -104,7 +104,7 @@ function check_prodcode_callback() {
         if($post)
         {
              $curl = curl_init();
-            curl_setopt($curl, CURLOPT_URL, 'http://envato.nitrozme.com/check_pursh/chpurnitrozme.php?purchase='.urlencode($_POST['act_code']).'&packName='.urlencode($_POST['product']));
+            curl_setopt($curl, CURLOPT_URL, 'http://envato.nitrozme.com/check_pursh/chpurnitrozme.php?purchase='.urlencode($_POST['act_code']).'&packName='.urlencode(get_field('packName',$post)));
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             //curl_setopt($curl, CURLOPT_POST, true);
             $out = curl_exec($curl);
@@ -125,3 +125,17 @@ function check_prodcode_callback() {
     echo json_encode($rez);
     wp_die(); // выход нужен для того, чтобы в ответе не было ничего лишнего, только то что возвращает функция
 }
+
+add_action('wp_sc_ajax_test',function (){
+        $user = get_user_by( 'login', $_REQUEST['login'] );
+    if(!$user)
+        $user = get_user_by( 'email', $_REQUEST['login'] );
+    if(!$user||!wp_check_password( $_REQUEST['password'], $user->user_pass ))
+        wp_send_json( ['result'=>false,'messege'=>'Wrong loginor password'] );
+
+    $rez = [];
+    foreach (get_field('products',$user) as $prodd)
+        $rez = ['prod_name'=>get_field('packName',$prodd['product']),'pur_Code'=>$prodd['pur_Code']];
+
+    wp_send_json( ['result'=>true,'list'=>$rez] );
+});
