@@ -131,7 +131,7 @@ add_action('wp_sc_ajax_get_plugins_list',function (){
     if(!$user)
         $user = get_user_by( 'email', $_REQUEST['login'] );
     if(!$user||!wp_check_password( $_REQUEST['password'], $user->user_pass ))
-        wp_send_json( ['result'=>false,'messege'=>'Wrong loginor password'] );
+        wp_send_json( ['result'=>false,'message'=>'Wrong login or password'] );
 
     $rez = [];
     foreach (get_field('products',$user) as $prodd)
