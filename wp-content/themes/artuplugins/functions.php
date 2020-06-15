@@ -126,7 +126,7 @@ function check_prodcode_callback() {
     wp_die(); // выход нужен для того, чтобы в ответе не было ничего лишнего, только то что возвращает функция
 }
 
-add_action('wp_sc_ajax_test',function (){
+add_action('wp_sc_ajax_get_plugins_list',function (){
         $user = get_user_by( 'login', $_REQUEST['login'] );
     if(!$user)
         $user = get_user_by( 'email', $_REQUEST['login'] );
