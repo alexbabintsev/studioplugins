@@ -31,7 +31,7 @@ get_header();
                     </div>
                     <div class="hero-content__downloads"><a href="#">
                             Download for Windows<img src="<?= get_theme_file_uri( '/img/home/windows.svg')?>" alt=""></a><a href="#">
-                            Download for MacOS<img src="<?= get_theme_file_uri( '/img/home/apple.svg')?>" alt="">></a></div>
+                            Download for MacOS<img src="<?= get_theme_file_uri( '/img/home/apple.svg')?>" alt=""></a></div>
                 </div><a class="hero-content__right" href="#">
                     <div class="hero-content__video-icon"><svg class="videoplay-svg" width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path class="videoplay-svg__path1" d="M77.0732 128.604V70.8014C77.0732 69.2572 78.7487 68.2956 80.082 69.0744L132.858 99.9024C134.223 100.7 134.167 102.691 132.76 103.41L79.9835 130.385C78.6527 131.065 77.0732 130.098 77.0732 128.604Z" fill="white"/>
@@ -108,7 +108,7 @@ get_header();
             <img src="<?= get_theme_file_uri( '/img/home/section-decor.svg' )?>" alt="section-decor">
         </div>
         <div class="container benefits__container">
-            <h2 class="title benefits__title">Benefits of <span>our plugin</span></h2>
+            <h2 class="title benefits__title">Benefits of <span class="title-db accent">our plugin</span></h2>
             <div class="benefits-list">
                 <div class="benefits-list__item benefits-list__item-1">
                     <div class="benefits-list__item-inner">
