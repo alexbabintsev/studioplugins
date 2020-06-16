@@ -1,0 +1,414 @@
+.account-section{
+    padding-top: 80px;
+    padding-bottom: 120px;
+}
+.account-grid{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 48px;
+    padding-left: 52px;
+    min-height: 616px;
+    background: url(../img/trapeze.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    &__right{
+        width: 100%;
+        max-width: 344px;
+        margin-right: 156px;
+    }
+    &__back-to-main{
+        position: absolute;
+        bottom: 0;
+        left: 52px;
+        display: block;
+        border: 2px solid $text-color;
+        padding: 12px 0 12px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 140%;
+        width: 100%;
+        max-width: 344px;
+        text-align: center;
+        transition: 0.3s;
+        &:hover{
+            background: $text-color;
+            color: white;
+        }
+    }
+    &__illustration{
+        width: 100%;
+        max-width: 341px;
+        img{
+            width: 100%;
+            transform: translate(3px, 14px)
+        }
+    }
+}
+.account-grid-2{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 48px;
+    padding-bottom: 50px;
+    padding-left: 52px;
+    padding-right: 52px;
+    background: $c-lgray;
+    &__subtitle{
+        margin-bottom: 60px;
+    }
+    &__add-prod{
+        width: 100%;
+        max-width: 708px;
+        display: flex;
+        background: $g-fiolet;
+        padding-top: 114px;
+        padding-bottom: 114px;
+        margin-top: 2px;
+        a{
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: $c-white;
+            svg{
+                display: block;
+                margin-bottom: 40px;
+                path{
+                    transition: 0.3s;
+                }
+            }
+            p{
+                font-weight: 800;
+                font-size: 28px;
+                line-height: 110%;
+                transition: 0.3s;
+            }
+            &:hover{
+                svg{
+                    path{
+                        fill: $c-red;
+                    }
+                }
+                p{
+                    color: $c-red;
+                }
+            }
+        }
+        p{
+
+        }
+    }
+    &__links{
+        &-mobile{
+            display: none;
+        }
+        a{
+            display: block;
+            color: $text-color;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 140%;
+            margin-bottom: 20px;
+            transition: 0.3s;
+            &:hover{
+                color: $c-red;
+            }
+        }
+    }
+    &__products{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 708px;
+        padding-top: 11px;
+        &-2{
+            padding-top: 2px;
+        }
+        &-title{
+            margin-bottom: 40px;
+        }
+        &-item{
+            width: 100%;
+            background: url(../img/account/account-item.jpg);
+            background-size: cover;
+            background-position: center;
+            padding-top: 21px;
+            padding-bottom: 19px;
+            display: flex;
+            color: $c-white;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            &-animations{
+                &::before{
+                    position: absolute;
+                    content: '';
+                    width: 100%;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    background: linear-gradient(69.71deg, #0A1524 -1.03%, rgba(11, 19, 32, 0.9) 98.62%);
+                    z-index: -1;
+                }
+            }
+            &-transitions{
+                &::before{
+                    position: absolute;
+                    content: '';
+                    width: 100%;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    background: linear-gradient(69.71deg, #FF244C -1.03%, rgba(255, 36, 76, 0.9) 98.62%);
+                    z-index: -1;
+                }
+            }
+        }
+        &-img{
+            width: 330px;
+            text-align: right;
+            margin-right: 20px;
+            margin-right: 65px;
+
+            img{
+                width: 100%;
+                max-width: 260px;
+                transform: translateY(5px);
+            }
+        }
+        &-text{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            p{
+                font-weight: 800;
+                font-size: 28px;
+                line-height: 110%;
+                margin-bottom: 10px;
+                letter-spacing: 0.4px;
+            }
+        }
+        &-links{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            min-width: 202px;
+            a{
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 140%;
+                transition: 0.3s;
+            }
+            &-red{
+                a{
+                    &:hover{
+                        color: $text-color;
+                    }
+                }
+            }
+            &-blue{
+                a{
+                    &:hover{
+                        color: $c-red;
+                    }
+                }
+            }
+        }
+    }
+    &__products-title{
+        font-size: 38px;
+        line-height: 110%;
+        font-weight: 800;
+    }
+    &__add{
+        width: 100%;
+        margin-top: 20px;
+        a{
+            display: block;
+            width: 100%;
+            font-weight: 800;
+            font-size: 16px;
+            line-height: 140%;
+            padding: 13px 10px 11px;
+            text-align: center;
+            border: 2px solid $text-color;
+            transition: 0.3s;
+            &:hover{
+                background: $text-color;
+                color: white;
+            }
+        }
+    }
+}
+.plus{
+    position: relative;
+    width: 100px;
+    height: 100px;
+
+
+}
+@media screen and (max-width: $desktop){
+    .account-grid{
+        &__right{
+            margin-right: 85px;
+            margin-left: 10px;
+        }
+    }
+    .account-grid-2{
+        flex-direction: column;
+        &__links{
+            &-desctop{
+                display: none;
+            }
+            &-mobile{
+                display: block;
+            }
+            a{
+                margin-right: 10px;
+            }
+        }
+        &__add-prod{
+            max-width: 100%;
+            margin-bottom: 40px;
+        }
+        &__products{
+            max-width: 100%;
+        }
+        &__add{
+            margin-bottom: 40px;
+        }
+    }
+}
+@media screen and (max-width: $tablet){
+    .account-section{
+        padding-top: 0px;
+        padding-bottom: 61px;
+    }
+    .account-grid{
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 0;
+        padding-top: 40px;
+
+        &__right{
+            margin-right: 0;
+            margin-left: 0;
+            margin-top: 39px;
+            padding-right: 20px;
+            padding-left: 20px;
+        }
+        &__back-to-main{
+            position: static;
+            margin-top: 17px;
+            max-width: 260px;
+        }
+        &__illustration{
+            img{
+                transform: translate(0px,-7px);
+            }
+        }
+    }
+    .account-grid-2{
+        padding: 40px 20px 20px;
+        &__subtitle{
+            margin-bottom: 38px;
+        }
+        &__products-title{
+            display: none;
+        }
+        &__add-prod{
+            padding: 0;
+            a{
+                padding-top: 66px;
+                padding-bottom: 64px;
+                p{
+                    font-size: 18px;
+                    line-height: 110%;
+                }
+                svg{
+                    width: 50px;
+                    height: 50px;
+                    margin-bottom: 22px;
+                }
+            }
+        }
+        &__products{
+            padding-top: 3px;
+            &-img{
+                width: 50%;
+            }
+            &-text{
+                padding-left: 0;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $mobile-big){
+    .account-grid-2{
+        &__products-item{
+            flex-direction: column;
+            align-items: center;
+        }
+        &__products{
+            &-img{
+                width: 100%;
+                text-align: center;
+                margin-right: 0;
+                img{
+                    transform: none;
+                }
+            }
+            &-text{
+                width: 100%;
+            }
+            &-links{
+                max-width: 202px;
+            }
+        }
+    }
+    
+}
+@media screen and (max-width: $mobile){
+    .account-grid{
+        background: url(../img/trapeze-mob.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: bottom;
+        min-height: 623px;
+    }
+    .login{
+        .account-grid{
+            min-height: 568px;
+        }
+    }
+    .reset{
+        .account-grid{
+            min-height: 498px;
+        }
+    }
+    .resetcreatepass{
+        .account-grid{
+            min-height: 530px;
+        }
+    }
+    .account-grid-2{
+        &__products{
+            &-item{
+                padding-top: 0;
+                margin-bottom: 10px;
+            }
+            &-text{
+                margin-top: -17px;
+                margin-bottom: 23px;
+            }
+        }
+        &__add{
+            margin-top: 10px;
+        }
+    }
+}

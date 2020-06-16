@@ -1,0 +1,44 @@
+@import 'blocks/scss/fonts';
+@import "blocks/scss/variables";
+@import "blocks/scss/mixins";
+@import "blocks/scss/scafolding";
+
+
+
+
+@import "blocks/snippets/btn";
+@import "blocks/snippets/form/form";
+@import "blocks/snippets/account-grid/account-grid";
+@import "blocks/snippets/modal/modal";
+
+@import "blocks/scss/global";
+@import "blocks/header/header";
+@import "blocks/footer/footer";
+
+//main page
+@import "blocks/hero/hero";
+@import "blocks/waytocreate/waytocreate";
+@import "blocks/benefits/benefits";
+@import "blocks/nitrozme/nitrozme";
+@import "blocks/prods-already/prods-already";
+@import "blocks/subscribe/subscribe";
+//transitions page
+@import "blocks/hero-2/hero-2";
+@import "blocks/creative/creative";
+@import "blocks/effects/effects";
+
+@import "blocks/register/register";
+@import "blocks/confirm/confirm";
+@import "blocks/login/login";
+@import "blocks/reset/reset";
+@import "blocks/resetcheckmail/resetcheckmail";
+@import "blocks/resetcreatepass/resetcreatepass";
+@import "blocks/account/account";
+@import "blocks/accountaddedsingle/accountaddedsingle";
+@import "blocks/accountaddeddouble/accountaddeddouble";
+
+@import "blocks/help-c/help-c";
+
+@import "blocks/politic/politic";
+
+@import "blocks/requirements/requirements";

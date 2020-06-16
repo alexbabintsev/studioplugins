@@ -1,0 +1,246 @@
+.default-modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  background-color: rgba(#051227, 0.7);
+  overflow: auto;
+  transition: all .3s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+  z-index: -1;
+  -webkit-overflow-scrolling: touch;
+  &.is-active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1001;
+    .default-modal__content {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  &__illustration{
+    text-align: center;
+    margin-bottom: 20px;
+    svg, img{
+      transform: translateX(20px);
+    }
+    &-confirm{
+      margin-bottom: 0;
+      svg, img{
+        transform: translateX(11px);
+      }
+    }
+    &-banned{
+      margin-bottom: 24px;
+      svg, img{
+        transform: translateX(0px);
+      }
+    }
+    &-desctop{
+      display: block;
+    }
+    &-mobile{
+      display: none;
+    }
+    // svg{
+    //   transform: translateX(20px);
+    // }
+  }
+  &__border-link{
+    font-size: 16px;
+    line-height: 140%;
+    font-weight: 600;
+    display: block;
+    width: 100%;
+    max-width: 344px;
+    padding: 14px 10px;
+    border: 2px solid $text-color;
+    text-align: center;
+    margin-top: 40px;
+    transition: 0.3s;
+    &:hover{
+      background: $text-color;
+      color: white;
+    }
+  }
+  &__close {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 26px;
+    top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    fill: $text-color;
+    @include transition(opacity);
+    z-index: 1;
+    &:hover {
+      opacity: .5;
+    }
+  }
+  &__mobile-logo{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: none;
+  }
+
+  &__content {
+    max-width: 708px;
+    width: 100%;
+    margin: auto;
+    opacity: 0;
+    transform: translateY(-20%) scale(.8);
+    transition: all .3s ease-in-out;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 0px;
+    background-color: #fff;
+    color: $text-color;
+    position: relative;
+    padding: 100px 60px;
+    &-illustration-confirm{
+      padding: 69px 60px 100px;
+    }
+    &-video{
+      padding: 0;
+      background: transparent;
+      max-width: 1000px!important;
+      height: calc(100vw * 0.6)!important;
+      max-height: 700px!important;
+      padding: 0!important;
+      .default-modal__close{
+        fill: white;
+        top: -40px;
+        right: 10px;
+      }
+    }
+  }
+  &__form{
+    width: 100%;
+    max-width: 344px;
+  }
+  &__inner {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__title {
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 110%;
+    letter-spacing: 0px;
+    position: relative;
+    margin-bottom: 8px;
+    z-index: 1;
+    text-align: center;
+    max-width: 364px;
+    margin-bottom: 38px;
+    &-chp{
+      max-width: 592px;
+    }
+    &-illustration{
+      max-width: 592px;
+      margin-bottom: 10px;
+    }
+    span{
+      color: $c-red;
+    }
+  }
+  &__subtitle{
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: 400;
+    text-align: center;
+    width: 100%;
+    max-width: 460px;
+  }
+
+
+}
+
+
+@media screen and (max-width: $mobile){
+  .default-modal{
+    &__close{
+      width: 20px;
+      height: 20px;
+      top: 20px;
+      right: 21px;
+    }
+    &__content{
+      height: 100vh;
+      padding: 100px 20px;
+      &-illustration{
+        padding-top: 54px;
+      }
+      &-fail{
+        padding-top: 113px;
+      }
+    }
+    &__mobile-logo{
+      display: block;
+    }
+    &__title{
+      font-size: 28px;
+      line-height: 110%;
+    }
+    &__illustration{
+      width: 100%;
+      padding: 0 10px;
+      margin-bottom: 0;
+      &-desctop{
+        display: none;
+      }
+      &-mobile{
+        display: block;
+      }
+
+      svg, img{
+        width: 100%;
+        transform: translate(15px, 0px);
+      }
+      &-banned{
+        width: 107%;
+        svg, img{
+          transform: translate(0px, -3px);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 340px){
+  .default-modal{
+    &__title{
+      &-illustration{
+        margin-top: -12px;
+      }
+      &-banned{
+        margin-top: -19px;
+        margin-bottom: 11px;
+      }
+    }
+  }
+}
+
+
+.mob_logo_2{
+  fill: #FFD81A;
+}
+.mob_logo_1{
+  fill: #F732A2;
+}
+.mob_logo_3{
+  fill: #8572B3;
+}
+.mob_logo_letter{
+  fill: #231F20;
+}

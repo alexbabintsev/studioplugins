@@ -1,0 +1,8 @@
+@media screen and (max-width: $mobile){
+    .resetcreatepass{
+        &__subtitle{
+            max-width: 260px;
+            margin-bottom: 1px;
+        }
+    }
+}

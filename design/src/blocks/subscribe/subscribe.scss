@@ -1,0 +1,133 @@
+.subscribe{
+   position: relative;
+   background: url(../img/home/subscribe/subscribe.jpg);
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   padding-top: 360px;
+   padding-bottom: 199px;
+   z-index: 1;
+   .section-decor{
+      top: 114px;
+   }
+   &::before{
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(68.12deg, #0A1524 -1.03%, rgba(11, 19, 32, 0.9) 98.62%);
+      z-index: -1;
+   }
+   &__title{
+      max-width: 836px;
+      color: white;
+      font-weight: bold;
+      line-height: 109%;
+      letter-spacing: -1.9px;
+      margin-bottom: 32px;
+      &::before{
+         display: none;
+      }
+   }
+   &__letters{
+      position: absolute;
+      top: 61px;
+      left: 0;
+   }
+   &__form{
+      max-width: 604px;
+      display: flex;
+      justify-content: space-between;
+      .input-group{
+         margin-bottom: 0;
+         width: 100%;
+         max-width: 344px;
+         
+         &__label{
+            color: rgba(white, 0.5);
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 140%;
+         }
+      }
+      .main-form__submit-wrapper{
+         margin-top: 0;
+         width: 100%;
+         max-width: 240px;
+      }
+      input{
+         border-bottom: 2px solid white;
+         color: white;
+         padding: 20px 5px 6px 0;
+      }
+      button{
+         border: 2px solid white;
+         color: white;
+         &:hover{
+            background: white;
+            color: black;
+         }
+      }
+   }
+}
+@media screen and(max-width: 1350px){
+   .subscribe{
+      .section-decor{
+         display: none;
+      }
+   }
+}
+@media (max-width: $mobile-big) {
+   .subscribe {
+      &__form {
+         .input-group {
+            margin-right: 20px;
+         }
+      }
+   }
+}
+@media (max-width: $mobile) {
+   .subscribe {
+      padding: 40px 0 180px;
+      &__container{
+         padding-left: 20px;
+         padding-right: 20px;
+      }
+      &__title{
+         line-height: 112%
+      }
+      &__form {
+         .main-form {
+            &__submit-wrapper {
+               max-width: 200px;
+            }
+         }
+      }
+   }
+}
+@media (max-width: $mobile-sm) {
+   .subscribe {
+      &__title {
+         max-width: none;
+         text-align: left;
+         letter-spacing: 0;
+         margin-bottom: 18px;
+      }
+      &__form {
+         display: block;
+         max-width: none;
+         .input-group {
+            max-width: none;
+            margin-right: 0;
+            margin-bottom: 30px;
+         }
+         .main-form {
+            &__submit-wrapper {
+               max-width: none;
+            }
+         }
+      }
+   }
+}

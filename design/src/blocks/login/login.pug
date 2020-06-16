@@ -1,0 +1,21 @@
+section.login.account-section
+   .container
+      .account-grid
+         .account-grid__left
+            h1.title.login__title Log <span>in</span>
+            h2.subtitle.login__subtitle Manage your licences and downloads
+         .account-grid__right
+            form.main-form.login__form(name="reset_password" novalidate="novalidate")
+               .input-group
+                  .input-group__label Email
+                  input(type="text" name="mail")
+               .input-group
+                  .input-group__label Password
+                  input(type="text" name="password")
+               .submit-wrapper.main-form__submit-wrapper
+                  button(type="submit").main-form__submit-btn Log in
+               .main-form__links
+                  a(href="#").main-form__forot-pass Create account
+                  a(href="#").main-form__forot-pass Forgot password
+
+

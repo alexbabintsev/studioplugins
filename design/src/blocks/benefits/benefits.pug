@@ -1,0 +1,72 @@
+section.benefits
+   .section-decor
+      img(src="img/home/section-decor.svg", alt="section-decor")
+   .container.benefits__container
+      if (currentPage === 'home-page')
+         h2.benefits__title
+            span.title Benefits of <span class='title-db accent'>our plugin</span>
+      else
+         h2.benefits__title
+            span.title Works with <span class='title-db'><span class='benefits__title-c1'>Studio</span> <span class='benefits__title-c2'>Plugin</span></span>
+      .benefits-list
+         .benefits-list__item.benefits-list__item-1
+            .benefits-list__item-inner
+               img(src="img/home/benefits/1.svg", alt="")
+               h4 Easy upscale video, Even in 8k
+               p You will never have to rebuild a project because you decide to change the resolution. The plugin will just continue to do its job
+         if (currentPage === 'home-page')
+            .benefits-list__item.benefits-list__item-2
+               .benefits-list__item-inner
+                  img(src="img/home/benefits/2.svg", alt="")
+                  h4 No subscriptions
+                  p Purchase it once for Lifetime License
+         else
+            .benefits-list__item.benefits-list__item-2
+               .benefits-list__item-inner
+                  img(src="img/home/benefits/2-a.svg", alt="")
+                  h4 Drag and drop
+                  p Перетаскивайте нужный пресет на дорожку
+         if (currentPage === 'home-page')
+            .benefits-list__item.benefits-list__item-3
+               .benefits-list__item-inner
+                  img(src="img/home/benefits/3.svg", alt="")
+                  h4 No advanced skills needed
+                  p All presets are applied in one click
+         else
+            .benefits-list__item.benefits-list__item-3
+               .benefits-list__item-inner
+                  img(src="img/home/benefits/3-a.svg", alt="")
+                  h4 Easy customize
+                  p Каждый пресет можно настраивать
+         .benefits-list__item.benefits-list__item-4
+            .benefits-list__item-inner
+               img(src="img/home/benefits/4.svg", alt="")
+               h4 MacOS & Windows compatible
+               p Use plugin and all products on both platforms
+         if (currentPage === 'home-page')
+            .benefits-list__item.benefits-list__item-5
+               .benefits-list__item-inner
+                  img(src="img/home/benefits/5.svg", alt="")
+                  h4 Works <span>off</span>line
+                  p We check the license once a week. The rest of the time, we don't need the Internet.
+         else
+            .benefits-list__item.benefits-list__item-5
+               .benefits-list__item-inner
+                  img(src="img/home/benefits/5-a.svg", alt="")
+                  h4 90% faster import
+                  p Плагин сам добавит в проект те пресеты, которые вы используете. Это позволяет начать работу с проектом без дополнительных движений.
+         if (currentPage === 'home-page')
+            .benefits-list__item.benefits-list__item-6
+               .benefits-list__item-inner
+                  img(src="img/home/benefits/6.svg", alt="")
+                  h4 Auto updates is on
+                  p You always have the latest version of the product — plugin updates automatically
+         else
+            .benefits-list__item.benefits-list__item-6
+               .benefits-list__item-inner
+                  img(src="img/home/benefits/6-a.svg", alt="")
+                  h4 Any language, any font
+                  p Каждый пресет поддерживает все шрифты, во всех текстовых слоях в Premiere Pro
+      if (currentPage != 'home-page')
+         a(href='#').btn.btn--white
+            .btn__inner Learn more about studio plugin

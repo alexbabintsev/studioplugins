@@ -1,0 +1,41 @@
+@mixin font($f-name, $f-style, $f-weight, $f-url) {
+	@font-face {
+	  font-family: $f-name;
+	  font-style:  $f-style;
+	  font-weight: $f-weight;
+	  src: url('../fonts/#{$f-url}.woff') format('woff'),
+	  url('../fonts/#{$f-url}.woff') format('woff'),
+	  url('../fonts/#{$f-url}.ttf') format('truetype'),
+	  url('../fonts/#{$f-url}.eot'),
+	  url('../fonts/#{$f-url}.eot?#iefix') format('embedded-opentype');
+		font-display: swap;
+	}
+}
+
+// @include font('ProximaNova', normal, 300, 'ProximaNova300');
+@include font('ProximaNova', normal, 400, 'ProximaNova400');
+// @include font('ProximaNova', normal, 500, 'ProximaNova500');
+// @include font('ProximaNova', normal, 600, 'ProximaNova600');
+// @include font('ProximaNova', normal, 700, 'ProximaNova700');
+@include font('ProximaNova', normal, 800, 'ProximaNova800');
+// @include font('ProximaNova', normal, 800, 'ProximaNova900');
+
+// text weight
+@include font('ProximaNova', normal, 700, 'ProximaNova-Bold');
+@include font('ProximaNova', normal, 600, 'ProximaNova-Semibold');
+
+
+@font-face {
+	font-family: 'Roboto';
+	font-style:  normal;
+	font-weight: 500;
+	src: url('../fonts/Roboto-Medium-ruble.ttf') format('truetype');
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Roboto';
+	font-style:  normal;
+	font-weight: 400;
+	src: url('../fonts/Roboto-Regular-ruble.ttf') format('truetype');
+	font-display: swap;
+}

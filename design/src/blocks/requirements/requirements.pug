@@ -1,0 +1,46 @@
+- bg = req === 'transition' ? 'bg-blue.svg' : 'bg-black.svg';
+- color = req === 'transition' ? '#3C3AA9' : '#373739';
+section.requirements
+    .container
+        .requirements-inner(style=`background-color: ${color}; background-image: url(img/requirements/${bg})`)
+            h2.requirements-title.title System <span>requirements</span>
+            .requirements-grid
+                if (req === 'transition')
+                    -
+                        gridItems = [
+                            {
+                                ic: ['pr-purple.svg'],
+                                text: 'Adobe Premiere Pro <br>CC2019 or higher'
+                            },
+                            {
+                                ic: ['mac-purple.svg', 'win.svg'],
+                                text: 'Windows or MacOS <br>compatible'
+                            },
+                            {
+                                ic: ['nvidia.svg'],
+                                text: 'Works better <br>with Nvidia'
+                            },
+                            {
+                                ic: ['gpu-purple.svg'],
+                                text: 'GPU <br>required'
+                            },
+                        ];
+                else
+                    -
+                        gridItems = [
+                            {
+                                ic: ['pr-yellow.svg'],
+                                text: 'Adobe Premiere Pro <br>CC2019 or higher'
+                            },
+                            {
+                                ic: ['mac-yellow.svg', 'win.svg'],
+                                text: 'Windows or MacOS <br>compatible'
+                            },
+                        ];
+                each ri in gridItems
+                    .requirements-item
+                        .requirements-item__ic-container
+                            .requirements-item__ic-wrapper
+                                each ic in ri.ic
+                                    .requirements-item__ic: img(src=`img/requirements/${ic}`)
+                        .requirements-item__text!=ri.text

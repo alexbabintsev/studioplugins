@@ -1,0 +1,23 @@
+section.register.account-section
+   .container
+      .account-grid
+         .account-grid__left
+            h1.title.register__title Create <span>Account</span>
+            h2.subtitle.register__subtitle Manage your licences and downloads
+         .account-grid__right
+            form.main-form.register__form(name="reset_password" novalidate="novalidate")
+               .input-group
+                  .input-group__label Name
+                  input(type="text" name="name")
+               .input-group
+                  .input-group__label Email
+                  input(type="text" name="mail")
+               .input-group
+                  .input-group__label Password
+                  input(type="text" name="pass")
+               .submit-wrapper.main-form__submit-wrapper
+                  button(type="submit").main-form__submit-btn Create account
+               .main-form__login
+                  a(href="#").main-form__login Log in
+
+

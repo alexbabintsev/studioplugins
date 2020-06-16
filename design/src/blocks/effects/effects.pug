@@ -1,0 +1,464 @@
+section.effects
+    img(src="img/studio.svg", alt="studio").effects__decor
+    .container
+        if (req === 'transition')
+            -
+                let transitionCharList = [
+                    {
+                        folder: 'Flat',
+                    },
+                    {
+                        folder: 'Cinematic Rewind',
+                    },
+                    {
+                        folder: 'Warp',
+                    },
+                    {
+                        folder: 'Zoom',
+                    },
+                    {
+                        folder: 'Camera',
+                    },
+                    {
+                        folder: 'Light Leaks',
+                    },
+                    {
+                        folder: 'Glitch',
+                    },
+                    {
+                        folder: 'Stretch',
+                    },
+                    {
+                        folder: 'Glass',
+                    },
+                    {
+                        folder: 'Perspective',
+                    },
+                    {
+                        folder: 'Light',
+                    },
+                    {
+                        folder: 'Glow',
+                    },
+                    {
+                        folder: 'Fade',
+                    },
+                    {
+                        folder: 'Split',
+                    },
+                    {
+                        folder: 'Spin',
+                    },
+                    {
+                        folder: 'Shape',
+                    },
+                ];
+                let transitionWordList = [
+                    {
+                        folder: 'Word1', 
+                    },
+                    {
+                        folder: 'Word2', 
+                    },
+                    {
+                        folder: 'Word3', 
+                    },
+                ];
+                let transitionLineList = [
+                    {
+                        folder: 'Line1', 
+                    },
+                    {
+                        folder: 'Line2', 
+                    },
+                    {
+                        folder: 'Line3', 
+                    },
+                ];
+            h2.effects__title Over <span class="effects__title-pinkspan" >1000 Transitions</span> <span class="effects__title-fioletspan">effects</span>    
+            .effects-content
+                .effects-content__header
+                    p Premiere Studio
+                    .effects-content__burger
+                        span
+                        span
+                        span
+                .effects-content__body
+                    .effects-content__body-left
+                        .folder-nav-group.is-active(data-groupindex="1")
+                            .folder-nav-group__name
+                                p.groupname Transition preset
+                                img(src="img/transitions/foldericon.svg", alt="")
+                                svg( class = "folder-nav-group__name-svg" width="8" height="6"): use(xlink:href='#icon-arrow-down')
+
+                            ul.folder-nav.is-active-desc
+                                each itemChar, index in transitionCharList 
+                                    if index=="0"
+                                        li.folder-nav__item.is-active(data-singleindex=`${index+1}` data-groupindex="1")
+                                            p.folder-nav__item-name=itemChar.folder
+                                            img(src="img/transitions/foldericon.svg", alt="").folder-nav__item-foldericon
+                                    else
+                                        li.folder-nav__item(data-singleindex=`${index+1}` data-groupindex="1")
+                                            p.folder-nav__item-name=itemChar.folder
+                                            img(src="img/transitions/foldericon.svg", alt="").folder-nav__item-foldericon
+                    .effects-content__body-scroll
+                        span            
+                        span            
+                        span            
+                    .effects-content__body-right
+                        each folder, index in transitionCharList 
+                            if index == "0"
+                                .swiper-container.tr-folder-slider.is-active(data-singleindex=`${index+1}` data-groupindex="1")
+                                    .folder-box-char.swiper-wrapper
+                                        - for (var x  =1; x < 12; x++)
+                                            .folder-box-char__item.swiper-slide
+                                                .folder-box-char__item-top
+                                                    img(src="img/transitions/effects/"+x+".jpg", alt="")
+                                                .folder-box-char__item-bottom
+                                                    .folder-box-char__item-star
+                                                        img(src="img/transitions/star.svg", alt="").folder-box-char__item-star-img.star-dark.is-active
+                                                        img(src="img/transitions/star2.svg", alt="").folder-box-char__item-star-img.star-light
+                                                    a(href="#") Characters Decode #{x}.#{index+1}
+                                    .tr-folder-slider__pag    
+                            else
+                                .swiper-container.tr-folder-slider(data-singleindex=`${index+1}` data-groupindex="1")
+                                    .folder-box-char.swiper-wrapper
+                                        - for (var x  =1; x < 12; x++)
+                                            .folder-box-char__item.swiper-slide
+                                                .folder-box-char__item-top
+                                                    img(src="img/transitions/effects/"+x+".jpg", alt="")
+                                                .folder-box-char__item-bottom
+                                                    .folder-box-char__item-star
+                                                        img(src="img/transitions/star.svg", alt="").folder-box-char__item-star-img.star-dark.is-active
+                                                        img(src="img/transitions/star2.svg", alt="").folder-box-char__item-star-img.star-light
+                                                    a(href="#") Characters Decode #{x}.#{index+1}
+                                    .tr-folder-slider__pag                               
+                .effects-content__footer
+                    .effects-content__footer-scrollbar
+                        span
+                        .effects-content__footer-drop
+                            img(src="img/transitions/triange.svg", alt="").effects-content__footer-triangle
+                            p This functionality <br>is available in the plugin.
+                            a(href="#")
+                                img(src="img/transitions/win_black.svg", alt="")
+                                p Download for Windows
+                            a(href="#")
+                                img(src="img/transitions/apple_black.svg", alt="")
+                                p Download for MacOS
+                    .effects-content__footer-buttons
+                        .effects-content__footer-resize
+                            p.resize-text Resize
+                            .effects-content__footer-drop
+                                img(src="img/transitions/triange.svg", alt="").effects-content__footer-triangle
+                                p This functionality <br>is available in the plugin.
+                                a(href="#")
+                                    img(src="img/transitions/win_black.svg", alt="")
+                                    p Download for Windows
+                                a(href="#")
+                                    img(src="img/transitions/apple_black.svg", alt="")
+                                    p Download for MacOS
+                        .effects-content__footer-sound 
+                            p.sound-text Add Sound
+                            .effects-content__footer-drop
+                                img(src="img/transitions/triange.svg", alt="").effects-content__footer-triangle
+                                p This functionality <br>is available in the plugin.
+                                a(href="#")
+                                    img(src="img/transitions/win_black.svg", alt="")
+                                    p Download for Windows
+                                a(href="#")
+                                    img(src="img/transitions/apple_black.svg", alt="")
+                                    p Download for MacOS
+                        .effects-content__footer-add
+                            p.add-text Add
+                            .effects-content__footer-drop
+                                img(src="img/transitions/triange.svg", alt="").effects-content__footer-triangle
+                                p This functionality <br>is available in the plugin.
+                                a(href="#")
+                                    img(src="img/transitions/win_black.svg", alt="")
+                                    p Download for Windows
+                                a(href="#")
+                                    img(src="img/transitions/apple_black.svg", alt="")
+                                    p Download for MacOS
+            a(href="#").effects__button.effects__button-pink Buy all for 45$
+
+
+
+        else
+            -
+                let animationCharList = [
+                    {
+                        folder: 'Decode',
+                        src: 'video/textpreview/Characters/Decode',
+                        src2: 'video/textpreview/Word/Decode',
+                        src3: 'video/textpreview/Line/Decode',
+                        number: 11,
+                    },
+                    {
+                        folder: 'Fade',
+                        src: 'video/textpreview/Characters/Fade',
+                        src2: 'video/textpreview/Word/Fade',
+                        src3: 'video/textpreview/Line/Fade',
+                        number: 10,
+                    },
+                    {
+                        folder: 'Fade & Position',
+                        src: 'video/textpreview/Characters/FadePosition',
+                        src2: 'video/textpreview/Word/FadePosition',
+                        src3: 'video/textpreview/Line/FadePosition',
+                        number: 5,
+                    },
+                    {
+                        folder: 'Fade & Scale & Tracking',
+                        src: 'video/textpreview/Characters/FadeScaleTracking',
+                        src2: 'video/textpreview/Word/FadeScaleTracking',
+                        src3: 'video/textpreview/Line/FadeScaleTracking',
+                        number: 8,
+                    },
+                    {
+                        folder: 'Position',
+                        src: 'video/textpreview/Characters/Position',
+                        src2: 'video/textpreview/Word/Position',
+                        src3: 'video/textpreview/Line/Position',
+                        number: 14,
+                    },
+                    {
+                        folder: 'Position & Rotate',
+                        src: 'video/textpreview/Characters/PositionRotate',
+                        src2: 'video/textpreview/Word/PositionRotate',
+                        src3: 'video/textpreview/Line/PositionRotate',
+                        number: 12,
+                    },
+                    {
+                        folder: 'Position & Rotate & Scale',
+                        src: 'video/textpreview/Characters/PositionRotateScale',
+                        src2: 'video/textpreview/Word/PositionRotateScale',
+                        src3: 'video/textpreview/Line/PositionRotateScale',
+                        number: 44,
+                    },
+                    {
+                        folder: 'Position & Scale',
+                        src: 'video/textpreview/Characters/PositionScale',
+                        src2: 'video/textpreview/Word/PositionScale',
+                        src3: 'video/textpreview/Line/PositionScale',
+                        number: 18,
+                    },
+                    {
+                        folder: 'Scale',
+                        src: 'video/textpreview/Characters/Scale',
+                        src2: 'video/textpreview/Word/Scale',
+                        src3: 'video/textpreview/Line/Scale',
+                        number: 14,
+                    },
+                    {
+                        folder: 'Scale & Skew',
+                        src: 'video/textpreview/Characters/ScaleSkew',
+                        src2: 'video/textpreview/Word/ScaleSkew',
+                        src3: 'video/textpreview/Line/ScaleSkew',
+                        number: 7,
+                    },
+                    {
+                        folder: 'Scale & Tracking',
+                        src: 'video/textpreview/Characters/ScaleTracking',
+                        src2: 'video/textpreview/Word/ScaleTracking',
+                        src3: 'video/textpreview/Line/ScaleTracking',
+                        number: 10,
+                    },
+                ];
+                let groupsList = [
+                    {
+                        groupName: 'Characters',
+                    },
+                    {
+                        groupName: 'Word',
+                    },
+                    {
+                        groupName: 'Line',
+                    },      
+                ]
+            h2.effects__title Over <span class="effects__title-yellowspan" >1000</span><br> <span class="effects__title-yellowspan" >Motion Text</span> <span class="effects__title-orangespan">effects</span> 
+            .effects-content
+                .effects-content__header
+                    p Premiere Studio
+                    .effects-content__burger
+                        span
+                        span
+                        span
+                ul.folder-group-mob
+                    each groupItem, index in groupsList
+                        if index == "0" 
+                            li.folder-group-mob__item.is-active(data-groupindex=`${index+1}`)=groupItem.groupName
+                        else
+                            li.folder-group-mob__item(data-groupindex=`${index+1}`)=groupItem.groupName
+
+                .effects-content__body
+                    .effects-content__body-left
+                        .effects-content__body-root
+                            p Text preset
+                            img(src="img/transitions/foldericon.svg", alt="")
+
+                        each groupItem, index in groupsList 
+                            if index=='0'
+                                .folder-nav-group.is-active(data-groupindex=`${index+1}`)
+                                    .folder-nav-group__name.folder-nav-group__name-2
+                                        p.groupname=groupItem.groupName
+                                        img(src="img/transitions/foldericon.svg", alt="")
+                                        svg( class = "folder-nav-group__name-svg" width="8" height="6"): use(xlink:href='#icon-arrow-down')
+                                    ul.folder-nav.folder-nav-2.is-active-desc
+                                        each itemChar, index in animationCharList 
+                                            if index=="0"
+                                                li.folder-nav__item.is-active(data-singleindex=`${index+1}` data-groupindex="1")
+                                                    p.folder-nav__item-name-2=itemChar.folder
+                                                    img(src="img/transitions/foldericon.svg", alt="").folder-nav__item-foldericon-2
+                                            else
+                                                li.folder-nav__item(data-singleindex=`${index+1}` data-groupindex="1")
+                                                    p.folder-nav__item-name-2=itemChar.folder
+                                                    img(src="img/transitions/foldericon.svg", alt="").folder-nav__item-foldericon-2
+                            else if index=='1'
+                                .folder-nav-group(data-groupindex=`${index+1}`)
+                                    .folder-nav-group__name.folder-nav-group__name-2
+                                        p.groupname=groupItem.groupName
+                                        img(src="img/transitions/foldericon.svg", alt="")
+                                        svg( class = "folder-nav-group__name-svg" width="8" height="6"): use(xlink:href='#icon-arrow-down')
+                                    ul.folder-nav.folder-nav-2
+                                        each itemWord, index in animationCharList 
+                                            if index=="0"
+                                                li.folder-nav__item.is-active(data-singleindex=`${index+1}` data-groupindex="2")
+                                                    p.folder-nav__item-name-2=itemWord.folder
+                                                    img(src="img/transitions/foldericon.svg", alt="").folder-nav__item-foldericon-2
+                                            else
+                                                li.folder-nav__item(data-singleindex=`${index+1}` data-groupindex="2")
+                                                    p.folder-nav__item-name-2=itemWord.folder
+                                                    img(src="img/transitions/foldericon.svg", alt="").folder-nav__item-foldericon-2                       
+                            else if index=='2'
+                                .folder-nav-group(data-groupindex=`${index+1}`)
+                                    .folder-nav-group__name.folder-nav-group__name-2
+                                        p.groupname=groupItem.groupName
+                                        img(src="img/transitions/foldericon.svg", alt="")
+                                        svg( class = "folder-nav-group__name-svg" width="8" height="6"): use(xlink:href='#icon-arrow-down')
+                                    ul.folder-nav.folder-nav-2
+                                        each itemline, index in animationCharList 
+                                            if index=="0"
+                                                li.folder-nav__item.is-active(data-singleindex=`${index+1}` data-groupindex="3")
+                                                    p.folder-nav__item-name-2=itemline.folder
+                                                    img(src="img/transitions/foldericon.svg", alt="").folder-nav__item-foldericon-2
+                                            else
+                                                li.folder-nav__item(data-singleindex=`${index+1}` data-groupindex="3")
+                                                    p.folder-nav__item-name-2=itemline.folder
+                                                    img(src="img/transitions/foldericon.svg", alt="").folder-nav__item-foldericon-2                       
+                    .effects-content__body-scroll
+                        span            
+                        span            
+                        span            
+                    .effects-content__body-right
+                        each folder, index in animationCharList 
+                            if index == "0"
+                                .swiper-container.tr-folder-slider.is-active(data-singleindex=`${index+1}` data-groupindex="1")
+                                    .folder-box-char.swiper-wrapper
+                                        - for (var x  =1; x < folder.number+1; x++)
+                                            .folder-box-char__item.swiper-slide
+                                                .folder-box-char__item-top
+                                                    img(src="img/transitions/poster.jpg",  class="folder-box-char__item-poster" alt="")
+                                                    video(controls muted  playsinline  loop="loop" class="txt_video" )
+                                                        source(data-src=`${folder.src}/${x}.mp4` type="video/mp4")
+                                                        = 'Your browser doesn\'t support HTML5 video tag.'
+                                                .folder-box-char__item-bottom
+                                                    .folder-box-char__item-star
+                                                        img(src="img/transitions/star.svg", alt="").folder-box-char__item-star-img.star-dark.is-active
+                                                        img(src="img/transitions/star2.svg", alt="").folder-box-char__item-star-img.star-light
+                                                    a(href="#") Characters #{folder.folder} #{x}
+                                    .tr-folder-slider__pag    
+                            else
+                                .swiper-container.tr-folder-slider(data-singleindex=`${index+1}` data-groupindex="1")
+                                    .folder-box-char.swiper-wrapper
+                                        - for (var x  =1; x < folder.number+1; x++)
+                                            .folder-box-char__item.swiper-slide
+                                                .folder-box-char__item-top
+                                                    img(src="img/transitions/poster.jpg",  class="folder-box-char__item-poster" alt="")
+                                                    video(controls muted  playsinline  loop="loop" class="txt_video" )
+                                                        source(data-src=`${folder.src}/${x}.mp4` type="video/mp4")
+                                                        = 'Your browser doesn\'t support HTML5 video tag.'
+                                                .folder-box-char__item-bottom
+                                                    .folder-box-char__item-star
+                                                        img(src="img/transitions/star.svg", alt="").folder-box-char__item-star-img.star-dark.is-active
+                                                        img(src="img/transitions/star2.svg", alt="").folder-box-char__item-star-img.star-light
+                                                    a(href="#") #{folder.folder} #{x}
+                                    .tr-folder-slider__pag  
+                        each folder, index in animationCharList
+                            .swiper-container.tr-folder-slider(data-singleindex=`${index+1}` data-groupindex="2")
+                                .folder-box-char.swiper-wrapper
+                                    - for (var x  =1; x < folder.number+1; x++)
+                                        .folder-box-char__item.swiper-slide
+                                            .folder-box-char__item-top
+                                                img(src="img/transitions/poster.jpg",  class="folder-box-char__item-poster" alt="")
+                                                video(controls muted  playsinline  loop="loop" class="txt_video" )
+                                                    source(data-src=`${folder.src2}/${x}.mp4` type="video/mp4")
+                                                    = 'Your browser doesn\'t support HTML5 video tag.'
+                                            .folder-box-char__item-bottom
+                                                .folder-box-char__item-star
+                                                    img(src="img/transitions/star.svg", alt="").folder-box-char__item-star-img.star-dark.is-active
+                                                    img(src="img/transitions/star2.svg", alt="").folder-box-char__item-star-img.star-light
+                                                a(href="#") #{folder.folder} #{x}
+                                .tr-folder-slider__pag 
+                        each folder, index in animationCharList
+                            .swiper-container.tr-folder-slider(data-singleindex=`${index+1}` data-groupindex="3")
+                                .folder-box-char.swiper-wrapper
+                                    - for (var x  =1; x < folder.number+1; x++)
+                                        .folder-box-char__item.swiper-slide
+                                            .folder-box-char__item-top
+                                                img(src="img/transitions/poster.jpg",  class="folder-box-char__item-poster" alt="")
+                                                video(controls muted  playsinline  loop="loop" class="txt_video" )
+                                                    source(data-src=`${folder.src3}/${x}.mp4` type="video/mp4")
+                                                    = 'Your browser doesn\'t support HTML5 video tag.'
+                                            .folder-box-char__item-bottom
+                                                .folder-box-char__item-star
+                                                    img(src="img/transitions/star.svg", alt="").folder-box-char__item-star-img.star-dark.is-active
+                                                    img(src="img/transitions/star2.svg", alt="").folder-box-char__item-star-img.star-light
+                                                a(href="#") #{folder.folder} #{x}
+                                .tr-folder-slider__pag                                
+                .effects-content__footer
+                    .effects-content__footer-scrollbar
+                        span
+                        .effects-content__footer-drop
+                            img(src="img/transitions/triange.svg", alt="").effects-content__footer-triangle
+                            p This functionality <br>is available in the plugin.
+                            a(href="#")
+                                img(src="img/transitions/win_black.svg", alt="")
+                                p Download for Windows
+                            a(href="#")
+                                img(src="img/transitions/apple_black.svg", alt="")
+                                p Download for MacOS
+                    .effects-content__footer-buttons
+                        .effects-content__footer-resize
+                            p.resize-text Resize
+                            .effects-content__footer-drop
+                                img(src="img/transitions/triange.svg", alt="").effects-content__footer-triangle
+                                p This functionality <br>is available in the plugin.
+                                a(href="#")
+                                    img(src="img/transitions/win_black.svg", alt="")
+                                    p Download for Windows
+                                a(href="#")
+                                    img(src="img/transitions/apple_black.svg", alt="")
+                                    p Download for MacOS
+                        .effects-content__footer-sound 
+                            p.sound-text Add Sound
+                            .effects-content__footer-drop
+                                img(src="img/transitions/triange.svg", alt="").effects-content__footer-triangle
+                                p This functionality <br>is available in the plugin.
+                                a(href="#")
+                                    img(src="img/transitions/win_black.svg", alt="")
+                                    p Download for Windows
+                                a(href="#")
+                                    img(src="img/transitions/apple_black.svg", alt="")
+                                    p Download for MacOS
+                        .effects-content__footer-add
+                            p.add-text Add
+                            .effects-content__footer-drop
+                                img(src="img/transitions/triange.svg", alt="").effects-content__footer-triangle
+                                p This functionality <br>is available in the plugin.
+                                a(href="#")
+                                    img(src="img/transitions/win_black.svg", alt="")
+                                    p Download for Windows
+                                a(href="#")
+                                    img(src="img/transitions/apple_black.svg", alt="")
+                                    p Download for MacOS
+            a(href="#").effects__button.effects__button-yellow Buy all for 45$

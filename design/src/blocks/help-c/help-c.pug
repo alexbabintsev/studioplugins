@@ -1,0 +1,204 @@
+section.help-c
+    .container
+        h1.help-c__title
+            span.title Help & <span class='accent'>Contact</span>
+        .help-c__header
+            .help-c__header-title Products
+            .help-c__header-btns
+                .help-c__header-btns-title Available for
+                a(href='#').btn
+                    .btn__inner Download for Windows
+                        <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.99275 0H0V8.99275H8.99275V0Z"/>
+                        <path d="M20.5377 0H11.5449V8.99275H20.5377V0Z"/>
+                        <path d="M8.99275 11.8369H0V20.8297H8.99275V11.8369Z"/>
+                        <path d="M20.5377 11.8369H11.5449V20.8297H20.5377V11.8369Z"/>
+                        </svg>
+                a(href='#').btn
+                    .btn__inner Download for MaOS
+                        <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.7057 2.08667C12.2579 0 14.4468 0 14.4468 0C14.4468 0 14.7652 1.96628 13.2131 3.85231C11.5415 5.85872 9.67098 5.53769 9.67098 5.53769C9.67098 5.53769 9.3128 3.93256 10.7057 2.08667Z"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.87006 6.90215C10.666 6.90215 12.1784 5.77856 14.1285 5.77856C17.4716 5.77856 18.7849 8.18626 18.7849 8.18626C18.7849 8.18626 16.198 9.51049 16.198 12.7207C16.198 16.3323 19.4217 17.6164 19.4217 17.6164C19.4217 17.6164 17.193 23.9566 14.1683 23.9566C12.7754 23.9566 11.7008 22.9936 10.2282 22.9936C8.7159 22.9936 7.24335 23.9566 6.28818 23.9566C3.50228 23.9968 0 17.9775 0 13.122C0 8.34677 2.9451 5.85882 5.731 5.85882C7.52194 5.81869 8.91489 6.90215 9.87006 6.90215Z"/>
+                        </svg>
+        .help-c__main
+            .tabs.help-c__main-grid
+                .help-aside
+                    .help-aside__item
+                        .help-aside__item-title Install
+                        ul
+                            -
+                                let helpAsideListOne = [
+                                    {
+                                        txt: 'How to install plugin on Windows',
+                                        id: 'how1'
+                                    },
+                                    {
+                                        txt: 'How to install plugin on MacOS',
+                                        id: 'how2'
+                                    },
+                                    {
+                                        txt: 'Where can I find activation code?',
+                                        id: 'how3'
+                                    },
+                                    {
+                                        txt: 'Code can not be found — what to do',
+                                        id: 'how4'
+                                    }
+                                ]
+                            each data,index in helpAsideListOne
+                                li(data-tab-id=(index+1) data-page-id='{"media": 767, "id":"'+ data.id +'"}' class=(index === 0)?'is-active':'').tabs-nav__item=data.txt
+                                    svg(width=9 height=14): use(xlink:href='#icon-arr-right')
+                    .help-aside__item
+                        .help-aside__item-title Troubleshooting
+                        ul
+                            -
+                                let helpAsideListTwo = [
+                                    {
+                                        txt: 'How to use',
+                                        id: 'how5'
+                                    },
+                                    {
+                                        txt: 'Status is not 200 OK',
+                                        id: 'how6'
+                                    },
+                                    {
+                                        txt: 'Purchase code doesn\'t work',
+                                        id: 'how7'
+                                    },
+                                    {
+                                        txt: 'Installation failed because of a file operation error',
+                                        id: 'how8'
+                                    },
+                                    {
+                                        txt: 'Status is not 200 OK',
+                                        id: 'how9'
+                                    },
+                                    {
+                                        txt: 'Status is not 200 OK',
+                                        id: 'how10'
+                                    }
+                                ]
+                            each data,index in helpAsideListTwo
+                                li(data-tab-id=(index+5) data-page-id='{"media": 767, "id":"'+ data.id +'"}').tabs-nav__item=data.txt
+                                    svg(width=9 height=14): use(xlink:href='#icon-arr-right')
+                .help-c__content-list
+                    .tabs-content.help-c__content(data-tab-id='1' data-page='how1').is-active
+                        .mob-page-header
+                            img(src='img/logo.svg' alt='logo').mob-page-header__logo
+                            .mob-page-close(data-page-close)
+                                svg(width=20 height=20): use(xlink:href='#icon-close')
+                        .help-c__content-title-mob How to install plugin on Windows
+                        .help-c__content-title Before You Start (H1)
+                        p If you are using WordPress.com, then you cannot install plugins. We often get complaints from users saying that they can’t see the plugins menu in their WordPress dashboard. It is because you are using WordPress.com, which has its limitations. You cannot install plugins on WordPress.com unless you upgrade to their business plan. On the other hand, you can install any plugin you want on your self hosted WordPress.org website right out of the box (See the differences between self hosted WordPress.org vs WordPress.com).
+                        .help-c__media-wrap
+                            //-.help-c__media-prev.help-video-btn(style='background-image:url(img/video-bg.jpg)' data-video-id='i57p-G0Xs2M' data-video='<iframe width="560" height="315" src="https://www.youtube.com/embed/i57p-G0Xs2M?controls=1&rel=0&showinfo=0&enablejsapi=1&amp;wmode=transparent" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+                            .help-c__media-prev.help-video-btn(data-video-id='i57p-G0Xs2M' data-video='<iframe width="1280" height="548" src="https://www.youtube.com/embed/j4Q9y4gXaTQ?enablejsapi=1&amp;wmode=transparent" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>')
+                                .help-c__media-txt-block(style='background-image:url(img/video-bg.jpg)')
+                                    .help-c__media-title Video name
+                                    .play-btn
+                                        <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g style="mix-blend-mode:overlay">
+                                        <circle cx="50" cy="50" r="49" stroke="white" stroke-width="2"/>
+                                        </g>
+                                        </svg>
+                                        svg(width="28" height="30"): use(xlink:href='#icon-play')
+                            //-.help-c__media-prev
+                                <iframe width="1280" height="548" src="https://www.youtube.com/embed/j4Q9y4gXaTQ?enablejsapi=1&amp;wmode=transparent" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                            //-.help-c__media-prev.help-video-btn(style='background-image:url(img/video-bg.jpg)' data-video-id='i57p-G0Xs2M')
+                                #help-video-btn
+
+                        p If you want to switch from WordPress.com to WordPress.org, then read our tutorial on how to properly move from WordPress.com to WordPress.org. That being said, now let’s take a look at how to install a WordPress plugin on your website.
+                        .help-c__section-title How to Install a WordPress Plugin (H1)
+                        p If you are using WordPress.com, then you cannot install plugins. We often get complaints from users saying that they can’t see the plugins menu in their WordPress dashboard. It is because you are using WordPress.com, which has its limitations. You cannot install plugins on WordPress.com unless you upgrade to their business plan. On the other hand, you can install any plugin you want on your self hosted WordPress.org website right out of the box (See the differences between self hosted WordPress.org vs WordPress.com). If you want to switch from WordPress.com to WordPress.org, then read our tutorial on how to properly move from WordPress.com to WordPress.org. That being said, now let’s take a look at how to install a WordPress plugin on your website.
+                        .help-c__subtitle Install a Plugin using WordPress Plugin Search (H2)
+                        p The easiest way of installing a WordPress plugin is to use the plugin search. The only downside of this option is that a plugin must be in the WordPress plugin directory which is limited to only free plugins. First thing you need to visit the Plugins » Add New page inside your WordPress admin area.
+                        ul
+                            li You will see a screen like the one in the screenshot above;
+                            li Find the plugin by typing the plugin name or the functionality you are looking for;
+                            li After that, you will see a bunch of listings like the example below.
+                        .help-c__media-wrap
+                            .help-c__media-prev
+                                .help-c__media-txt-block(style='background-image:url(img/help-contacts-1.jpg)')
+                                    .help-c__media-title Image name
+                        p You can pick the plugin that is best for you. Since in our search, we were looking for WPForms which is the best WordPress contact form plugin, we’ll click the ‘Install Now’ button next to it.
+                        p For more detailed instructions, see our guide on how to properly uninstall a WordPress plugin.
+                        .help-c__media-wrap
+                            .help-c__media-prev
+                                .help-c__media-txt-block(style='background-image:url(img/help-contacts-2.jpg)')
+                        p You may also want to see our plugins category where we write about the best WordPress plugins that you can use to accomplish whatever you’re looking to do. Each of those articles comes with step-by-step instructions on how to set up individual plugins.
+                    .tabs-content.help-c__content(data-tab-id='2' data-page='how2')
+                        .mob-page-header
+                            img(src='img/logo.svg' alt='logo').mob-page-header__logo
+                            .mob-page-close(data-page-close)
+                                svg(width=20 height=20): use(xlink:href='#icon-close')
+                        .help-c__content-title-mob How to install plugin on Windows
+                        p 2
+                    .tabs-content.help-c__content(data-tab-id='3' data-page='how3')
+                        .mob-page-header
+                            img(src='img/logo.svg' alt='logo').mob-page-header__logo
+                            .mob-page-close(data-page-close)
+                                svg(width=20 height=20): use(xlink:href='#icon-close')
+                        .help-c__content-title-mob How to install plugin on Windows
+                        p 3
+                    .tabs-content.help-c__content(data-tab-id='4' data-page='how4')
+                        .mob-page-header
+                            img(src='img/logo.svg' alt='logo').mob-page-header__logo
+                            .mob-page-close(data-page-close)
+                                svg(width=20 height=20): use(xlink:href='#icon-close')
+                        .help-c__content-title-mob How to install plugin on Windows
+                        p 4
+                    .tabs-content.help-c__content(data-tab-id='5' data-page='how5')
+                        .mob-page-header
+                            img(src='img/logo.svg' alt='logo').mob-page-header__logo
+                            .mob-page-close(data-page-close)
+                                svg(width=20 height=20): use(xlink:href='#icon-close')
+                        .help-c__content-title-mob How to install plugin on Windows
+                        p 5
+                    .tabs-content.help-c__content(data-tab-id='6' data-page='how6')
+                        .mob-page-header
+                            img(src='img/logo.svg' alt='logo').mob-page-header__logo
+                            .mob-page-close(data-page-close)
+                                svg(width=20 height=20): use(xlink:href='#icon-close')
+                        .help-c__content-title-mob How to install plugin on Windows
+                        p 6
+                    .tabs-content.help-c__content(data-tab-id='7' data-page='how7')
+                        .mob-page-header
+                            img(src='img/logo.svg' alt='logo').mob-page-header__logo
+                            .mob-page-close(data-page-close)
+                                svg(width=20 height=20): use(xlink:href='#icon-close')
+                        .help-c__content-title-mob How to install plugin on Windows
+                        p 7
+                    .tabs-content.help-c__content(data-tab-id='8' data-page='how8')
+                        .mob-page-header
+                            img(src='img/logo.svg' alt='logo').mob-page-header__logo
+                            .mob-page-close(data-page-close)
+                                svg(width=20 height=20): use(xlink:href='#icon-close')
+                        .help-c__content-title-mob How to install plugin on Windows
+                        p 8
+                    .tabs-content.help-c__content(data-tab-id='9' data-page='how9')
+                        .mob-page-header
+                            img(src='img/logo.svg' alt='logo').mob-page-header__logo
+                            .mob-page-close(data-page-close)
+                                svg(width=20 height=20): use(xlink:href='#icon-close')
+                        .help-c__content-title-mob How to install plugin on Windows
+                        p 9
+                    .tabs-content.help-c__content(data-tab-id='10' data-page='how10')
+                        .mob-page-header
+                            img(src='img/logo.svg' alt='logo').mob-page-header__logo
+                            .mob-page-close(data-page-close)
+                                svg(width=20 height=20): use(xlink:href='#icon-close')
+                        .help-c__content-title-mob How to install plugin on Windows
+                        p 10
+        .help-c-footer
+            .help-c-footer__txt-block
+                .help-c-footer__title Nothing worked?
+                p Send us a message and we will help
+            form(name='form-help-contacts').help-c-footer__form
+                .input-group
+                    .input-group__label Email
+                    input(type='email' name='email')
+                .input-group
+                    .input-group__label Text
+                    input(type='text' name='mes')
+                button(type='submit').btn
+                    .btn__inner Send

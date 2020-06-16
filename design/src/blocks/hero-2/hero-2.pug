@@ -1,0 +1,29 @@
+- color = req === 'transition' ? 'rgba(1, 37, 136, 0.9)' : 'rgba(31, 31, 34, 0.9);';
+- product = req === 'transition' ? 'h2prod1.png' : 'h2prod2.png';
+section.hero-2(style=`background: ${color};`)   
+    img(src="img/tranim.jpg", alt="").hero-2__img
+    .section-decor
+        img(src="img/home/section-decor.svg", alt="section-decor")
+    .container
+        .hero-2-content
+            .hero-2-content__left
+                .hero-2-content__subtitle 
+                    img(src="img/home/adobe.svg" alt="")
+                    p Premiere studio
+                if (req === 'transition')
+                    h1.hero-2-content__title Transitions
+                    p.hero-2-content__text Over 2700 Professional Seamless Transitions for Premiere Pro Transitions Library contains more than 2700 ready to use presents which can help you make your unique video on a professional level. Apply a preset in one click just by drag-and-drop method.
+                else
+                    h1.hero-2-content__title Text animations
+                    p.hero-2-content__text Over 1000 Professional Motion Text Presets for Premiere Pro inside Premiere Studio Plugin Motion Text Presets contains more than 1000 ready to use presents which can help you make your unique video on a professional level.
+                .hero-2-content__links
+                    a(href="#").btn Buy for 45$
+                    a(href="#").hero-2-content__video
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19.2686 31.3338V18.5713C19.2686 17.7993 20.1063 17.3184 20.7729 17.7079L32.4256 24.5145C33.1081 24.9132 33.0801 25.9087 32.3763 26.2684L20.7237 32.2242C20.0583 32.5643 19.2686 32.081 19.2686 31.3338Z" fill="white"/>
+                            <circle cx="25" cy="25" r="24" stroke="white" stroke-width="2"/>
+                        </svg>
+                        p watch demo
+            .hero-2-content__right
+                img(src=`img/hero-2/${product}`, alt="")
+            

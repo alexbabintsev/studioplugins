@@ -1,0 +1,27 @@
+section.prods-already(class=((currentPage === 'transitions-page' || currentPage === 'text-page') ? 'prods-already--padding-sm': ''))
+   .container.prods-already__container
+      if (currentPage !== 'transitions-page' && currentPage !== 'text-page')
+         h2.title.prods-already__title Products already <span>work with plugin</span>
+         .prods-cars
+            .prods-cars__item.prods-cars__item-animations
+               img(src="img/home/prod/1.png", alt="")
+               p Text animations
+               a(href="#") See more
+                  svg( width="9" height="14" class="arr-right"): use(xlink:href='#icon-arr-right')
+            .prods-cars__item.prods-cars__item-transitions
+               img(src="img/home/prod/2.png", alt="")
+               p Transitions
+               a(href="#") See more
+                  svg( width="9" height="14" class="arr-right"): use(xlink:href='#icon-arr-right')
+
+      .prods-login
+         .prods-login__left
+            .prods-login__left-wrap
+               h2.title.prods-already__title-2 Already purchased on <span>Videohive?</span>
+               p.prods-login__text Just log in and activate it
+               .prods-login__links
+                  a(href="#") Log in
+                  a(href="#") Register
+         .prods-login__right
+            img(src="img/home/prod/gallery.png", alt="").desk
+            img(src="img/home/prod/gallery-mob.png", alt="").mob

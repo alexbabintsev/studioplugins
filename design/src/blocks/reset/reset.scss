@@ -1,0 +1,9 @@
+
+@media screen and (max-width: $mobile){
+    .reset{
+        &__subtitle{
+            max-width: 260px;
+            margin-bottom: 2px;
+        }
+    }
+}

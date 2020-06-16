@@ -1,0 +1,16 @@
+section.resetcreatepass.account-section
+   .container
+      .account-grid
+         .account-grid__left
+            h1.title.resetcreatepass__title Reset <span>password</span>
+            h2.subtitle.resetcreatepass__subtitle Enter your email and we sent recovery link on your email
+         .account-grid__right
+            form.main-form.resetcreatepass__form(name="reset_password" novalidate="novalidate")
+               .input-group
+                  .input-group__label  New password
+                  input(type="text" name="new_password")
+               .input-group
+                  .input-group__label Repeat new password
+                  input(type="text" name="repeat_password")
+               .submit-wrapper.main-form__submit-wrapper
+                  button(type="submit").main-form__submit-btn Set password

@@ -1,0 +1,159 @@
+[data-whatintent='touch'],
+[data-whatintent='mouse'] {
+	*:focus {
+		outline: none;
+	}
+}
+* {
+  box-sizing: border-box;
+  //outline: none;
+	//	@extend %scrollbar;
+}
+
+*::before, *::after {
+  box-sizing: inherit;
+}
+
+html {
+	//touch-action: manipulation;
+}
+body {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	font-family: $default-font;
+	font-size: 24px;
+	line-height: 1.6;
+	font-weight: 300;
+	color: $text-color;
+	background-color: white;
+	overflow-x: hidden;
+	cursor: default;
+	@media (max-width: 1440px) {
+		font-size: 20px;
+	}
+	@media (max-width: $desktop) {
+		font-size: 18px;
+	}
+	@media (max-width: $mobile) {
+		font-size: 12px;
+	}
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  padding: 0;
+}
+
+ul, ol {
+  margin: 0;
+  &.no-style {
+    padding: 0;
+    list-style: none;
+  }
+}
+
+button {
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	line-height: inherit;
+	color: inherit;
+	//border: none;
+	cursor: pointer;
+}
+
+img {
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+[contenteditable=true]:empty:before {
+  content: attr(data-placeholder);
+  color: #131313;
+  font-size: inherit;
+  display: block; /* For Firefox */
+}
+
+select {
+  appearance: none;
+  &::-ms-expand { // для IE
+    display: none;
+  }
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+blockquote {
+  margin: 0;
+}
+
+//72(86)-600
+//48(1.2-58)-600
+//32(38)-600
+h1,h2,h3,h4,h5,h6 {
+	font-weight: 700;
+	line-height: 1.2;
+}
+h1 {
+  font-size: 72px;
+}
+h2 {
+	font-size: 48px;
+	@media (max-width: 1440px) {
+		font-size: 40px;
+	}
+	@media (max-width: $mobile) {
+		font-size: 20px;
+	}
+}
+h3 {
+	font-size: 32px;
+	@media (max-width: 1440px) {
+		font-size: 28px;
+	}
+	@media (max-width: $tablet) {
+		font-size: 24px;
+		line-height: 29px;
+	}
+	@media (max-width: $mobile) {
+		font-size: 14px;
+		line-height: 17px;
+	}
+}
+h4 {
+	font-size: 26px;
+	@media (max-width: 1440px) {
+		font-size: 24px;
+	}
+	@media (max-width: $tablet) {
+		font-size: 22px;
+	}
+	@media (max-width: $mobile) {
+		font-size: 14px;
+	}
+}
+
+.container {
+	max-width: 1324px;//1760
+	width: 100%;
+	margin: auto;
+	padding: 0 48px;
+	@media screen and (max-width: $mobile-big) {
+		padding: 0 30px;
+	}
+	@media screen and (max-width: $mobile) {
+		padding: 0 10px;
+	}
+}

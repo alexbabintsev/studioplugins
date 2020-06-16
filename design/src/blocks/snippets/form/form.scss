@@ -1,0 +1,310 @@
+.main-form{
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: -1px;
+  &__submit-wrapper{
+    margin-top: 40px;
+  }
+  &__submit-btn{
+    border: 2px solid #000000;
+    padding: 14px 10px 10px;
+    text-align: center;
+    display: block;
+    background: none;
+    outline: none;
+    border-radius: 0;
+    width: 100%;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 140%;
+    letter-spacing: 0;
+    transition: 0.3s;
+    &:hover{
+      background: black;
+      color: white;
+      border: 2px solid #000000;
+    }
+  }
+  &__login{
+    margin-top: 40px;
+    a{
+      display: block;
+      padding: 0px 10px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 140%;
+      letter-spacing: 0px;
+      transition: 0.3s;
+      &:hover{
+        color: $c-red;
+      }
+    }
+  }
+  &__links{
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    a{
+      display: block;
+      padding: 0px 10px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 140%;
+      letter-spacing: 0px;
+      padding: 0;
+      transition: 0.3s;
+      &:hover{
+        color: $c-red;
+      }
+    }
+  }
+}
+
+input, textarea {
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 140%;
+  color: $c-black03;
+  background: none;
+  border: none;
+  border-bottom: 2px solid $text-color;
+  width: 100%;
+  outline: none;
+  border-radius: 0;
+  transition: border-color .2s linear;
+  color: black;
+  &::placeholder{
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 140%;
+  }
+  &.invalid{
+    border-bottom: 2px solid $c-red!important;
+  }
+}
+input[type=submit] {
+  width: auto;
+}
+textarea {
+  width: 100%;
+  height: 120px;
+  resize: none;
+}
+
+::-webkit-input-placeholder {
+  color: $c-black03;
+  @include transition(color);
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    color: rgba(#fff, .5);
+  }
+}
+
+::-moz-placeholder {
+  color: $c-black03;
+  opacity: 1;
+  @include transition(color);
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    color: rgba(#fff, .5);
+  }
+}
+
+:-moz-placeholder {
+  color: $c-black03;
+  opacity: 1;
+  @include transition(color);
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    color: rgba(#fff, .5);
+  }
+}
+
+:-ms-input-placeholder {
+  color: $c-black03;
+  @include transition(color);
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    color: rgba(#fff, .5);
+  }
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 38px;
+  z-index: 1;
+  &--notempty, &--focus {
+    .input-group__label {
+      top: 0;
+      font-size: 12px;
+    }
+  }
+  &__label {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 140%;
+    color: $c-black03;
+    position: absolute;
+    letter-spacing: -0.2px;
+    top: 24px;
+    left: 0;
+    pointer-events: none;
+    transition: all .25s linear;
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      display: none;
+    }
+  }
+  input,
+  textarea {
+    padding: 20px 5px 8px 0;
+    &:focus, &:active {
+      @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none){
+        & ~ .input-group__label {
+          display: none;
+        }
+      }
+    }
+    &.error {
+      border-color: $color-error;
+    }
+  }
+  textarea {
+    margin-top: 15px;
+    padding-top: 5px;
+  }
+  label.error {
+    font-size: 14px;
+    line-height: 1.4;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    color: $color-error;
+  }
+}
+.form-white {
+  input, textarea {
+    color: $text-color;
+    border-color: rgba(#1C2125,.2);
+    &:focus {
+      border-color: rgba(#1C2125,1);
+    }
+    &.error {
+      border-color: $color-error;
+    }
+  }
+  .form-footer {
+    &__agree {
+      &::before {
+        background-image: url(../img/icons/ic-doc-view.svg);
+      }
+    }
+  }
+}
+.form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+  &__agree {
+    font-size: 14px;
+    line-height: 1.6;
+    font-weight: 300;
+    position: relative;
+    max-width: 229px;
+    padding-left: 48px;
+    margin-right: 10px;
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background-image: url(../img/icons/ic-doc-view-w.svg);
+      background-repeat: no-repeat;
+      background-size: contain;
+      //background-size: cover;
+      width: 32px;
+      height: 36px;
+    }
+    a {
+      color: $accent;
+      border-bottom: 1px solid;
+      @include transition(border);
+      &:hover {
+        border-color: rgba(0,0,0,0);
+      }
+    }
+  }
+}
+
+
+.form-white {
+  /* Change Autocomplete styles in Chrome*/
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    -webkit-text-fill-color: $text-color;
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+    transition: background-color 5000s ease-in-out 0s;
+    background: none !important;
+    box-shadow: none !important;
+  }
+  input {
+    &:hover,
+    &:focus {
+      &.edge-autofilled {
+        background: none !important;
+        color: $text-color !important;
+      }
+    }
+    &.edge-autofilled {
+      background: none !important;
+      color: $text-color !important;
+    }
+    &.edge-autofill {
+      background: none !important;
+      //color: $c-black03 !important;
+    }
+  }
+}
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: $c-black03;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
+  background: none !important;
+  box-shadow: none !important;
+}
+input {
+  &:hover,
+  &:focus {
+    &.edge-autofilled {
+      background: none !important;
+      color: $c-black03 !important;
+    }
+  }
+  &.edge-autofilled {
+    background: none !important;
+    color: $c-black03 !important;
+  }
+  &.edge-autofill {
+    background: none !important;
+    //color: $c-black03 !important;
+  }
+}
+
+
