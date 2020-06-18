@@ -193,7 +193,12 @@ $(function() {
                  scriptShowModal("modal-fail");
          }
      },'JSON');
-    })
+    });
+    $(".hero-video-link").on('click',function (e) {
+        e.preventDefault();
+        $('.modal-video iframe').attr('src',$(this).attr('href'));
+        scriptShowModal('modal-video');
+    });
 
 });
 function scriptShowModal(mod)

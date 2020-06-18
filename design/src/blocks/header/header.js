@@ -15,7 +15,7 @@ $(function() {
    //HEADER BG ON SLROLL
    $(window).scroll(function(){
       var scrollTop = $(window).scrollTop();
-      if($('body').hasClass('body-home-page') || $('body').hasClass('body-transitions-page') || $('body').hasClass('body-text-animations-page')){
+      if($('body').hasClass('body-home-page') || $('body').hasClass('body-transitions-page') || $('body').hasClass('body-text-animations-page') ||$('body').hasClass('is_pl_product')){
          if(scrollTop > 60){
             $('.header').addClass('header-scroll');
          }else{

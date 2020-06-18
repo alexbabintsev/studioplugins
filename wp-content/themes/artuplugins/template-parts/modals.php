@@ -1297,3 +1297,15 @@
     </div>
 </div>
 <?php endif;?>
+<div class="default-modal default-modal-illustration modal-video">
+    <div class="default-modal__content default-modal__content-video">
+        <div class="default-modal__close" data-modal-close>
+            <svg width="100%" height="100%">
+                <use xlink:href="#icon-close"></use>
+            </svg>
+        </div>
+        <iframe class="youtube-player" width="100%" height="100%" data-src="https://www.youtube.com/embed/NM2wtte1JRE?enablejsapi=1" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+
+        </iframe>
+    </div>
+</div>

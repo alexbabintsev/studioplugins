@@ -2,6 +2,16 @@
 require get_template_directory() . '/classes/head_nav.php';
 require get_template_directory() . '/classes/footer_nav.php';
 require get_template_directory() . '/classes/um-functions.php';
+require get_template_directory() . '/widgets/main_benefits_widget.php';
+require get_template_directory() . '/widgets/main_benefits2_widget.php';
+require get_template_directory() . '/widgets/main_hero_widget.php';
+require get_template_directory() . '/widgets/main_hero2_widget.php';
+require get_template_directory() . '/widgets/main_img_way_widget.php';
+require get_template_directory() . '/widgets/main_nitrozime_widget.php';
+require get_template_directory() . '/widgets/main_prods_already_widget.php';
+require get_template_directory() . '/widgets/main_subscribe_widget.php';
+require get_template_directory() . '/widgets/main_waytocreate_widget.php';
+require get_template_directory() . '/widgets/main_requirements_widget.php';
 if ( ! function_exists( 'theme_setup' ) ) :
     /**
      * Sets up theme defaults and registers support for various WordPress features.
@@ -47,7 +57,7 @@ endif;
 add_action( 'after_setup_theme', 'theme_setup' );
 function artu_init()
 {
-    register_post_type('pl-product', array(
+    register_post_type('pl_product', array(
         'labels' => array(
             'name' => 'Продукты',
             'singular_name' => 'Продукт', // админ панель Добавить->Функцию
@@ -125,7 +135,32 @@ function check_prodcode_callback() {
     echo json_encode($rez);
     wp_die(); // выход нужен для того, чтобы в ответе не было ничего лишнего, только то что возвращает функция
 }
+function artu_widgets_init() {
 
+    register_widget(  'main_benefits_widget');
+    register_widget(  'main_benefits2_widget');
+    register_widget(  'main_hero_widget');
+    register_widget(  'main_hero2_widget');
+    register_widget(  'main_img_way_widget');
+    register_widget(  'main_nitrozime_widget');
+    register_widget(  'main_prods_already_widget');
+    register_widget(  'main_subscribe_widget');
+    register_widget(  'main_waytocreate_widget');
+    register_widget(  'main_requirements_widget');
+    register_sidebar(
+        array(
+            'name'          => __( 'Main', 'artuplugins' ),
+            'id'            => 'main',
+            'description'   => __( 'Blocks on main page', 'artuplugins' ),
+            'before_widget' => '',
+            'after_widget'  => '',
+            'before_title'  => '',
+            'after_title'   => '',
+        )
+    );
+
+}
+add_action( 'widgets_init', 'artu_widgets_init' );
 add_action('wp_sc_ajax_get_plugins_list',function (){
         $user = get_user_by( 'login', $_REQUEST['login'] );
     if(!$user)

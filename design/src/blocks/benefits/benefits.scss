@@ -136,7 +136,7 @@
    }
 }
 .body-text-animations-page,
-.body-transitions-page {
+.body-transitions-page, .is_pl_product {
    .benefits {
       background-color: #181818;
       padding-bottom: 140px;
@@ -194,7 +194,7 @@
       }
    }
 }
-.body-transitions-page {
+.body-transitions-page, .is_pl_product {
    .benefits {
       &__title {
          .benefits {
@@ -251,6 +251,84 @@
             p{
                max-width: 310px;
             }
+         }
+      }
+   }
+}
+.main-transitions-page{
+   .benefits {
+      background-color: #181818;
+      padding-bottom: 140px;
+      &__title {
+         color: #fff;
+         text-align: center;
+         margin-left: 0;
+         margin-bottom: 42px;
+         .benefits {
+            &__title-c1 {
+               color: #E8AC43;
+            }
+            &__title-c2 {
+               color: #EC5829;
+            }
+         }
+         .title {
+            &::before {
+               width: 301px;
+               height: 65px;
+               transform: translate(-135px,-6px);
+            }
+         }
+      }
+      .btn{
+         margin-top: 40px;
+      }
+   }
+   .benefits {
+      &__title {
+         .benefits {
+            &__title-c1 {
+               color: #FE38FF;
+            }
+            &__title-c2 {
+               color: #7A77FF;
+            }
+         }
+      }
+   }
+   .benefits-list {
+      &__item-1 {
+         background-color: rgba(#5BF5FF,.3);
+      }
+      &__item-2,
+      &__item-5 {
+         background-color: rgba(#3C3AA9,.3);
+      }
+      &__item-5{
+         p{
+            max-width: 330px;
+         }
+      }
+      &__item-3 {
+         background-color: rgba(#FFD15A,.3);
+      }
+      &__item-4 {
+         background-color: rgba(#5F65FF,.3);
+      }
+      &__item-6 {
+         background-color: rgba(#FE38FF,.3);
+         h4{
+            max-width: 310px;
+         }
+         p{
+            max-width: 320px;
+         }
+      }
+      &__item-2,
+      &__item-3 {
+         h4,
+         p {
+            color: #fff;
          }
       }
    }
@@ -314,7 +392,7 @@
          }
       }
    }
-   .body-text-animations-page, .body-transitions-page {
+   .body-text-animations-page, .body-transitions-page, .is_pl_product {
       .benefits {
          &__title {
             margin-bottom: 20px;
@@ -336,7 +414,7 @@
          margin-top: 12px;
       }
    }
-   .body-text-animations-page, .body-transitions-page{
+   .body-text-animations-page, .body-transitions-page, .is_pl_product{
       .benefits{
          .btn{
             margin-top: 12px;
@@ -377,7 +455,7 @@
          }
       }
    }
-   .body-text-animations-page, .body-transitions-page {
+   .body-text-animations-page, .body-transitions-page, .is_pl_product {
       .benefits {
          padding-bottom: 60px;
          &__title {

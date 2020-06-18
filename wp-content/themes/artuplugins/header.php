@@ -19,7 +19,7 @@
     <meta name="theme-color" content="#ffffff">
     <?php wp_head(); ?>
 </head>
-<body<?=is_front_page()?' class="body-home-page"':''?>>
+<body class="<?=is_front_page()?'body-home-page':''?> <?=is_singular('pl_product')?'is_pl_product':''?>">
 <div class="wrapper">
     <header class="header">
         <div class="container header__container">
@@ -64,6 +64,6 @@
                     ]);?>
                 </div>
             </div>
-            <div class="burger"><span></span><span></span></div>
+            <div class="burger"><span class="burger__1"></span><span class="burger__2"></span></div>
         </div>
     </header>

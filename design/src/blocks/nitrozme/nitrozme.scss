@@ -57,11 +57,22 @@
       &-top{
          fill: $c-red;
          color: $c-red;
+         p{
+            fill: $c-red;
+         }
          .body-transitions-page & {
             fill: $c-magenta;
             color: $c-magenta;
          }
+         .main-transitions-page & {
+            fill: $c-magenta;
+            color: $c-magenta;
+         }
          .body-text-animations-page & {
+            fill: $c-yellow;
+            color: $c-yellow;
+         }
+         .main-text-animations-page & {
             fill: $c-yellow;
             color: $c-yellow;
          }
