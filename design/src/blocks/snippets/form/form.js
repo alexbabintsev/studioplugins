@@ -1,14 +1,18 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
-    $('.input-group input, .input-group textarea').on('focus', function () {
+    $('.input-group input, .input-group textarea, .um-field input').on('focus', function () {
         $(this).closest('.input-group').addClass('input-group--focus');
+        $(this).closest('.um-field').addClass('input-group--focus');
     });
-    $('.input-group input, .input-group textarea').on('blur', function () {
+    $('.input-group input, .input-group textarea, .um-field input').on('blur', function () {
         $(this).closest('.input-group').removeClass('input-group--focus');
+        $(this).closest('.um-field').removeClass('input-group--focus');
         if ( $(this).val().length ) {
             $(this).closest('.input-group').addClass('input-group--notempty');
+            $(this).closest('.um-field').addClass('input-group--notempty');
         } else {
             $(this).closest('.input-group').removeClass('input-group--notempty');
+            $(this).closest('.um-field').removeClass('input-group--notempty');
         }
     });
     $('.input-group input').on('keyup', function(){
