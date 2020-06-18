@@ -19,7 +19,7 @@
     <meta name="theme-color" content="#ffffff">
     <?php wp_head(); ?>
 </head>
-<body class="<?=is_front_page()?'body-home-page':''?> <?=is_singular('pl_product')?'is_pl_product':''?>">
+<body class="<?=is_front_page()?'body-home-page':''?> <?=is_singular('pl_product')?'is_pl_product '.get_field('body_css',get_queried_object_id()):''?>">
 <div class="wrapper">
     <header class="header">
         <div class="container header__container">
