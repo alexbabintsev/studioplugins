@@ -14,34 +14,20 @@ class main_prods_already2_widget extends WP_Widget {
     public function widget( $args, $instance ) {
         echo $args['before_widget'];
         ?>
-        <section class="prods-already">
+        <section class="prods-already prods-already--padding-sm">
             <div class="container prods-already__container">
-                <h2 class="title prods-already__title"><?= $instance['title']?></h2>
-                <div class="prods-cars">
-                <?php $i = 0;foreach (get_field('products','widget_'.$args['widget_id']) as $prod):?>
-                    <div class="prods-cars__item <?= $i%2==0?'prods-cars__item-animations':'prods-cars__item-transitions'?>">
-                        <img src="<?= get_the_post_thumbnail_url( $prod, 'full' );?>" alt="">
-                        <p><?= get_the_title($prod);?></p>
-                        <a href="<?= get_permalink($prod);?>">See more
-                            <svg class="arr-right" width="9" height="14">
-                                <use xlink:href="#icon-arr-right"></use>
-                            </svg>
-                        </a>
-                    </div>
-                <?php $i++; endforeach;?>
-                </div>
                 <div class="prods-login">
                     <div class="prods-login__left">
                         <div class="prods-login__left-wrap">
                             <h2 class="title prods-already__title-2"><?= $instance['login_title']?></h2>
                             <p class="prods-login__text"><?= $instance['desc']?></p>
                             <div class="prods-login__links">
-                            <?php if(is_user_logged_in()):?>
+                                <?php if(is_user_logged_in()):?>
                                 <a href="<?php echo esc_url( um_get_core_page( 'account' ) ); ?>">Account</a>
-                            <?php else:?>
+                                <?php else:?>
                                 <a href="<?php echo esc_url( um_get_core_page( 'login' ) ); ?>">Log in</a>
                                 <a href="<?php echo esc_url( um_get_core_page( 'register' ) ); ?>">Register</a>
-                            <?php endif;?>
+                                <?php endif;?>
                             </div>
                         </div>
                     </div>
@@ -61,10 +47,6 @@ class main_prods_already2_widget extends WP_Widget {
     public function form( $instance ) {
         ?>
         <div class="main-widget">
-            <label>
-                Title
-                <input class="widefat" type="text" name="<?= esc_attr( $this->get_field_name( 'title' ))?>" value="<?= esc_attr($instance['title'])?>"/>
-            </label>
             <label>
                 Login title
                 <input class="widefat" type="text" name="<?= esc_attr( $this->get_field_name( 'login_title' ))?>" value="<?= esc_attr($instance['login_title'])?>"/>

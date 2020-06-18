@@ -9,6 +9,7 @@ require get_template_directory() . '/widgets/main_hero2_widget.php';
 require get_template_directory() . '/widgets/main_img_way_widget.php';
 require get_template_directory() . '/widgets/main_nitrozime_widget.php';
 require get_template_directory() . '/widgets/main_prods_already_widget.php';
+require get_template_directory() . '/widgets/main_prods_already2_widget.php';
 require get_template_directory() . '/widgets/main_subscribe_widget.php';
 require get_template_directory() . '/widgets/main_waytocreate_widget.php';
 require get_template_directory() . '/widgets/main_requirements_widget.php';
@@ -144,6 +145,7 @@ function artu_widgets_init() {
     register_widget(  'main_img_way_widget');
     register_widget(  'main_nitrozime_widget');
     register_widget(  'main_prods_already_widget');
+    register_widget(  'main_prods_already2_widget');
     register_widget(  'main_subscribe_widget');
     register_widget(  'main_waytocreate_widget');
     register_widget(  'main_requirements_widget');
