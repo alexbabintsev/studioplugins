@@ -78,7 +78,7 @@ get_header();
                         <div class="help-c-footer__title"><?= get_field('footer_title'); ?></div>
                         <?= get_field('description'); ?>
                     </div>
-                    <?= do_shortcode('[contact-form-7 id="'.get_field('form').'" html_class="help-c-footer__form"]');?>
+                    <?= do_shortcode('[contact-form-7 id="'.get_field('form').'" html_class="help-c-footer__form main-form"]');?>
                 </div>
             </div>
         </section>

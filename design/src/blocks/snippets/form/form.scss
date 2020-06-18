@@ -3,6 +3,13 @@
   font-size: 16px;
   line-height: 140%;
   letter-spacing: -1px;
+  .wpcf7-response-output{
+    display: none!important;
+  }
+  .wpcf7-not-valid-tip{
+    position: absolute;
+    color: $c-red;
+  }
   &__submit-wrapper{
     margin-top: 40px;
   }
