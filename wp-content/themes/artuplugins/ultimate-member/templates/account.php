@@ -49,8 +49,8 @@
                                 if(isset( $info['clean_content'] )&&$info['clean_content']){?>
                                     <?php UM()->account()->render_account_tab( $id, $info, $args ); ?>
                                 <?php }else{?>
-                        <form method="post" action="" style="width: 60%;" class="main-form">
-                            <div class="um-account-main" data-current_tab="<?php echo esc_attr( UM()->account()->current_tab ); ?>">
+                        <form method="post" action="" style="width: 60%;" class="main-form account-main-form" >
+                            <div class="um-account-main um-custom-acc" data-current_tab="<?php echo esc_attr( UM()->account()->current_tab ); ?>">
 
                                 <div class="um-account-nav uimob340-show uimob500-show">
                                     <a href="javascript:void(0);" data-tab="<?php echo esc_attr( $id ); ?>" class="<?php if ( $id == $current_tab ) echo 'current'; ?>">

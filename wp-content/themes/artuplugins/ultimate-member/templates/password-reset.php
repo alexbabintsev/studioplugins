@@ -1,6 +1,6 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
 
-		<form method="post" action="">
+		<form method="post" action="" class="main-form">
 			<?php if ( isset( $_GET['updated'] ) && 'checkemail' == $_GET['updated'] ) { ?>
 				<div class="um-field um-field-block um-field-type_block">
 					<div class="um-field-block">
