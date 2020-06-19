@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-
+    $('.um-field input').each(function(){
+        if($(this).val().length){
+            $(this).closest('.um-field').addClass('input-group--notempty');
+        }
+    });
     $('.input-group input, .input-group textarea, .um-field input').on('focus', function () {
         $(this).closest('.input-group').addClass('input-group--focus');
         $(this).closest('.um-field').addClass('input-group--focus');

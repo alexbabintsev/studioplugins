@@ -245,6 +245,18 @@
    }
 }
 .body-text-animations-page{
+   .benefits{
+      &__title {
+         .benefits {
+            &__title-c1 {
+               color: #E8AC43;
+            }
+            &__title-c2 {
+               color: #EC5829;
+            }
+         }
+      }
+   }
    .benefits-list{
       &__item{
          &-6{

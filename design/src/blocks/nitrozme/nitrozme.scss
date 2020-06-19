@@ -68,6 +68,7 @@
          color: $c-red;
          p{
             fill: $c-red;
+
          }
          .body-transitions-page & {
             fill: $c-magenta;
@@ -109,6 +110,18 @@
       }
       &-2,&-4{
          margin-top: 40px;
+      }
+      &-3{
+         .nitrozime-cards__item-top{
+            p{
+               line-height: 0;
+               margin: 0;
+               min-height: 54px;
+            }
+            br{
+               display: none;
+            }
+         }
       }
    }
 }

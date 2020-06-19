@@ -49,7 +49,7 @@
                                 if(isset( $info['clean_content'] )&&$info['clean_content']){?>
                                     <?php UM()->account()->render_account_tab( $id, $info, $args ); ?>
                                 <?php }else{?>
-                        <form method="post" action="" style="width: 60%;">
+                        <form method="post" action="" style="width: 60%;" class="main-form">
                             <div class="um-account-main" data-current_tab="<?php echo esc_attr( UM()->account()->current_tab ); ?>">
 
                                 <div class="um-account-nav uimob340-show uimob500-show">
