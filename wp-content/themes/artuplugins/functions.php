@@ -136,6 +136,30 @@ function check_prodcode_callback() {
     echo json_encode($rez);
     wp_die(); // выход нужен для того, чтобы в ответе не было ничего лишнего, только то что возвращает функция
 }
+add_action( 'wp_ajax_unlink_pc', function (){
+    $rez=[];
+    $rez['result']=false;
+    if(isset($_REQUEST['id']))
+    {
+        $cur_user_id = get_current_user_id();
+        if($cur_user_id){
+            $user = wp_get_current_user();
+            $comps = get_field('comps',$user);
+            foreach ($comps as $in=>$comp)
+                if($comp['inner_id']==$_REQUEST['id'])
+                {
+                    delete_row('comps',$in+1,$user);
+                    $rez['result']=true;
+                }
+            if(!$rez['result'])
+                $rez['msg']='Id not found';
+        }
+    }
+    else
+        $rez['msg']='No Id';
+    echo json_encode($rez);
+    wp_die();
+} );
 function artu_widgets_init() {
 
     register_widget(  'main_benefits_widget');
@@ -164,15 +188,42 @@ function artu_widgets_init() {
 }
 add_action( 'widgets_init', 'artu_widgets_init' );
 add_action('wp_sc_ajax_get_plugins_list',function (){
-        $user = get_user_by( 'login', $_REQUEST['login'] );
+    if(!isset($_REQUEST['login'])&&$_REQUEST['login'])
+        wp_send_json( ['result'=>false,'message'=>'Login must be not empty'] );
+    if(!isset($_REQUEST['password'])&&$_REQUEST['password'])
+        wp_send_json( ['result'=>false,'message'=>'Password must be not empty'] );
+    if(!isset($_REQUEST['hwd_info']))
+        wp_send_json( ['result'=>false,'message'=>'hwd_info must be not empty'] );
+    if(!is_array($_REQUEST['hwd_info'])||!isset($_REQUEST['hwd_info']['hwd_id'])||!isset($_REQUEST['hwd_info']['name'])||!isset($_REQUEST['hwd_info']['os']))
+        wp_send_json( ['result'=>false,'message'=>'hwd_info must be an array([hwd_id,name,os])'] );
+    $user = get_user_by( 'login', $_REQUEST['login'] );
     if(!$user)
         $user = get_user_by( 'email', $_REQUEST['login'] );
     if(!$user||!wp_check_password( $_REQUEST['password'], $user->user_pass ))
         wp_send_json( ['result'=>false,'message'=>'Wrong login or password'] );
-
+    $comps = get_field('comps',$user);
+    if(!is_array($comps))
+        $comps =[];
+    $reged_pc = false;
+    foreach ($comps as $in=>$comp)
+        if($comp['id']==$_REQUEST['hwd_info']['hwd_id'])
+            $reged_pc = $comp;
+    if(!$reged_pc&&count($comps)>=2)
+        wp_send_json( ['result'=>false,'message'=>'Install limit reached'] );
+    if(!$reged_pc)
+        add_row('products',['id'=>$_REQUEST['hwd_info']['hwd_id'],'inner_id'=>generateRandomString(),'name'=>$_REQUEST['hwd_info']['name'],'os'=>$_REQUEST['hwd_info']['os']],$user);
     $rez = [];
     foreach (get_field('products',$user) as $prodd)
         $rez[] = ['prod_name'=>get_field('packName',$prodd['product']),'pur_Code'=>$prodd['pur_Code']];
 
     wp_send_json( ['result'=>true,'list'=>$rez] );
 });
+function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}

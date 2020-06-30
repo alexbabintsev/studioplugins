@@ -235,9 +235,27 @@ function um_account_content_hook_myproducts( $output ){
     ob_start();
     $user = wp_get_current_user();
     $products = get_field('products',$user);
+    $comps = get_field('comps',$user);
     ?>
+    <div class="<?php if($products):?>account-grid-2__products account-grid-2__products-2<?php else:?>account-grid-2__add-prod<?php endif;?> fn_all_products_list">
+        <h3 class="account-grid-2__products-title linked__title">Connected devices</h3>
+        <p class="linked__subtitle">You can use Studio Plugins on 2 devices at the same time <span class="linked__count"><?=$comps?count($comps):0?>/2</span></p>
+        <div class="linked-os">
+        <?php if($comps)foreach ($comps as $comp):?>
+            <div class="linked-os__item">
+                <?php if($comp['os']=='win'):?>
+                <div class="linked-os__item-img"><img src="<?= get_theme_file_uri( '/img/linked/winicon.svg' )?>" alt="win-os"></div>
+                <p class="linked-os__item-title">Windows PC </p>
+                <?php elseif($comp['os']=='mac'):?>
+                    <div class="linked-os__item-img"><img src="<?= get_theme_file_uri( '/img/linked/macicon.svg' )?>" alt="mac-os"></div>
+                    <p class="linked-os__item-title">MacOS </p>
+                <?php endif;?>
+                <p class="linked-os__item-subtitle"><?=$comp['name']?></p><a class="linked-os__item-link fn_unlink_os" data-id="<?= esc_attr($comp['inner_id'])?>" href="#">unlink</a>
+            </div>
+        <?php endforeach;?>
+        </div>
+        <h3 class="account-grid-2__products-title linked__title linked__title-2">Products</h3>
     <?php if($products):?>
-        <div class="account-grid-2__products account-grid-2__products-2 fn_all_products_list">
             <?php foreach ($products as $product):?>
             <div class="account-grid-2__products-item account-grid-2__products-item-animations">
                 <div class="account-grid-2__products-img"><img src="<?= get_the_post_thumbnail_url($product['product']);?>" alt=""></div>
@@ -250,18 +268,15 @@ function um_account_content_hook_myproducts( $output ){
             <div class="account-grid-2__add">
                 <a href="#" data-modal="modal-act-code">Add new product</a>
             </div>
-        </div>
     <?php else:?>
-    <div class="account-grid-2__add-prod fn_all_products_list">
         <a href="#" data-modal="modal-act-code">
             <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M60 0H40V40H0V60H40V100H60V60H100V40H60V0Z" fill="white"/>
             </svg>
             <p>Add new product</p>
         </a>
-    </div>
     <?php endif;?>
-
+    </div>
 
     <?php
 

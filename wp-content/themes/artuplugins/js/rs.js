@@ -194,11 +194,41 @@ $(function() {
          }
      },'JSON');
     });
+    $("body").on('click',".fn_unlink_os",function (e) {
+        e.preventDefault();
+        $.post(myajax.url,{action: 'unlink_pc',id:$(e.currentTarget).data('id')},function (data) {
+            if(data.result)
+            {
+                $(e.currentTarget).parents('.linked-os__item').remove();
+            }
+            else
+            {
+                console.error(data.msg);
+            }
+        },'JSON');/**/
+    });
     $(".hero-video-link").on('click',function (e) {
         e.preventDefault();
         $('.modal-video iframe').attr('src',$(this).attr('href'));
         scriptShowModal('modal-video');
     });
+    if($("section.help-c").length>0){
+        if(window.location.hash) {
+            if($(window.location.hash+".tabs-content").length>0)
+            {
+                let container = $(window.location.hash+".tabs-content").parents('.tabs');
+                let tab_id = $(window.location.hash+".tabs-content").data('tabId');
+                container.find('.tabs-content.is-active, .tabs-nav__item.is-active').removeClass('is-active');
+                container.find(`[data-tab-id=${tab_id}]`).addClass('is-active');
+            }
+        }
+        let get_params = (new URL(window.location.href)).searchParams;
+        if(get_params.has('down_win'))
+            $('a.down_win').click();
+        if(get_params.has('down_mac'))
+            $('a.down_mac').click();
+
+    }
 
 });
 function scriptShowModal(mod)

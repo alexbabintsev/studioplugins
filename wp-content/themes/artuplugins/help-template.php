@@ -15,7 +15,7 @@ get_header();
                     <div class="help-c__header-title"><?= get_field('head_title'); ?></div>
                     <div class="help-c__header-btns">
                         <div class="help-c__header-btns-title">Available for</div>
-                        <a class="btn" href="<?= get_field('download_link_for_windows'); ?>">
+                        <a class="btn" class="down_win" href="<?= get_field('download_link_for_windows'); ?>">
                             <div class="btn__inner">
                                 Download for Windows<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M8.99275 0H0V8.99275H8.99275V0Z"/>
@@ -25,7 +25,7 @@ get_header();
                                 </svg>
                             </div>
                         </a>
-                        <a class="btn" href="<?= get_field('download_link_for_maos'); ?>">
+                        <a class="btn" class="down_mac" href="<?= get_field('download_link_for_maos'); ?>">
                             <div class="btn__inner">
                                 Download for MaOS<svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M10.7057 2.08667C12.2579 0 14.4468 0 14.4468 0C14.4468 0 14.7652 1.96628 13.2131 3.85231C11.5415 5.85872 9.67098 5.53769 9.67098 5.53769C9.67098 5.53769 9.3128 3.93256 10.7057 2.08667Z"/>
@@ -56,7 +56,7 @@ get_header();
                         <div class="help-c__content-list">
                             <?php $is_first = true; $mb_index=0; foreach (get_field('main_blocks') as $m_block):?>
                                 <?php $b_index=0; foreach ($m_block['blocks'] as $block):?>
-                                    <div class="tabs-content help-c__content<?= $is_first?' is-active':'' ?>" data-tab-id="<?= $mb_index."_".$b_index;?>" data-page="how1">
+                                    <div class="tabs-content help-c__content<?= $is_first?' is-active':'' ?>" data-tab-id="<?= $mb_index."_".$b_index;?>" data-page="how1" id="<?= $block['html_id']?>">
                                         <div class="mob-page-header">
                                             <img class="mob-page-header__logo" src="<?= get_theme_file_uri( '/img/logo.svg' )?>" alt="logo">
                                             <div class="mob-page-close" data-page-close>
