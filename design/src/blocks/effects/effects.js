@@ -132,7 +132,7 @@ $(function(){
 
     
     //HOVER ON VIDEO
-    $("body").on("mouseover", "video", function(){
+    $("body").on("mouseover", ".txt_video", function(){
         this.load();
         this.play();
         $(this).css( "background-color", "black" );
@@ -143,10 +143,30 @@ $(function(){
         
         
       });
-      $("body").on("mouseleave", "video", function(){
+      $("body").on("mouseleave", ".txt_video", function(){
         this.pause();
       })
+    // FULLSCREEN VIDEO
+    let $fullscreen_video = $('.fullscreen-video')[0];
+    $fullscreen_video.play();
+    let screen_width = document.documentElement.clientWidth;
+    let screen_height= document.documentElement.clientHeight;
+    set_fullscr_video_size(screen_width, screen_height);
 
+    function set_fullscr_video_size(width, height){
+        $('.fullscreen-video').css({
+            width: width, 
+            height: height,
+        });
+    }
+
+    $(window).on('resize', function(){
+        let screen_width = document.documentElement.clientWidth;
+        let screen_height= document.documentElement.clientHeight;
+        set_fullscr_video_size(screen_width, screen_height);
+    }); 
+
+    
 });
 
 //TRANSITION FOLDER-SLIDERs INIT FUNCTION
