@@ -15,7 +15,6 @@ class main_hero2_widget extends WP_Widget {
         echo $args['before_widget'];
         ?>
         <section class="hero-2" style="background: <?= $this->hex2rgba(get_field('main_color','widget_'.$args['widget_id']),0.9)?>;">  <img class="hero-2__img" src="<?= get_theme_file_uri( '/img/tranim.jpg' )?>" alt="">
-            <div class="section-decor"><img src="<?= get_theme_file_uri( '/img/home/section-decor.svg' )?>" alt="section-decor"></div>
             <div class="container">
                 <div class="hero-2-content">
                     <div class="hero-2-content__left">

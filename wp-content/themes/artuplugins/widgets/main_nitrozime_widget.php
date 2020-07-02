@@ -15,7 +15,6 @@ class main_nitrozime_widget extends WP_Widget {
         echo $args['before_widget'];
         ?>
         <section class="nitrozime">
-            <div class="section-decor"><img src="<?= get_theme_file_uri( '/img/home/section-decor.svg' )?>" alt="section-decor"></div>
             <div class="container nitrozime__container">
                 <div class="nitrozime__titles">
                     <h2 class="title nitrozime__title"><?= $instance['title']?></h2>

@@ -38,9 +38,18 @@
       align-items: center;
       padding-top: 79px;
       padding-bottom: 99px;
+      &:hover{
+         img{
+            transform: scale(1.02) translate(-57px, 21px);
+         }
+      }
+      span{
+         color: white;
+         display: block;
+      }
       &-animations{
          background: $c-dblue;
-         a{
+         span{
             &:hover{
                color: $c-red;
                svg{
@@ -51,7 +60,7 @@
       }
       &-transitions{
          background: $c-red;
-         a{
+         span{
             &:hover{
                color: $text-color;
                svg{
@@ -65,6 +74,7 @@
          height: 502px;
          transform: translate(-57px, 21px);
          display: block;
+         transition: 0.3s;
       }
       p{
          font-size: 48px;
@@ -171,6 +181,11 @@
    .prods-cars {
       &__item {
          padding: 30px 0 50px;
+         &:hover{
+            img{
+               transform: scale(1.02) translate(-38px,0px);
+            }
+         }
          img {
             width: 343px;
             height: 351px;
@@ -288,6 +303,11 @@
             line-height: 110%;
             letter-spacing: -0.04em;
             margin-bottom: 5px;
+         }
+         &:hover{
+            img{
+               transform: translate(-39px, 10px);
+            }
          }
          img{
             transform: translate(-39px, 10px);

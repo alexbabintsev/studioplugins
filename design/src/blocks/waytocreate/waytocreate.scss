@@ -118,10 +118,11 @@
 }
 .img-way{
     position: relative;
-    z-index: 3;
+    // z-index: 3;
     height: 440px;
     margin-bottom: 308px;
     background: transparent;
+    transition: 0.03s;
     .section-decor{
         top: 263px;
     }

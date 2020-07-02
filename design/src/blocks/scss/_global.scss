@@ -159,15 +159,15 @@
 	}
 }
 .section-decor{
-	position: absolute;
+	position: fixed;
 	right: 0px;
 	top: 218px;
 	width: 115px;
-	z-index: 3;
+	z-index: 4;
 }
 .main-home-page{
 	overflow: hidden;
-	z-index: 2;
+	// z-index: 2;
 }
 .arr-right{
 	fill: white;
@@ -186,6 +186,20 @@
 }
 // MY____________________________________
 @media screen and (max-width: $tablet){
+	.section-decor{
+		top: 404px;
+		&-product{
+			opacity: 0;
+			transform: translateX(100%);
+			transition: 0.3s;
+			transition-delay: 0s;
+			&.is-active{
+				opacity: 1;
+				transform: none;
+				transition-delay: 0.5s;
+			}
+		}
+	}
 	.title{
 		font-size: 28px;
 		line-height: 110%;

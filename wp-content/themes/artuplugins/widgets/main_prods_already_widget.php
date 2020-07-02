@@ -19,15 +19,15 @@ class main_prods_already_widget extends WP_Widget {
                 <h2 class="title prods-already__title"><?= $instance['title']?></h2>
                 <div class="prods-cars">
                 <?php $i = 0;foreach (get_field('products','widget_'.$args['widget_id']) as $prod):?>
-                    <div class="prods-cars__item <?= $i%2==0?'prods-cars__item-animations':'prods-cars__item-transitions'?>">
+                    <a href="<?= get_permalink($prod);?>"class="prods-cars__item <?= $i%2==0?'prods-cars__item-animations':'prods-cars__item-transitions'?>">
                         <img src="<?= get_the_post_thumbnail_url( $prod, 'full' );?>" alt="">
                         <p><?= get_the_title($prod);?></p>
-                        <a href="<?= get_permalink($prod);?>">See more
+                        <span>See more
                             <svg class="arr-right" width="9" height="14">
                                 <use xlink:href="#icon-arr-right"></use>
                             </svg>
-                        </a>
-                    </div>
+                        </span>
+                    </a>
                 <?php $i++; endforeach;?>
                 </div>
                 <div class="prods-login">

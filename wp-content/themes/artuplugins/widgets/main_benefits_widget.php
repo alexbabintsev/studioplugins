@@ -15,7 +15,6 @@ class main_benefits_widget extends WP_Widget {
         echo $args['before_widget'];
         ?>
         <section class="benefits">
-            <div class="section-decor"><img src="<?= get_theme_file_uri( '/img/home/section-decor.svg' )?>" alt="section-decor"></div>
             <div class="container benefits__container">
                 <h2 class="benefits__title"><span class="title"><?= $instance['title']?></span></h2>
                 <div class="benefits-list">

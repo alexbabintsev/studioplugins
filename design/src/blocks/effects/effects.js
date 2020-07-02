@@ -146,12 +146,37 @@ $(function(){
       $("body").on("mouseleave", ".txt_video", function(){
         this.pause();
       })
+    //MAIN VIDEO
+    let firstlink = true;
+    let $main_video = $('.main-video');
+    let main_video = $('.main-video')[0];
+    $('.hero-video-link').on('click', function(){
+        if(!$main_video.hasClass('loaded')){
+            main_video_src = $main_video.attr('data-src');
+            $main_video.attr('src', main_video_src);
+            $main_video.find('source').attr('src', main_video_src);
+            $main_video.addClass('loaded');
+        }
+
+        if(firstlink==true){
+            main_video.play();
+            firstlink = false;
+        }else{
+            main_video.pause();
+            firstlink = true;
+        }
+        
+    });
+    
     // FULLSCREEN VIDEO
-    let $fullscreen_video = $('.fullscreen-video')[0];
-    $fullscreen_video.play();
-    let screen_width = document.documentElement.clientWidth;
-    let screen_height= document.documentElement.clientHeight;
-    set_fullscr_video_size(screen_width, screen_height);
+    if($('body').hasClass('body-transitions-page') || $('body').hasClass('body-text-animations-page')){
+        let $fullscreen_video = $('.fullscreen-video')[0];
+        $fullscreen_video.play();
+        let screen_width = document.documentElement.clientWidth;
+        let screen_height= document.documentElement.clientHeight;
+        set_fullscr_video_size(screen_width, screen_height);
+    }
+
 
     function set_fullscr_video_size(width, height){
         $('.fullscreen-video').css({

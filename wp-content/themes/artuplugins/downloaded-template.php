@@ -16,7 +16,11 @@ get_header();
                    <?php the_content();?>
                 </div>
                 <div class="downloaded-banner__right">
-                <img src="<?= get_the_post_thumbnail_url();?>" alt="">
+                    <div class="downloaded-banner__video-wrapp">
+                        <div class="help-video-btn downloaded-banner__video-btn" data-video-id='i57p-G0Xs2M' data-video='<iframe width="1280" height="548" src="https://www.youtube.com/embed/j4Q9y4gXaTQ?enablejsapi=1&amp;wmode=transparent" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>'>
+                            <div class="help-c__media-txt-block" style="background-image:url(<?= get_the_post_thumbnail_url();?>)"></div>
+                        </div>
+                    </div>
                     <?= get_field('mobile_text')?>
                 </div>
             </div>

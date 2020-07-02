@@ -54,11 +54,11 @@
                 path{
                     transition: 0.3s;
                 }
-                &:hover{
-                    path{
-                        fill: $c-red;
-                    }
-                }
+                // &:hover{
+                //     path{
+                //         fill: $c-red;
+                //     }
+                // }
             }
         }
     }

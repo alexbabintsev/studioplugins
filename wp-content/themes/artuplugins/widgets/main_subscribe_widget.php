@@ -14,7 +14,6 @@ class main_subscribe_widget extends WP_Widget {
         echo $args['before_widget'];
         ?>
         <section class="subscribe">
-            <div class="section-decor"><img src="<?= get_theme_file_uri( '/img/home/section-decor.svg' )?>" alt="section-decor"></div>
             <div class="subscribe__letters"><svg width="614" height="174" viewBox="0 0 614 174" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g style="mix-blend-mode:overlay">
                         <g opacity="0.3">

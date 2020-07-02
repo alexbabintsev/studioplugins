@@ -207,11 +207,7 @@ $(function() {
             }
         },'JSON');/**/
     });
-    $(".hero-video-link").on('click',function (e) {
-        e.preventDefault();
-        $('.modal-video iframe').attr('src',$(this).attr('href'));
-        scriptShowModal('modal-video');
-    });
+
     if($("section.help-c").length>0){
         if(window.location.hash) {
             if($(window.location.hash+".tabs-content").length>0)

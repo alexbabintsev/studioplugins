@@ -15,7 +15,6 @@ class main_waytocreate_widget extends WP_Widget {
         echo $args['before_widget'];
         ?>
         <section class="waytocreate">
-            <div class="section-decor"><img src="<?= get_theme_file_uri( '/img/home/section-decor.svg' )?>" alt="section-decor"></div>
             <div class="waytocreate__bg"><img src="<?= get_theme_file_uri( '/img/trapeze2.png' )?>" alt="waytocreate-bg"></div>
             <div class="container waytocreate__container">
                 <div class="waytocreate-content-wrapper">

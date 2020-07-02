@@ -9,6 +9,7 @@ $(function() {
          mob_menu.toggleClass('mob_menu_active');
          $('body').toggleClass('overflow-hidden');
          $('.header').toggleClass('header-mob-menu');
+         $('.section-decor-product').toggleClass('is-active');
    });
 
 
