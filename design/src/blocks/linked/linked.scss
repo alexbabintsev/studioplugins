@@ -1,0 +1,99 @@
+.linked{
+    &__title{
+        margin-top: 9px;
+        margin-bottom: 13px;
+        &-2{
+            margin-bottom: 40px;
+        }
+    }
+    &__subtitle{
+        font-size: 14px;
+        line-height: 140%;
+        color: black;
+        font-weight: 400;
+        position: relative;
+        margin-bottom: 21px;
+        padding-right: 85px;
+    }
+    &__count{
+        position: absolute;
+        bottom: -13px;
+        right: -4px;
+        font-size: 78px;
+        line-height: 110%;  
+        letter-spacing: 0.05em;
+        color: rgba(black, 0.1);
+        font-weight: 700;
+    }
+    &-os{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 708px;
+        margin-bottom: 42px;
+        &__item{
+            background: black;
+            width: 100%;
+            max-width: 344px;
+            padding: 32px 30px 23px;
+            &-img{
+                display: block;
+                min-height: 56px;
+                display: flex;
+                align-items: center;
+                margin-bottom: 26px;
+                img{
+                    display: block;
+                    max-width: 66px;
+                }
+
+            }
+            &-title{
+                color: white;
+                font-weight: 800;
+                font-size: 28px;
+                line-height: 110%;
+                margin-bottom: 3px;
+            }
+            &-subtitle{
+                color: white;
+                font-size: 14px;
+                line-height: 140%;
+                margin-bottom: 6px;
+            }
+            &-link{
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 17px;
+                color: $c-red;
+                display: block;
+                transition: 0.3s;
+                &:hover{
+                    color: white;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: $desktop){
+    .linked{
+        &-os{
+            flex-wrap: wrap;
+            max-width: 100%;
+            &__item{
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    }
+}
+@media screen and (max-width: $tablet){
+    .linked{
+        &__count{
+            font-size: 48px;
+            bottom: auto;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+}

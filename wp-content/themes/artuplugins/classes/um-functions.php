@@ -237,7 +237,7 @@ function um_account_content_hook_myproducts( $output ){
     $products = get_field('products',$user);
     $comps = get_field('comps',$user);
     ?>
-    <div class="<?php if($products):?>account-grid-2__products account-grid-2__products-2<?php else:?>account-grid-2__add-prod<?php endif;?> fn_all_products_list">
+    <div class="<?php if($products):?>account-grid-2__products account-grid-2__products-2<?php else:?>account-grid-2__products<?php endif;?> fn_all_products_list">
         <h3 class="account-grid-2__products-title linked__title">Connected devices</h3>
         <p class="linked__subtitle">You can use Studio Plugins on 2 devices at the same time <span class="linked__count"><?=$comps?count($comps):0?>/2</span></p>
         <div class="linked-os">
@@ -269,12 +269,15 @@ function um_account_content_hook_myproducts( $output ){
                 <a href="#" data-modal="modal-act-code">Add new product</a>
             </div>
     <?php else:?>
-        <a href="#" data-modal="modal-act-code">
-            <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M60 0H40V40H0V60H40V100H60V60H100V40H60V0Z" fill="white"/>
-            </svg>
-            <p>Add new product</p>
-        </a>
+        <div class="account-grid-2__add-prod">
+            <a href="#" data-modal="modal-act-code">
+                <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M60 0H40V40H0V60H40V100H60V60H100V40H60V0Z" fill="white"/>
+                </svg>
+                <p>Add new product</p>
+            </a>
+        </div>
+
     <?php endif;?>
     </div>
 

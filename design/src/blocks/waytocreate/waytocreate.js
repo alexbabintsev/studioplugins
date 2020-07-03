@@ -16,67 +16,85 @@ $(function(){
 
 
 
-
-   let $way = $('.img-way');
-   let addTranslateX = 0;
-   let addTranslateY = addTranslateX*0.36666;
-   let temporaryScroll = 0;
-   let maxTranslateX = 100;
-   let minTranslateX = -100;
-   function scrollTracking(){
-      var wt = $(window).scrollTop();
-      var wh = $(window).height();
-      var et = $way.offset().top;
-      var eh = $way.outerHeight();
+   if($('.img-way').length){
+      let $way = $('.img-way');
+      let $way_img = $('.img-way__img');
+      let addTranslateX = 0;
+      let addTranslateY = addTranslateX*0.36666;
+      let temporaryScroll = 0;
+      let maxTranslateX = 100;
+      let minTranslateX = -100;
+      if($(window).width() <= 500){
+         addTranslateX =100;
+         addTranslateY = addTranslateX*0.36666;
+         $way.css({
+            "transform":"translate("+1000+ "px,"+1000*0.36666+"px)"
+         });
+      }
+      function scrollTracking(){
+         var wt = $(window).scrollTop();
+         var wh = $(window).height();
+         var et = $way_img.offset().top;
+         var eh = $way_img.outerHeight();
+         if($(window).width() <= 500){
+            minTranslateX = -70;
+            maxTranslateX = 70;
+         }else{
+            minTranslateX = -100;
+         }
+         if($(window).width() >= 2400){
+            maxTranslateX = 62;
+         }
+         if (wt + wh >= et && wt + wh - eh * 2 <= (et + (wh - eh))){
+            if(temporaryScroll < wt){
+                  // console.log('down');
+                  incrementX();
    
-      if (wt + wh >= et && wt + wh - eh * 2 <= (et + (wh - eh))){
-         if(temporaryScroll < wt){
-               // console.log('down');
-               incrementX();
-
+                  $way.css({
+                     "transform":"translate("+ addTranslateX*5+ "px,"+addTranslateY*5+"px)"
+                  });
+                  // console.log("addTranslateX    "+ addTranslateX*10+ " addTranslateY   "+addTranslateY*10);
+                  
+   
+            }else{
+               // console.log('up');
+               decrementX();
+   
                $way.css({
                   "transform":"translate("+ addTranslateX*5+ "px,"+addTranslateY*5+"px)"
                });
                // console.log("addTranslateX    "+ addTranslateX*10+ " addTranslateY   "+addTranslateY*10);
-               
-
-         }else{
-            // console.log('up');
-            decrementX();
-
-            $way.css({
-               "transform":"translate("+ addTranslateX*5+ "px,"+addTranslateY*5+"px)"
-            });
-            // console.log("addTranslateX    "+ addTranslateX*10+ " addTranslateY   "+addTranslateY*10);
-
-         }
-      } else {
-         incrementX();
-            addTranslateX=0;
-      }
-      temporaryScroll = wt;
-   }
    
-   $(window).scroll(function(){
-      scrollTracking();
-   });
+            }
+         } else {
+            incrementX();
+               addTranslateX=0;
+         }
+         temporaryScroll = wt;
+      }
       
-   $(document).ready(function(){ 
-      scrollTracking();
-   });
-   function incrementX(){
-      if(addTranslateX>=minTranslateX){
-         addTranslateX=(addTranslateX -1);
-         addTranslateY = addTranslateX*0.36666;
+      $(window).scroll(function(){
+         scrollTracking();
+      });
+         
+      $(document).ready(function(){ 
+         scrollTracking();
+      });
+      function incrementX(){
+         if(addTranslateX>=minTranslateX){
+            addTranslateX=(addTranslateX -1);
+            addTranslateY = addTranslateX*0.36666;
+         }
+      }
+      function decrementX(){
+         if(addTranslateX<=maxTranslateX){
+            addTranslateX=(addTranslateX +1);
+            addTranslateY = addTranslateX*0.36666;
+         }
+   
       }
    }
-   function decrementX(){
-      if(addTranslateX<=maxTranslateX){
-         addTranslateX=(addTranslateX +1);
-         addTranslateY = addTranslateX*0.36666;
-      }
-
-   }
+  
 
 
 
