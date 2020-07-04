@@ -260,8 +260,9 @@
                 <use xlink:href="#icon-close"></use>
             </svg>
         </div>
-        <iframe class="youtube-player" width="100%" height="100%" data-src="https://www.youtube.com/embed/NM2wtte1JRE?enablejsapi=1" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 
-        </iframe>
+        <video poster="<?= get_theme_file_uri( '/img/main-poster.png' )?>" loop="" playsinline="" muted="" data-keepplaying="" class="main-video-modal" data-ratio="1.7777777777778"  preload="metadata" data-src="/wp-content/themes/artuplugins/video/main_video.mp4">
+            <source type="video/mp4" data-src="/wp-content/themes/artuplugins/video/main_video.mp4">
+        </video>
     </div>
 </div>

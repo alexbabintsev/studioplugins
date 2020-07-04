@@ -22,14 +22,10 @@ $(function() {
                 }, 300);
             }
         }else{
-            let modal_video_iframe = $('.modal-video').find('iframe');
-            if(newModal=='modal-video' && !modal_video_iframe.hasClass('loaded')){
-                let video_src = modal_video_iframe.attr('data-src');
-                modal_video_iframe.attr('src', video_src);
-                modal_video_iframe.addClass('loaded');
-                setTimeout(function() {
-                    showModal(newModal);
-                }, 300);
+            if(newModal=='modal-video'){
+                let modalVideo = $('.modal-video').find('video');
+                mainvideoPlay(modalVideo);
+                showModal(newModal);
             }else{
                 showModal(newModal);
             }
@@ -67,7 +63,7 @@ function showModal(e) {
             $("html").css({
                 "margin-right": scrollWidth
             });
-            if($('body').hasClass('body-home-page')){
+            if($('body').hasClass('body-home-page') || $('body').hasClass('is_pl_product')){
                 $('.header').css({
                     "padding-right": scrollWidth
                 });
@@ -115,14 +111,31 @@ function callbackClose() {
         $("body").removeClass("modal-open");
         $(".default-modal").removeClass("is-active");
     }
-    closeYoutube();
+    // closeYoutube();
     
 
     
     
 }
-function closeYoutube(){
+// function closeYoutube(){
     
-    var youtubePlayer = document.getElementsByClassName('youtube-player')[0];
-    youtubePlayer.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+//     var youtubePlayer = document.getElementsByClassName('youtube-player')[0];
+//     youtubePlayer.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+// }
+function mainvideoPlay($mainvideo){
+        let main_video = $mainvideo[0];
+        let $main_video = $mainvideo;
+        
+        
+        setTimeout(function(){
+            if(!$main_video.hasClass('loaded')){
+                main_video_src = $main_video.attr('data-src');
+                $main_video.attr('src', main_video_src);
+                $main_video.find('source').attr('src', main_video_src);
+                $main_video.addClass('loaded');
+                main_video.play();
+            }
+
+
+        },10);
 }

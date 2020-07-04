@@ -35,15 +35,19 @@ class main_hero_widget extends WP_Widget {
                         </div>
                         <div class="hero-content__downloads hero-content__downloads-desc">
                             <?php if(isset($instance['win_link'])&&$instance['win_link']):?>
-                                <a href="<?= esc_attr($instance['win_link'])?>"> Download for Windows<img src="<?= get_theme_file_uri( '/img/home/windows.svg')?>" alt=""></a>
+
+                                <!-- был такой href <?= esc_attr($instance['mac_link'])?> -->
+                                <a class="dwl_link" data-dwl="/downloaded" download href="<?= get_theme_file_uri('downloads/download_win.txt' )?>"> Download for Windows<img src="<?= get_theme_file_uri( '/img/home/windows.svg')?>" alt=""></a>
                             <?php endif;?>
                             <?php if(isset($instance['mac_link'])&&$instance['mac_link']):?>
-                                <a href="<?= esc_attr($instance['mac_link'])?>"> Download for MacOS<img src="<?= get_theme_file_uri( '/img/home/apple.svg')?>" alt=""></a>
+
+                                <!-- был такой href <?= esc_attr($instance['mac_link'])?> -->
+                                <a class="dwl_link" data-dwl="/downloaded" download href="<?= get_theme_file_uri('downloads/download_mac.txt' )?>"> Download for MacOS<img src="<?= get_theme_file_uri( '/img/home/apple.svg')?>" alt=""></a>
                             <?php endif;?>
                         </div>
                     </div>
                     <div class="hero-content__right">
-                        <a class="hero-content__video-icon hero-video-link" href="#">
+                        <a class="hero-content__video-icon hero-video-link" data-modal="modal-video" href="#">
                             <svg class="videoplay-svg" width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path class="videoplay-svg__path1" d="M77.0732 128.604V70.8014C77.0732 69.2572 78.7487 68.2956 80.082 69.0744L132.858 99.9024C134.223 100.7 134.167 102.691 132.76 103.41L79.9835 130.385C78.6527 131.065 77.0732 130.098 77.0732 128.604Z" fill="white"/>
                                 <g style="mix-blend-mode:overlay">

@@ -111,14 +111,16 @@
     &-video{
       padding: 0;
       background: transparent;
-      max-width: 1000px!important;
-      height: calc(100vw * 0.6)!important;
-      max-height: 700px!important;
-      padding: 0!important;
+      width: 100%;
+      max-width: 80%;
+      padding: 20px;
+      display: flex;
+      align-items: center;
       .default-modal__close{
         fill: white;
-        top: -40px;
-        right: 10px;
+      }
+      video{
+        width: 100%;
       }
     }
   }

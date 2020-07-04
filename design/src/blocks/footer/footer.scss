@@ -51,14 +51,10 @@
                 display: flex;
                 align-items: center;
                 opacity: .5;
-                path{
-                    transition: 0.3s;
+                transition: 0.3s;
+                &:hover{
+                    opacity: 1;
                 }
-                // &:hover{
-                //     path{
-                //         fill: $c-red;
-                //     }
-                // }
             }
         }
     }

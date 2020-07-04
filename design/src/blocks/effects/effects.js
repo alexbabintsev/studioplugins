@@ -147,27 +147,47 @@ $(function(){
         this.pause();
       })
     //MAIN VIDEO
-    let firstlink = true;
-    let $main_video = $('.main-video');
-    let main_video = $('.main-video')[0];
-    $('.hero-video-link').on('click', function(){
-        if(!$main_video.hasClass('loaded')){
-            main_video_src = $main_video.attr('data-src');
-            $main_video.attr('src', main_video_src);
-            $main_video.find('source').attr('src', main_video_src);
-            $main_video.addClass('loaded');
-        }
+    // let firstlink = true;
+    // let $main_video = $('.main-video');
+    // let main_video = $('.main-video')[0];
+    // $('.hero-video-link').on('click', function(){
+    //     if(!$main_video.hasClass('loaded')){
+    //         main_video_src = $main_video.attr('data-src');
+    //         $main_video.attr('src', main_video_src);
+    //         $main_video.find('source').attr('src', main_video_src);
+    //         $main_video.addClass('loaded');
+    //     }
 
-        if(firstlink==true){
-            main_video.play();
-            firstlink = false;
-        }else{
-            main_video.pause();
-            firstlink = true;
-        }
+    //     if(firstlink==true){
+    //         main_video.play();
+    //         firstlink = false;
+    //     }else{
+    //         main_video.pause();
+    //         firstlink = true;
+    //     }
         
-    });
+    // });
+    function mainvideoPlay($mainvideo){
+        if( $('.main-video').length){
+            let main_video = $mainvideo[0];
+            let $main_video = $mainvideo;
+            
+            
+            setTimeout(function(){
+                if(!$main_video.hasClass('loaded')){
+                    main_video_src = $main_video.attr('data-src');
+                    $main_video.attr('src', main_video_src);
+                    $main_video.find('source').attr('src', main_video_src);
+                    $main_video.addClass('loaded');
+                    main_video.play();
+                }
     
+    
+            },10);
+        }
+    }
+    let $main_video = $('.main-video');
+    mainvideoPlay($main_video);
     // FULLSCREEN VIDEO
     if($('body').hasClass('body-transitions-page') || $('body').hasClass('body-text-animations-page')){
         let $fullscreen_video = $('.fullscreen-video')[0];
