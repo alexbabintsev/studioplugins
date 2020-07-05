@@ -2,6 +2,7 @@
 require get_template_directory() . '/classes/head_nav.php';
 require get_template_directory() . '/classes/footer_nav.php';
 require get_template_directory() . '/classes/um-functions.php';
+require get_template_directory() . '/classes/metaboxes.php';
 require get_template_directory() . '/widgets/main_benefits_widget.php';
 require get_template_directory() . '/widgets/main_benefits2_widget.php';
 require get_template_directory() . '/widgets/main_hero_widget.php';
@@ -81,6 +82,29 @@ function artu_init()
         'show_in_rest' => true,
         'supports' => array( 'title', 'excerpt','thumbnail','editor')
     ));
+    register_post_type('pl_key', array(
+        'labels' => array(
+            'name' => 'Ключи',
+            'singular_name' => 'Ключ', // админ панель Добавить->Функцию
+            'add_new' => 'Добавить ключ',
+            'add_new_item' => 'Добавить новый ключ', // заголовок тега <title>
+            'edit_item' => 'Редактировать ключ',
+            'new_item' => 'Новый ключ',
+            'all_items' => 'Все ключи',
+            'view_item' => 'Просмотр ключей на сайте',
+            'search_items' => 'Искать ключ',
+            'not_found' =>  'Ключ не найден.',
+            'not_found_in_trash' => 'В корзине нет ключей.',
+            'menu_name' => 'Ключи' // ссылка в меню в админке
+        ),
+        'public' => false,
+        'show_ui' => true, // показывать интерфейс в админке
+        'has_archive' => false,
+        'menu_icon' => 'dashicons-post-status', // иконка в меню
+        'menu_position' => 20, // порядок в меню
+        'show_in_rest' => false,
+        'supports' => array('custom-fields'),
+    ));
 }
 add_action( 'init', 'artu_init' );
 function teheme_styles_scripts() {
@@ -111,31 +135,109 @@ function check_prodcode_callback() {
     $cur_user_id = get_current_user_id();
     if($cur_user_id){
         $user = wp_get_current_user();
-        $post = get_post( $_POST['product']);
-        if($post)
+        $code = $_REQUEST['act_code'];
+        $keys = get_posts(array(
+            'numberposts'	=> 1,
+            'post_type'		=> 'pl_key',
+            'meta_query'	=> array(
+                'relation'		=> 'AND',
+                array(
+                    'key'	 	=> 'key',
+                    'value'	  	=> $code,
+                    'compare' 	=> '=',
+                ),
+                /*array(
+                    'key'	 	=> 'owner',
+                    'compare' => '=',
+                    'value' => null,
+                ),*/
+            ),
+        ));
+        if(count($keys))
         {
-             $curl = curl_init();
-            curl_setopt($curl, CURLOPT_URL, 'http://envato.nitrozme.com/check_pursh/chpurnitrozme.php?purchase='.urlencode($_POST['act_code']).'&packName='.urlencode(get_field('packName',$post)));
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            //curl_setopt($curl, CURLOPT_POST, true);
-            $out = curl_exec($curl);
-            curl_close($curl);
-            if(in_array($out,['102#','101#']))
-            {/**/
-                add_row('products',['product'=>$post->ID,'pur_Code'=>$_POST['act_code']],$user);
+            $key = $keys[0];
+            if(get_field('is_baned', $key))
+            {
+                $rez['is_ban']=1;
+            }
+            else if(get_field('owner', $key))
+            {
+
+            }
+            else
+            {
+                update_field('owner',$user->ID,$key);
                 $rez['all_list']=um_account_content_hook_myproducts('');
                 $rez['result']=true;
-             }
-             else
-             {
-                 if($out=='Ahhh man! You are pirate now... You are breaking the law now! The best way for you is - purchase this package on videohive.net/user/nitrozme once and enjoy regular updates and customers support')
-                     $rez['is_ban']=1;
-             }/**/
+            }
         }
+        else
+        {
+            $ch = curl_init();
+            curl_setopt_array($ch, array(
+                CURLOPT_URL => "https://api.envato.com/v3/market/author/sale?".http_build_query(['code'=>$code]),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_TIMEOUT => 20,
+
+                CURLOPT_HTTPHEADER => array(
+                    "Authorization: ".get_option('envato_login')." ".get_option('envato_token'),
+                    "User-Agent: Checking code for the 'Animation Studio' After Effects extenion"
+                )
+            ));
+            $data = curl_exec($ch);
+            curl_close($ch);
+            $strVer = json_decode($data, true);
+            if(array_key_exists('item', $strVer))
+            {
+
+                $itemName = $strVer["item"]["name"];
+                $buyer = $strVer["buyer"];
+                $item_id  =$strVer["item"]["id"];
+
+                $products = get_posts(array(
+                    'numberposts'	=> 1,
+                    'post_type'		=> 'pl_product',
+                    'meta_query'	=> array(
+                        'relation'		=> 'AND',
+                        array(
+                            'key'	 	=> 'item_id',
+                            'value'	  	=> $item_id,
+                            'compare' 	=> '=',
+                        ),
+                        /*array(
+                            'key'	 	=> 'owner',
+                            'compare' => '=',
+                            'value' => null,
+                        ),*/
+                    ),
+                ));
+                if(count($products))
+                {
+                    $product =$products;
+                    $key_id = wp_insert_post( array(
+                        'post_type'     => 'pl_key',
+                        'post_status'   => 'publish',
+                        'post_author'   => 1,
+                    ));
+                    update_field('key',$code,$key_id);
+                    update_field('produnct',$product->ID,$key_id);
+                    update_field('owner',$user->ID,$key_id);
+                    $rez['all_list']=um_account_content_hook_myproducts('');
+                    $rez['result']=true;
+                }
+
+            }
+        }
+        //var_dump($keys);die;
     }
     echo json_encode($rez);
     wp_die(); // выход нужен для того, чтобы в ответе не было ничего лишнего, только то что возвращает функция
 }
+add_action( 'wp_ajax_test', function (){
+    echo 'test ajax';
+    $user = wp_get_current_user();
+    wp_die();
+} );
 add_action( 'wp_ajax_unlink_pc', function (){
     $rez=[];
     $rez['result']=false;
@@ -213,8 +315,8 @@ add_action('wp_sc_ajax_get_plugins_list',function (){
     if(!$reged_pc)
         add_row('products',['id'=>$_REQUEST['hwd_info']['hwd_id'],'inner_id'=>generateRandomString(),'name'=>$_REQUEST['hwd_info']['name'],'os'=>$_REQUEST['hwd_info']['os']],$user);
     $rez = [];
-    foreach (get_field('products',$user) as $prodd)
-        $rez[] = ['prod_name'=>get_field('packName',$prodd['product']),'pur_Code'=>$prodd['pur_Code']];
+    foreach (getUserProducts($user) as $prodd)
+        $rez[] = ['prod_name'=>get_field('packName',$prodd),'item_id'=>get_field('item_id',$prodd)];
 
     wp_send_json( ['result'=>true,'list'=>$rez] );
 });
@@ -227,3 +329,220 @@ function generateRandomString($length = 10) {
     }
     return $randomString;
 }
+function getUserProducts($user)
+{
+    $keys = get_posts(array(
+        'numberposts'	=> -1,
+        'post_type'		=> 'pl_key',
+        'meta_query'	=> array(
+            'relation'		=> 'AND',
+            array(
+                'key'	 => 'owner',
+                'compare' => '=',
+                'value' => is_object($user)?$user->id:$user,
+            ),
+            array(
+                'key'	 => 'is_baned',
+                'compare' => '=',
+                'value' => 0,
+            ),
+        ),
+    ));
+    $prods_ids = [];
+    foreach ($keys as $key)
+    {
+       $p_id = get_post_meta($key->ID,'produnct',true);
+       if(!in_array($p_id,$prods_ids))
+           $prods_ids[]=$p_id;
+    }
+    if(count($prods_ids)>0)
+    {
+        $products = get_posts(array(
+            'numberposts'	=> -1,
+            'post_type'		=> 'pl_product',
+            'post__in'=>$prods_ids,
+        ));
+        return $products;
+    }
+    else
+        return [];
+}
+add_filter('manage_pl_key_posts_columns', function ($defaults){
+    $date = $defaults['date'];
+    unset($defaults['title']);
+    unset($defaults['date']);
+    $defaults['key']='Ключ';
+    $defaults['product']='Продукт';
+    $defaults['owner']='Владелец';
+    $defaults['date']=$date;
+    return $defaults;
+}, 10);
+add_action('manage_pl_key_posts_custom_column', function ($column_name, $post_ID){
+    switch ($column_name)
+    {
+        case 'key':
+            the_field('key', $post_ID);
+            break;
+        case 'product':
+            echo get_field('produnct', $post_ID)->post_title;
+            break;
+        case 'owner':
+            $owner = get_field('owner', $post_ID);
+            if($owner)
+            echo $owner->first_name.' '.$owner->last_name;
+            else
+                echo 'Нет';
+            break;
+    }
+}, 10, 2);
+add_action('edit_user_profile', function ($user) {
+    ?>
+    <div>
+        <h3>Ключи</h3>
+        <?php $keys = get_posts(array(
+            'numberposts'	=> -1,
+            'post_type'		=> 'pl_key',
+            'meta_query'	=> array(
+                'relation'		=> 'AND',
+                array(
+                    'key'	 	=> 'owner',
+                    'value'	  	=> $user->ID,
+                    'compare' 	=> '=',
+                ),
+            ),/**/
+        ));
+        if($keys)
+        {
+            ?>
+            <table class="widefat fixed">
+                <thead>
+                <tr>
+                    <th class="manage-column column-columnname" scope="col">Ключ</th>
+                    <th class="manage-column column-columnname" scope="col">Продукт</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($keys as $key):
+                    $produnct = get_field('produnct', $key);
+                    //$owner = get_field('owner', $key);?>
+                    <tr>
+                        <td class="column-columnname"><a href="<?=admin_url('post.php?'.http_build_query(['action'=>'edit','post'=>$key->ID])); ?>"><?= get_field('key', $key)?></a></td>
+                        <td class="column-columnname"><a href="<?=admin_url('post.php?'.http_build_query(['action'=>'edit','post'=>$produnct->ID])); ?>"><?= $produnct->post_title?></a></td>
+                    </tr>
+                <?php endforeach;?>
+                </tbody>
+            </table>
+            <?php
+        }
+        else
+            echo 'Нет ключей!';
+        ?>
+    </div>
+    <?php
+    //var_dump($keys);
+},10);
+add_action( 'admin_init', function (){
+    register_setting(
+        'general',
+        'envato_login',
+        array(
+            /*'show_in_rest' => array(
+                'name' => 'title',
+            ),*/
+            'type'         => 'string',
+            'description'  => __( 'Envato Login' ),
+        )
+    );
+    register_setting(
+        'general',
+        'envato_token',
+        array(
+            /*'show_in_rest' => array(
+                'name' => 'title',
+            ),*/
+            'type'         => 'string',
+            'description'  => __( 'Envato Token' ),
+        )
+    );
+    add_settings_field(
+        'envato_login-id',
+        'Envato Login',
+        'myprefix_setting_callback_function',
+        'general',
+        'default',
+        array(
+            'id' => 'envato_login-id',
+            'option_name' => 'envato_login'
+        )
+    );
+    add_settings_field(
+        'envato_token-id',
+        'Envato Token',
+        'myprefix_setting_callback_function',
+        'general',
+        'default',
+        array(
+            'id' => 'envato_token-id',
+            'option_name' => 'envato_token'
+        )
+    );
+
+} );
+function myprefix_setting_callback_function( $val ){
+    $id = $val['id'];
+    $option_name = $val['option_name'];
+    ?>
+    <input
+            type="text"
+            name="<? echo $option_name ?>"
+            id="<? echo $id ?>"
+            value="<? echo esc_attr( get_option($option_name) ) ?>"
+    />
+    <?
+}
+/*function pl_key_custom_filters() {
+    global $typenow;
+    global $wp_query;
+    if ( $typenow == 'pl_key' ) { // Your custom post type slug
+        $products = get_posts(array(
+            'numberposts'	=> -1,
+            'post_type'		=> 'pl_product',
+        ));
+        $current = '';
+        if( isset( $_GET['pl_product'] ) ) {
+            $current = $_GET['pl_product']; // Check if option has been selected
+        } ?>
+        <select name="pl_product" id="pl_product">
+            <option value="all" <?php selected( 'all', $current ); ?>><?php _e( 'All', 'wisdom-plugin' ); ?></option>
+            <?php foreach( $products as $key=>$value ) { ?>
+                <option value="<?php echo esc_attr( $value->ID ); ?>" <?php selected( $value->ID, $current ); ?>><?php echo esc_attr( $value->post_title ); ?></option>
+            <?php } ?>
+        </select>
+    <?php }
+}
+add_action( 'restrict_manage_posts', 'pl_key_custom_filters' );
+function pl_key_custom_filters_callbeck( $query ) {
+    global $pagenow;
+    // Get the post type
+    $post_type = isset( $_GET['post_type'] ) ? $_GET['post_type'] : '';
+
+    if( is_admin() && $pagenow=='edit.php' && $post_type == 'pl_key' ){
+        $meta_query = $query->get('meta_query');
+        unset($query->query['pl_product']);
+        unset($query->query_vars['pl_product']);
+        if( isset( $_GET['pl_product'] ) && $_GET['pl_product'] !='all' ){
+            if(!$meta_query)
+                $meta_query=['relation'=>'AND'];
+            $meta_query[]=[
+                'key' => 'produnct',
+                'value' => $_GET['pl_product'],
+                'compare'=>'==',
+            ];
+        }
+        if($meta_query)
+            $query->set('meta_query',$meta_query);
+    }
+    var_dump($query->get('meta_query'),$query);die;
+    //return $query;
+}
+add_filter( 'pre_get_posts', 'pl_key_custom_filters_callbeck' );*/

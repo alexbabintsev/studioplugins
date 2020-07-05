@@ -234,7 +234,7 @@ add_filter('um_account_content_hook_myproducts', 'um_account_content_hook_myprod
 function um_account_content_hook_myproducts( $output ){
     ob_start();
     $user = wp_get_current_user();
-    $products = get_field('products',$user);
+    $products = getUserProducts($user);
     $comps = get_field('comps',$user);
     ?>
     <div class="<?php if($products):?>account-grid-2__products account-grid-2__products-2<?php else:?>account-grid-2__products<?php endif;?> fn_all_products_list">
@@ -258,9 +258,9 @@ function um_account_content_hook_myproducts( $output ){
     <?php if($products):?>
             <?php foreach ($products as $product):?>
             <div class="account-grid-2__products-item account-grid-2__products-item-animations">
-                <div class="account-grid-2__products-img"><img src="<?= get_the_post_thumbnail_url($product['product']);?>" alt=""></div>
+                <div class="account-grid-2__products-img"><img src="<?= get_the_post_thumbnail_url($product);?>" alt=""></div>
                 <div class="account-grid-2__products-text">
-                    <p><?= get_the_title( $product['product'] )?></p>
+                    <p><?= get_the_title( $product )?></p>
                     <div class="account-grid-2__products-links account-grid-2__products-links-blue"><a href="#">How to use</a><a href="#">See features</a></div>
                 </div>
             </div>
@@ -287,3 +287,7 @@ function um_account_content_hook_myproducts( $output ){
     ob_end_clean();
     return $output;
 }
+add_filter('um_change_default_tab',function ($current_tab, $args)
+{
+    return 'myproducts';
+},10,2);

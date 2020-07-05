@@ -112,20 +112,6 @@
         <div class="default-modal__inner">
             <h2 class="default-modal__title">Enter <span>your</span> videohive <span>activation code</span></h2>
             <form class="main-form default-modal__form" name="modal-act-code-form" novalidate="novalidate">
-                <div class="input-group input-group-select">
-                    <div class="input-group__label">Product</div>
-                    <select name="product">
-                        <?php $query = new WP_Query;
-                        $products = $query->query([
-                            'post_type' => 'pl-product',
-                            'posts_per_page'=>-1,
-                        ]);
-                        foreach( $products as $product ){
-                            echo '<option value="'.$product->ID.'">'.$product->post_title.'</option>';
-                        }
-                        ?>
-                    </select>
-                </div>
                 <div class="input-group">
                     <div class="input-group__label">Activation code</div>
                     <input type="text" name="act_code">
