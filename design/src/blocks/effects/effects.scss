@@ -391,8 +391,22 @@
         letter-spacing: -0.02em;
         padding-left: 15px;
         transition: 0.3s;
+        &::before{
+            position: absolute;
+            content: '';
+            top: -1px;
+            left: 0;
+            height: 1px;
+            width: 100%;
+            background: $c-32;
+            opacity: 0;
+            transition: 0.3s;
+        }
         &:hover{
             background: $c-32;
+            &::before{
+                opacity: 1;
+            }
         }
         &:last-child{
             p{
@@ -433,6 +447,9 @@
         }
         &.is-active{
             background: $c-32;
+            &::before{
+                opacity: 1;
+            }
         }
     }
 }
