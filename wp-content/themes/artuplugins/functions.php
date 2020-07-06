@@ -211,9 +211,22 @@ function check_prodcode_callback() {
                         ),*/
                     ),
                 ));
+                if(count($products)==0)
+                {
+                    $products = get_posts(array(
+                        'numberposts'	=> 1,
+                        'post_type'		=> 'pl_product',
+                        'title'=>$itemName,
+                    ));
+                    if(count($products))
+                    {
+                        $product =$products[0];
+                        update_field('item_id',$item_id,$product);
+                    }
+                }
                 if(count($products))
                 {
-                    $product =$products;
+                    $product =$products[0];
                     $key_id = wp_insert_post( array(
                         'post_type'     => 'pl_key',
                         'post_status'   => 'publish',
@@ -222,6 +235,7 @@ function check_prodcode_callback() {
                     update_field('key',$code,$key_id);
                     update_field('produnct',$product->ID,$key_id);
                     update_field('owner',$user->ID,$key_id);
+                    update_field('is_baned',0,$key_id);
                     $rez['all_list']=um_account_content_hook_myproducts('');
                     $rez['result']=true;
                 }
@@ -236,6 +250,23 @@ function check_prodcode_callback() {
 add_action( 'wp_ajax_test', function (){
     echo 'test ajax';
     $user = wp_get_current_user();
+    //f940d0a6-cd0d-4cf7-960a-0d1cd5a44cf9
+    //Transitions - 22834323
+    /*$ch = curl_init();
+    curl_setopt_array($ch, array(
+        CURLOPT_URL => "https://api.envato.com/v3/market/author/sale?".http_build_query(['code'=>'f940d0a6-cd0d-4cf7-960a-0d1cd5a44cf9']),
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 20,
+
+        CURLOPT_HTTPHEADER => array(
+            "Authorization: ".get_option('envato_login')." ".get_option('envato_token'),
+            "User-Agent: Checking code for the 'Animation Studio' After Effects extenion"
+        )
+    ));
+    $data = curl_exec($ch);
+    curl_close($ch);
+    $strVer = json_decode($data, true);*/
+    var_dump(getUserProducts($user));
     wp_die();
 } );
 add_action('wp_ajax_cp_change_email',function(){
@@ -486,8 +517,8 @@ function getUserProducts($user)
             ),
             array(
                 'key'	 => 'is_baned',
-                'compare' => '=',
-                'value' => 0,
+                'compare' => '!=',
+                'value' => 1,
             ),
         ),
     ));
@@ -532,13 +563,15 @@ add_action('manage_pl_key_posts_custom_column', function ($column_name, $post_ID
         case 'owner':
             $owner = get_field('owner', $post_ID);
             if($owner)
-            echo $owner->first_name.' '.$owner->last_name;
+            echo $owner->nickname;
             else
                 echo 'Нет';
             break;
     }
 }, 10, 2);
-add_action('edit_user_profile', function ($user) {
+add_action('show_user_profile','cf_show_users_keys' ,10);
+add_action('edit_user_profile','cf_show_users_keys' ,10);
+function cf_show_users_keys ($user) {
     ?>
     <div>
         <h3>Ключи</h3>
@@ -583,7 +616,7 @@ add_action('edit_user_profile', function ($user) {
     </div>
     <?php
     //var_dump($keys);
-},10);
+}
 add_action( 'admin_init', function (){
     register_setting(
         'general',

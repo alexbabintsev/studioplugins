@@ -187,10 +187,18 @@ class artu_head_nav_menu_walker extends Walker_Nav_Menu
          * @param int      $depth Depth of menu item. Used for padding.
          */
         $atts = apply_filters( 'nav_menu_link_attributes', $atts, $item, $args, $depth );
-        if(isset($atts['class']))
+
+        if(isset($atts['class'])){
+            if(!empty( $item->classes ))
+                $atts['class'].=' '.implode(' ',(array) $item->classes);
             $atts['class'].=' header__nav-link';
+        }
         else
-            $atts['class']='header__nav-link';
+        {
+            if(!empty( $item->classes ))
+                $atts['class']=implode(' ',(array) $item->classes);
+            $atts['class'].=' header__nav-link';
+        }
 
         /*if(in_array('current-menu-item',$classes))
             $atts['class'] .=' link_active';
