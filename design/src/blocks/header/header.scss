@@ -46,10 +46,31 @@
       line-height: 17px;
       margin-right: 33px;
       transition: 0.3s;
-      
       &:hover{
         color: $c-red;
       }
+      &-loggedin{
+        position: relative;
+        color: $c-red;
+        &:hover{
+          opacity: 0.7;
+        }
+        &::before{
+          position: absolute;
+          content: '';
+          width: 13px;
+          height: 14px;
+          top: 50%;
+          left: -19px;
+          transform: translateY(-50%);
+          background: url(../img/account/logged.svg);
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+      }
+      
+
     }
 
   }
