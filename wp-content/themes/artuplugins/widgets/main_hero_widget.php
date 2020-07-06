@@ -36,13 +36,13 @@ class main_hero_widget extends WP_Widget {
                         <div class="hero-content__downloads hero-content__downloads-desc">
                             <?php if(isset($instance['win_link'])&&$instance['win_link']):?>
 
-                                <!-- был такой href <?= esc_attr($instance['mac_link'])?> -->
-                                <a class="dwl_link" data-dwl="/downloaded" download href="<?= get_theme_file_uri('downloads/download_win.txt' )?>"> Download for Windows<img src="<?= get_theme_file_uri( '/img/home/windows.svg')?>" alt=""></a>
+                                <!-- был такой href <?= esc_attr($instance['win_link'])?> -->
+                                <a class="dwl_link" data-dwl="<?= esc_attr($instance['win_link'])?>" download href="<?= esc_attr(get_field('file_win','widget_'.$args['widget_id']))?>"> Download for Windows<img src="<?= get_theme_file_uri( '/img/home/windows.svg')?>" alt=""></a>
                             <?php endif;?>
                             <?php if(isset($instance['mac_link'])&&$instance['mac_link']):?>
 
                                 <!-- был такой href <?= esc_attr($instance['mac_link'])?> -->
-                                <a class="dwl_link" data-dwl="/downloaded" download href="<?= get_theme_file_uri('downloads/download_mac.txt' )?>"> Download for MacOS<img src="<?= get_theme_file_uri( '/img/home/apple.svg')?>" alt=""></a>
+                                <a class="dwl_link" data-dwl="<?= esc_attr($instance['mac_link'])?>" download href="<?= esc_attr(get_field('file_mac','widget_'.$args['widget_id']))?>"> Download for MacOS<img src="<?= get_theme_file_uri( '/img/home/apple.svg')?>" alt=""></a>
                             <?php endif;?>
                         </div>
                     </div>
@@ -62,10 +62,10 @@ class main_hero_widget extends WP_Widget {
                     <div class="hero-content__downloads-mob">
                         <p>Available for</p>
                         <?php if(isset($instance['win_link'])&&$instance['win_link']):?>
-                            <a href="<?= esc_attr($instance['win_link'])?>"><img class="hero-content__downloads-mob-win" src="<?= get_theme_file_uri( '/img/home/windows.svg')?>" alt=""></a>
+                            <a class="dwl_link" data-dwl="<?= esc_attr($instance['win_link'])?>" download href="<?= esc_attr(get_field('file_win','widget_'.$args['widget_id']))?>"><img class="hero-content__downloads-mob-win" src="<?= get_theme_file_uri( '/img/home/windows.svg')?>" alt=""></a>
                         <?php endif;?>
                         <?php if(isset($instance['mac_link'])&&$instance['mac_link']):?>
-                            <a href="<?= esc_attr($instance['mac_link'])?>"><img class="hero-content__downloads-mob-apple" src="<?= get_theme_file_uri( '/img/home/apple.svg')?>" alt=""></a>
+                            <a class="dwl_link" data-dwl="<?= esc_attr($instance['mac_link'])?>" download href="<?= esc_attr(get_field('file_mac','widget_'.$args['widget_id']))?>"><img class="hero-content__downloads-mob-apple" src="<?= get_theme_file_uri( '/img/home/apple.svg')?>" alt=""></a>
                         <?php endif;?>
                     </div>
                 </div>
