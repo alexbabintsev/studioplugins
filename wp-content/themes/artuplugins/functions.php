@@ -238,6 +238,149 @@ add_action( 'wp_ajax_test', function (){
     $user = wp_get_current_user();
     wp_die();
 } );
+add_action('wp_ajax_cp_change_email',function(){
+    $rez=[];
+    $rez['result']=false;
+    if( wp_verify_nonce( $_REQUEST['_wpnonce'], 'cp_change_email') ) {
+        $cur_user_id = get_current_user_id();
+        if($cur_user_id){
+            if(isset($_REQUEST['email'])&&$_REQUEST['email'])
+            {
+                if(!is_email($_REQUEST['email']))
+                {
+                    $rez['msg']='Wrong email!';
+                }
+                elseif (email_exists( $_REQUEST['email'] ))
+                {
+                    $rez['msg']='Already exist';
+                }
+                else
+                {
+                    $user = wp_get_current_user();
+                    wp_update_user(['ID'=>$user->ID ,'user_email'=>strip_tags($_REQUEST['email'])]);
+                    $rez['result']=true;
+                    $rez['email']=strip_tags($_REQUEST['email']);
+                    UM()->user()->email_pending();
+                }
+            }
+            else
+                $rez['msg']='Email can not be empty!';
+        }
+        else
+            $rez['msg']='No user';
+    }
+    else
+        $rez['msg']='Nonce error';
+    echo json_encode($rez);
+    wp_die();
+});
+add_action('wp_ajax_cp_change_name',function(){
+    $rez=[];
+    $rez['result']=false;
+    if( wp_verify_nonce( $_REQUEST['_wpnonce'], 'cp_change_name') ){
+        // обрабатываем данные формы
+        $cur_user_id = get_current_user_id();
+        if($cur_user_id){
+            if(isset($_REQUEST['name'])&&$_REQUEST['name'])
+            {
+                $user = wp_get_current_user();
+                wp_update_user(['ID'=>$user->ID ,'nickname'=>strip_tags($_REQUEST['name'])]);
+                $rez['result']=true;
+                $rez['name']=strip_tags($_REQUEST['name']);
+            }
+            else
+                $rez['msg']='Name can not be empty!';
+        }
+        else
+            $rez['msg']='No user';
+    }
+    else
+        $rez['msg']='Nonce error';
+    echo json_encode($rez);
+    wp_die();
+});
+add_action('wp_ajax_cp_ver_password',function(){
+    $rez=[];
+    $rez['result']=false;
+    if( wp_verify_nonce( $_REQUEST['_wpnonce'], 'cp_ver_password') ){
+        // обрабатываем данные формы
+        $cur_user_id = get_current_user_id();
+        if($cur_user_id){
+            $user = wp_get_current_user();
+            if(isset($_REQUEST['current_password'])&&$_REQUEST['current_password']){
+                if(wp_check_password( $_REQUEST['current_password'], $user->data->user_pass, $user->ID ))
+                    $rez['result']=true;
+                else
+                    $rez['msg']='Wrong password';
+            }
+            else
+                $rez['msg']='Password can not be empty!';
+        }
+        else
+            $rez['msg']='No user';
+    }
+    else
+        $rez['msg']='Nonce error';
+    echo json_encode($rez);
+    wp_die();
+});
+add_action('wp_ajax_cp_change_password',function(){
+    $rez=[];
+    $rez['result']=false;
+    if( wp_verify_nonce( $_REQUEST['_wpnonce'], 'cp_change_password') ){
+        // обрабатываем данные формы
+        $cur_user_id = get_current_user_id();
+        if($cur_user_id){
+            $user = wp_get_current_user();
+            if(isset($_REQUEST['current_password'])&&$_REQUEST['current_password']){
+                if(isset($_REQUEST['new_password'])&&$_REQUEST['new_password']){
+                    if(isset($_REQUEST['confirm_new_password'])&&$_REQUEST['confirm_new_password']){
+                        if($_REQUEST['new_password']==$_REQUEST['confirm_new_password']){
+                            if(UM()->validation()->strong_pass( $_REQUEST['new_password'])){
+                                if(wp_check_password( $_REQUEST['current_password'], $user->data->user_pass, $user->ID ))
+                                {
+                                    wp_update_user(['ID'=>$user->ID ,'user_pass'=>$_REQUEST['new_password']]);
+                                    $rez['result']=true;
+                                }
+                                else
+                                    $rez['msg']='Wrong old password';
+                            }
+                            else
+                            {
+                                $rez['msg']=__('Your password must contain at least one lowercase letter, one capital letter and one number', 'ultimate-member' );
+                                $rez['errors']=['new_password'=>__('Your password must contain at least one lowercase letter, one capital letter and one number', 'ultimate-member' )];
+                            }
+
+                        }
+                        else
+                        {
+                            $rez['msg']='New password and Confirm password not equal!';
+                            $rez['errors']=['confirm_new_password'=>'New password and Confirm password not equal!'];
+                        }
+                    }
+                    else
+                    {
+                        $rez['msg']='Confirm password can not be empty!';
+                        $rez['errors']=['confirm_new_password'=>'Confirm password can not be empty!'];
+                    }
+                }
+                else
+                {
+                    $rez['msg']='New password can not be empty!';
+                    $rez['errors']=['new_password'=>'New password can not be empty!'];
+                }
+            }
+            else
+                $rez['msg']='Password can not be empty!';
+        }
+        else
+            $rez['msg']='No user';
+    }
+    else
+        $rez['msg']='Nonce error';
+    echo json_encode($rez);
+    wp_die();//UM()->validation()->strong_pass( $args[ $key ] )
+});
 add_action( 'wp_ajax_unlink_pc', function (){
     $rez=[];
     $rez['result']=false;
@@ -499,6 +642,21 @@ function myprefix_setting_callback_function( $val ){
             value="<? echo esc_attr( get_option($option_name) ) ?>"
     />
     <?
+}
+function isMac()
+{
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+    $os_array     = array(
+        '~(macintosh|mac os x)~i',
+        '~mac_powerpc~i',
+        '~iphone~i',
+        '~ipod~i',
+        '~ipad~i',
+    );
+    foreach ($os_array as $regex)
+        if (preg_match($regex, $user_agent))
+            return true;
+    return false;
 }
 /*function pl_key_custom_filters() {
     global $typenow;
