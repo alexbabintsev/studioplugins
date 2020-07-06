@@ -16,8 +16,8 @@ get_header();
                     <div class="help-c__header-btns">
                         <div class="help-c__header-btns-title">Available for</div>
 
-                        <!-- href был таким <?= get_field('download_link_for_windows'); ?> -->
-                        <a  class=" btn down_win dwl_link" data-dwl="/downloaded" download href="<?= get_theme_file_uri('downloads/download_win.txt' )?>">
+                        <!-- href был таким  -->
+                        <a  class=" btn down_win dwl_link" data-dwl="<?= get_field('download_link_for_windows'); ?>" download href="<?= esc_attr(get_field('file_win'))?>">
                             <div class="btn__inner">
                                 Download for Windows<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M8.99275 0H0V8.99275H8.99275V0Z"/>
@@ -28,8 +28,8 @@ get_header();
                             </div>
                         </a>
 
-                        <!-- href был таким <?= get_field('download_link_for_maos'); ?> -->
-                        <a class="btn down_mac dwl_link" data-dwl="/downloaded" download href="<?= get_theme_file_uri('downloads/download_mac.txt' )?>">
+                        <!-- href был таким  -->
+                        <a class="btn down_mac dwl_link" data-dwl="<?= get_field('download_link_for_maos'); ?>" download href="<?= esc_attr(get_field('file_mac'))?>">
                             <div class="btn__inner">
                                 Download for MaOS<svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M10.7057 2.08667C12.2579 0 14.4468 0 14.4468 0C14.4468 0 14.7652 1.96628 13.2131 3.85231C11.5415 5.85872 9.67098 5.53769 9.67098 5.53769C9.67098 5.53769 9.3128 3.93256 10.7057 2.08667Z"/>
