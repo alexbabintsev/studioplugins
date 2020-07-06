@@ -198,6 +198,11 @@
    }
 }
 
+@media screen and (min-width: 2300px){
+   .hero{
+      min-height: 100vh;
+   }
+}
 @media screen and (max-width: 1300px){
    .hero{
       &__decor{

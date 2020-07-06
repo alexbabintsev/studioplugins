@@ -28,6 +28,13 @@ $(function(){
         }
 
     });
+    //IF NO SUBFOLDERS
+    let no_subfolders = $('.no-subfolders');
+    no_subfolders.on('click', function(){
+        let groupindex = $(this).attr('data-groupindex');
+        tr_folder_slider.removeClass('is-active');
+        $('.tr-folder-slider[data-singleindex="0"][data-groupindex="'+groupindex+'"]').addClass('is-active');  
+    });
 
     //EFFECTS FOLDER STARS
     let folder_star = $('.folder-box-char__item-star');
@@ -97,7 +104,9 @@ $(function(){
             let group_length = $('.effects-content__body-left').find('.folder-nav-group').length;
             for(let i=1; i<= group_length; i++ ){
                let curr_folder_active =  $('.folder-nav-group[data-groupindex="'+i+'"]').find('.folder-nav__item.is-active').find('p').text();
-               $('.folder-nav-group[data-groupindex="'+i+'"]').find('.groupname').text(curr_folder_active);
+               if(!curr_folder_active==""){
+                    $('.folder-nav-group[data-groupindex="'+i+'"]').find('.groupname').text(curr_folder_active);
+               }
             }
         }
     }
@@ -105,14 +114,25 @@ $(function(){
     //FOLDER GROUP TOP MOBILE
     let folder_group_mob__item = $('.folder-group-mob__item');
     folder_group_mob__item.on('click', function(){
-        $(this).siblings().removeClass('is-active');
-        $(this).addClass('is-active');
-        let folder_gr_mob_index = $(this).attr('data-groupindex');
-        $('.folder-nav-group').removeClass('is-active');
-        $('.folder-nav-group[data-groupindex="'+folder_gr_mob_index+'"]').addClass('is-active');
-        let current_singlge_index = $('.folder-nav-group[data-groupindex="'+folder_gr_mob_index+'"]').find('.folder-nav__item.is-active').attr('data-singleindex');
-        tr_folder_slider.removeClass('is-active');
-        $('.tr-folder-slider[data-singleindex="'+current_singlge_index+'"][data-groupindex="'+folder_gr_mob_index+'"]').addClass('is-active');  
+        if ($(this).hasClass('no-subfolders-mob')){
+            $(this).siblings().removeClass('is-active');
+            $(this).addClass('is-active');
+            let folder_gr_mob_index = $(this).attr('data-groupindex');
+            $('.folder-nav-group').removeClass('is-active');
+            $('.folder-nav-group[data-groupindex="'+folder_gr_mob_index+'"]').addClass('is-active');
+            tr_folder_slider.removeClass('is-active');
+            $('.tr-folder-slider[data-singleindex="0"][data-groupindex="'+folder_gr_mob_index+'"]').addClass('is-active');  
+
+        }else{
+            $(this).siblings().removeClass('is-active');
+            $(this).addClass('is-active');
+            let folder_gr_mob_index = $(this).attr('data-groupindex');
+            $('.folder-nav-group').removeClass('is-active');
+            $('.folder-nav-group[data-groupindex="'+folder_gr_mob_index+'"]').addClass('is-active');
+            let current_singlge_index = $('.folder-nav-group[data-groupindex="'+folder_gr_mob_index+'"]').find('.folder-nav__item.is-active').attr('data-singleindex');
+            tr_folder_slider.removeClass('is-active');
+            $('.tr-folder-slider[data-singleindex="'+current_singlge_index+'"][data-groupindex="'+folder_gr_mob_index+'"]').addClass('is-active');  
+        }
     });
     set_folder_select();
     $(window).on('resize', function(){

@@ -25,4 +25,11 @@ $(function() {
       }
 
    });
+   //ПЛАВНЫЙ СКРОЛЛ ПО ЯКОРЯМ
+   //ПЛАВНЫЙ СКРОЛЛ ПО ЯКОРЯМ
+   $("a[data-nav='nav']").on('click',function () {
+      var _href = $(this).attr("href");
+      $("html, body").animate({ scrollTop: $(_href).offset().top -0+ "px" }, 500);
+      return false;
+   });
 });
