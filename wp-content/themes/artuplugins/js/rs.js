@@ -179,7 +179,7 @@ $(function() {
     });
     $(".modal-act-code form.main-form").on('submit',function (e) {
      e.preventDefault();
-     $.post(myajax.url,{action: 'check_prodcode',product:$('.modal-act-code form.main-form [name="product"]').val(),act_code:$('.modal-act-code form.main-form [name="act_code"]').val()},function (data) {
+     $.post(myajax.url,{action: 'check_prodcode',act_code:$('.modal-act-code form.main-form [name="act_code"]').val()},function (data) {
          if(data.result)
          {
              scriptShowModal("modal-success-activation");
@@ -193,6 +193,84 @@ $(function() {
                  scriptShowModal("modal-fail");
          }
      },'JSON');
+    });
+    $(".modal-change-name form.main-form").on('submit',function (e) {
+        e.preventDefault();
+        //if(this.checkValidity()){
+        $(".modal-change-name form.main-form .error").html('');
+            $.post(myajax.url,$(this).serialize(),function (data) {
+                if(data.result)
+                {
+                    scriptShowModal("modal-success-name-change");
+                    $('.fn_name').html(data.name);
+                }
+                else
+                {
+                    $(".modal-change-name form.main-form .error").html(data.msg);
+                    console.debug(data.msg);
+                }
+            },'JSON');
+        //}
+    });
+    $(".modal-change-email form.main-form").on('submit',function (e) {
+        e.preventDefault();
+        //if(this.checkValidity()){
+        $(".modal-change-email form.main-form .error").html('');
+            $.post(myajax.url,$(this).serialize(),function (data) {
+                if(data.result)
+                {
+                    $('.fn_email').html(data.email);
+                    scriptShowModal("modal-success-mail-change");
+                }
+                else
+                {
+                    $(".modal-change-email form.main-form .error").html(data.msg);
+                    console.debug(data.msg);
+                }
+            },'JSON');
+        //}
+    });
+    $(".modal-change-pass form.main-form").on('submit',function (e) {
+        e.preventDefault();
+        //if(this.checkValidity()){
+        $(".modal-change-pass form.main-form .error").html('');
+            $.post(myajax.url,$(this).serialize(),function (data) {
+                if(data.result)
+                {
+                    scriptShowModal("modal-change-pass-new");
+                    $(".modal-change-pass-new form.main-form input[name=\"current_password\"]").val($(".modal-change-pass form.main-form input[name=\"current_password\"]").val());
+                }
+                else
+                {
+                    $(".modal-change-pass form.main-form .error").html(data.msg);
+                    console.debug(data.msg);
+                }
+            },'JSON');
+        //}
+    });
+    $(".modal-change-pass-new form.main-form").on('submit',function (e) {
+        e.preventDefault();
+        //if(this.checkValidity()){
+        $(".modal-change-pass-new form.main-form .error").html('');
+            $.post(myajax.url,$(this).serialize(),function (data) {
+                if(data.result)
+                {
+                    scriptShowModal("modal-success-password-change");
+                }
+                else
+                {
+                    if(typeof(data.errors)!="undefined")
+                    {
+                        for(let key in data.errors)
+                        {
+                            $(".modal-change-pass-new form.main-form .error."+key).html(data.errors[key]);
+                        }
+                    }
+                    else
+                        $(".modal-change-pass-new form.main-form .error.new_password").html(data.msg);
+                }
+            },'JSON');
+        //}
     });
     $("body").on('click',".fn_unlink_os",function (e) {
         e.preventDefault();

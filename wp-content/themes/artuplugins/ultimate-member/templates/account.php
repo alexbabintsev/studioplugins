@@ -4,14 +4,17 @@
 
 
             <div class="account-grid-2__left">
-                <h1 class="title account-grid-2__title">Hi, <span><?php echo esc_html( um_user( 'first_name' ) ); ?></span></h1>
-                <h2 class="subtitle account-grid-2__subtitle"><?php echo esc_html( um_user( 'email' ) ); ?></h2>
+                <h1 class="title account-grid-2__title">Hi, <span class="fn_name"><?php echo esc_html( um_user( 'nickname' ) ); ?></span></h1>
+                <h2 class="subtitle account-grid-2__subtitle fn_email"><?php echo esc_html( um_user( 'user_email' ) ); ?></h2>
                 <div class="account-grid-2__links account-grid-2__links-desctop">
-                    <?php foreach ( UM()->account()->tabs as $id => $info ) {
+                    <!--<?php foreach ( UM()->account()->tabs as $id => $info ) {
                         if ( isset( $info['custom'] ) || UM()->options()->get( "account_tab_{$id}" ) == 1 || $id == 'general' ) { ?>
                             <a data-tab="<?php echo esc_attr( $id )?>" href="<?php echo esc_url( UM()->account()->tab_link( $id ) ); ?>"><?php echo esc_html( $info['title'] ); ?></a>
                         <?php }
-                    } ?>
+                    } ?>-->
+                    <a href="#" data-modal="modal-change-email">Change email</a>
+                    <a href="#" data-modal="modal-change-pass">Change password</a>
+                    <a href="#" data-modal="modal-change-name">Change name</a>
                 </div>
             </div>
 
