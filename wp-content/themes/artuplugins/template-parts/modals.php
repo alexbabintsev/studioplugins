@@ -171,7 +171,7 @@
             <div class="default-modal__illustration">
                 <img src="<?= get_theme_file_uri( '/img/modals/succact.svg' )?>" alt="">
             </div>
-            <h2 class="default-modal__title default-modal__title-illustration"><span>Email</span>successfully <span>changed!</span> </h2>
+            <h2 class="default-modal__title default-modal__title-illustration"><span>Email </span>successfully <span>changed!</span> </h2>
             <p class="default-modal__subtitle">Now use <span class="fn_email">newemail@artu.studio</span> in PremiereStudio and this site</p>
         </div>
     </div>
@@ -190,8 +190,8 @@
             <div class="default-modal__illustration">
                 <img src="<?= get_theme_file_uri( '/img/modals/succact.svg' )?>" alt="">
             </div>
-            <h2 class="default-modal__title default-modal__title-illustration"><span>Password</span>successfully <span>changed!</span> </h2>
-            <p class="default-modal__subtitle">Now use newemail@artu.studio in PremiereStudio and this site</p>
+            <h2 class="default-modal__title default-modal__title-illustration"><span>Password </span>successfully <span>changed!</span> </h2>
+            <p class="default-modal__subtitle">Now use your new password in PremiereStudio and on this site</p>
         </div>
     </div>
 </div>
@@ -231,7 +231,7 @@
             <div class="default-modal__illustration default-modal__illustration-banned">
                 <img src="<?= get_theme_file_uri( '/img/modals/ban.svg' )?>" alt="">
             </div>
-            <h2 class="default-modal__title default-modal__title-banned">This<span>code </span>has been <span>banned</span>  </h2>
+            <h2 class="default-modal__title default-modal__title-banned">This <span>code </span>has been <span>banned</span>  </h2>
             <p class="default-modal__subtitle">This code has been compromised</p><a class="default-modal__border-link" href="#">Go fuck yourself</a>
         </div>
     </div>
@@ -266,7 +266,7 @@
                 <div class="default-modal__illustration">
                     <img src="<?= get_theme_file_uri( '/img/modals/succact.svg' )?>" alt="">
                 </div>
-                <h2 class="default-modal__title default-modal__title-illustration"><span>Name</span>successfully <span>changed!</span> </h2>
+                <h2 class="default-modal__title default-modal__title-illustration"><span>Name </span>successfully <span>changed!</span> </h2>
                 <p class="default-modal__subtitle">Now use newemail@artu.studio in PremiereStudio and this site</p>
             </div>
         </div>

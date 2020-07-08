@@ -47,13 +47,13 @@ get_header();
             <?php endif;?>
             <div class="downloaded-prods">
             <?php $i = 0;foreach (get_field('products') as $prod):?>
-            <div class="downloaded-prods__item downloaded-prods__item-<?= $i%2==0?'1':'2'?>">
+            <a href="<?= get_permalink($prod)?>" class="downloaded-prods__item downloaded-prods__item-<?= $i%2==0?'1':'2'?>">
                     <div class="downloaded-prods__item-img"><img src="<?= get_the_post_thumbnail_url( $prod, 'full' );?>" alt=""></div>
                     <div class="downloaded-prods__item-text">
                         <p class="downloaded-prods__item-text-title"><?= get_the_title($prod);?></p>
                         <p class="downloaded-prods__item-text-p"><?= get_the_excerpt($prod);?></p>
                     </div>
-                </div>
+                </a>
             <?php $i++; endforeach;?>
             </div>
         </div>

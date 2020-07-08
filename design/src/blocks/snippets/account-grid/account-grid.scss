@@ -54,6 +54,11 @@
     padding-left: 52px;
     padding-right: 52px;
     background: $c-lgray;
+    &__title{
+        max-width: 400px;
+        word-wrap:  break-word;
+        padding-right: 5px;
+    }
     &__subtitle{
         margin-bottom: 60px;
     }

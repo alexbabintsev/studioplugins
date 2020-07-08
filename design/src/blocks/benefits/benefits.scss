@@ -136,7 +136,7 @@
    }
 }
 .body-text-animations-page,
-.body-transitions-page, .is_pl_product {
+.body-transitions-page {
    .benefits {
       background-color: #181818;
       padding-bottom: 140px;
@@ -158,6 +158,7 @@
                width: 301px;
                height: 65px;
                transform: translate(-135px,-6px);
+               background: url(../img/dots2.svg);
             }
          }
       }
@@ -194,7 +195,7 @@
       }
    }
 }
-.body-transitions-page, .is_pl_product {
+.body-transitions-page{
    .benefits {
       &__title {
          .benefits {
@@ -435,6 +436,9 @@
    }
 }
 @media screen and(max-width: $mobile){
+   .benefits .btn{
+      max-width: 100%;
+   }
    .benefits-list{
       &__item{
          max-width: 100%;

@@ -180,6 +180,11 @@
     &__content{
       height: 100vh;
       padding: 100px 20px;
+      &-video{
+        padding: 100px 10px;
+        max-width: 100%;
+        height: auto;
+      }
       &-illustration{
         padding-top: 54px;
       }
