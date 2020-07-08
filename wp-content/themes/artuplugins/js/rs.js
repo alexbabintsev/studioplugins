@@ -303,7 +303,10 @@ $(function() {
             $('a.down_mac').click();
 
     }
-
+    /*if((new URL(window.location.href)).searchParams.has('confirm_email'))
+    {
+        scriptShowModal("modal-success-password-change");
+    }*/
 });
 function scriptShowModal(mod)
 {

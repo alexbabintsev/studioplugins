@@ -261,7 +261,7 @@ function um_account_content_hook_myproducts( $output ){
                 <div class="account-grid-2__products-img"><img src="<?= get_the_post_thumbnail_url($product);?>" alt=""></div>
                 <div class="account-grid-2__products-text">
                     <p><?= get_the_title( $product )?></p>
-                    <div class="account-grid-2__products-links account-grid-2__products-links-blue"><a href="#">How to use</a><a href="#">See features</a></div>
+                    <div class="account-grid-2__products-links account-grid-2__products-links-blue"><a href="<?= esc_attr(get_field('how_to_use_link',$product))?>">How to use</a><a href="<?=get_permalink($product)?>">See features</a></div>
                 </div>
             </div>
             <?php endforeach;?>
