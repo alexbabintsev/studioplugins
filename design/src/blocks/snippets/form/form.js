@@ -32,5 +32,28 @@ document.addEventListener("DOMContentLoaded", function(event) {
     //     showMaskOnHover: false,
     //     showMaskOnFocus: true
     // });
+    
+    let um_error_permission = true;
+    $('.main-form').on('change', function(){
+        if(um_error_permission){
+            let classList = $(this).find('.um-notice').attr('class').split(/\s+/);
+            let text_error = $(this).find('.um-notice').text();
+    
+            $.each(classList, function(index, item) {
+                if (item === 'um-error-code-incorrect_password') {
+                    $('.main-form').find('.um-field-type_password').append('<div class="um-field-error"><span class="um-field-arrow"><i class="um-faicon-caret-up"></i></span>'+text_error+'</div>')
+                    console.log('сработал класс для пасса');
+                }
+                if (item === 'um-error-code-invalid_username') {
+                    $('.main-form').find('.um-field-username').append('<div class="um-field-error"><span class="um-field-arrow"><i class="um-faicon-caret-up"></i></span>'+text_error+'</div>')
+                    console.log('сработал класс для логина');
+                }
+            });
+            um_error_permission = false;
+            setTimeout( function() {
+                isEvent = true;
+            }, 1000 );
+        }
+    });
 
 });
