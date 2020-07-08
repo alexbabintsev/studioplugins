@@ -482,8 +482,9 @@
                &:before {
                   width: 184px;
                   height: 42px;
-                  transform: translate(0x,-3px);
+                  transform: translate(0,-3px);
                   left: 135px;
+                  background-size: cover;
                }
             }
          }

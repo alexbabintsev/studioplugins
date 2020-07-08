@@ -27,9 +27,26 @@ $(function() {
    });
    //ПЛАВНЫЙ СКРОЛЛ ПО ЯКОРЯМ
    //ПЛАВНЫЙ СКРОЛЛ ПО ЯКОРЯМ
-   $("a[data-nav='nav']").on('click',function () {
-      var _href = $(this).attr("href");
-      $("html, body").animate({ scrollTop: $(_href).offset().top -0+ "px" }, 500);
+   let smooth_scroll = false;
+   setTimeout(function(){
+      smooth_scroll = true;
+   }, 1000);
+   function register_whath_demo_event (){
+      
+   }
+   $("a[data-nav='nav']").on('click',function (e) {
+      e.preventDefault();
+      if($(this).hasClass('hero-2-content__video') && $(window).width()<1199){
+         console.log('popup');
+         let modalVideo = $('.modal-video-2').find('video');
+         mainvideoPlay(modalVideo);
+         showModal('modal-video-2');
+      }else{
+         if(smooth_scroll){
+            var _href = $(this).attr("data-href");
+            $("html, body").animate({ scrollTop: $(_href).offset().top -0+ "px" }, 500);
+         }
+      }
       return false;
    });
 });
