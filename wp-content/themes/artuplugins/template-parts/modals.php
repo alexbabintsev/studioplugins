@@ -298,3 +298,20 @@
         </video>
     </div>
 </div>
+<div class="default-modal help-success-modal">
+    <div class="default-modal__content help-success">
+        <div class="default-modal__close" data-modal-close>
+            <svg width="100%" height="100%">
+                <use xlink:href="#icon-close"></use>
+            </svg>
+        </div>
+        <div class="help-success__left">
+            <p class="help-success__question">Nothing worked?</p>
+            <p class="help-success__answer">Send us a message and we will help</p>
+        </div>
+        <div class="help-success__right">
+            <p class="title help-success__title">We have <span>received your message and</span> we will <span>answer you</span> soon</p><a class="help-success__mail" href="mailto:enteredemail@test.com">enteredemail@test.com</a>
+            <p class="help-success__text">Entered text from message field sample Entered text from message field sample Entered text from message field sample Entered text from message field sample Entered text from message field sample Entered text from message field sample </p>
+        </div>
+    </div>
+</div>

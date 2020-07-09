@@ -311,6 +311,14 @@ $(function() {
     {
         scriptShowModal("modal-success-password-change");
     }
+    $('.help-c-footer .wpcf7').on('wpcf7mailsent',function(e){
+
+        let email = $(this).find('input[name="you-email"]').val();
+        console.debug(email);
+        $('.help-success-modal a.help-success__mail').html(email).attr('href','mailto:'+email);
+        $('.help-success-modal p.help-success__text').html($(this).find('input[name="mess"]').val());
+        scriptShowModal("help-success-modal");
+    });
 });
 function scriptShowModal(mod)
 {
