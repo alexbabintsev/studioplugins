@@ -248,7 +248,6 @@
                     <img src="<?= get_theme_file_uri( '/img/modals/succact.svg' )?>" alt="">
                 </div>
                 <h2 class="default-modal__title default-modal__title-illustration"><span>Name </span>successfully <span>changed!</span> </h2>
-                <p class="default-modal__subtitle">Now use newemail@artu.studio in PremiereStudio and this site</p>
             </div>
         </div>
     </div>

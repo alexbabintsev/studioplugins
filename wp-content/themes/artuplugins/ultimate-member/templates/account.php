@@ -5,7 +5,7 @@
 
             <div class="account-grid-2__left">
                 <h1 class="title account-grid-2__title">Hi, <span class="fn_name"><?php echo esc_html( um_user( 'nickname' ) ); ?></span></h1>
-                <h2 class="subtitle account-grid-2__subtitle fn_email"><?php echo esc_html( um_user( 'user_email' ) ); ?></h2>
+                <h2 class="subtitle account-grid-2__subtitle"><?php echo esc_html( um_user( 'user_email' ) ); ?></h2>
                 <div class="account-grid-2__links account-grid-2__links-desctop">
                     <!--<?php foreach ( UM()->account()->tabs as $id => $info ) {
                         if ( isset( $info['custom'] ) || UM()->options()->get( "account_tab_{$id}" ) == 1 || $id == 'general' ) { ?>

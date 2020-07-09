@@ -288,17 +288,19 @@ add_action('wp_ajax_cp_change_email',function(){
                 else
                 {
                     $user = wp_get_current_user();
-                    if(wp_update_user(['ID'=>$user->ID ,'user_email'=>strip_tags($_REQUEST['email'])]))
-                    {
+                    //if(wp_update_user(['ID'=>$user->ID ,'user_email'=>strip_tags($_REQUEST['email'])]))
+                    //{
                         $rez['result']=true;
                         $rez['email']=strip_tags($_REQUEST['email']);
                         //um_user( 'user_email' );
                         //var_dump(update_meta_cache( 'user', [$cur_user_id] ),um_user( 'user_email' ));
                         //UM()->user()->email_pending();
+                        delete_user_meta( $user->ID, 'new_email' );
+                        add_user_meta( $user->ID,'new_email',$_REQUEST['email'], true );
                         UM()->user()->assign_secretkey();
-                        UM()->user()->set_status( 'awaiting_email_confirmation' );
+                        //UM()->user()->set_status( 'awaiting_email_confirmation' );
                         UM()->mail()->send( strip_tags($_REQUEST['email']), 'checkmail_email' );
-                    }
+                    //}
                 }
             }
             else
@@ -312,6 +314,86 @@ add_action('wp_ajax_cp_change_email',function(){
     echo json_encode($rez);
     wp_die();
 });
+remove_action( 'init',  array( UM()->permalinks(), 'activate_account_via_email_link' ), 1 );
+add_action( 'init',  function (){
+    if ( isset( $_REQUEST['act'] ) && $_REQUEST['act'] == 'activate_via_email' && isset( $_REQUEST['hash'] ) && is_string( $_REQUEST['hash'] ) && strlen( $_REQUEST['hash'] ) == 40 &&
+        isset( $_REQUEST['user_id'] ) && is_numeric( $_REQUEST['user_id'] ) ) { // valid token
+
+        $user_id = absint( $_REQUEST['user_id'] );
+        delete_option( "um_cache_userdata_{$user_id}" );
+
+        um_fetch_user( $user_id );
+
+        if ( strtolower( $_REQUEST['hash'] ) !== strtolower( um_user( 'account_secret_hash' ) ) ) {
+            wp_die( __( 'This activation link is expired or have already been used.', 'ultimate-member' ) );
+        }
+        $status = get_user_meta( $user_id, 'account_status', true );
+        if($status=='awaiting_email_confirmation')
+            UM()->user()->approve();
+        else if($status == 'approved')
+        {
+            $new_email = get_user_meta( $user_id, 'new_email', true );
+            //var_dump($user_id,$new_email);die;
+            if($new_email)
+            {
+                if(!email_exists( $new_email ))
+                    wp_update_user(['ID'=>$user_id ,'user_email'=>strip_tags($new_email)]);
+                delete_user_meta( $user_id, 'new_email' );
+            }
+        }
+        $redirect = ( um_user( 'url_email_activate' ) ) ? um_user( 'url_email_activate' ) : um_get_core_page( 'login', 'account_active' );
+        $login    = (bool) um_user( 'login_email_activate' );
+
+        // log in automatically
+        if ( ! is_user_logged_in() && $login ) {
+            $user = get_userdata( $user_id );
+            $user_id = $user->ID;
+
+            // update wp user
+            wp_set_current_user( $user_id, $user->user_login );
+            wp_set_auth_cookie( $user_id );
+
+            ob_start();
+            do_action( 'wp_login', $user->user_login, $user );
+            ob_end_clean();
+        }
+
+        um_reset_user();
+        /**
+         * UM hook
+         *
+         * @type action
+         * @title um_after_email_confirmation
+         * @description Action on user activation
+         * @input_vars
+         * [{"var":"$user_id","type":"int","desc":"User ID"}]
+         * @change_log
+         * ["Since: 2.0"]
+         * @usage add_action( 'um_after_email_confirmation', 'function_name', 10, 1 );
+         * @example
+         * <?php
+         * add_action( 'um_after_email_confirmation', 'my_after_email_confirmation', 10, 1 );
+         * function my_after_email_confirmation( $user_id ) {
+         *     // your code here
+         * }
+         * ?>
+         */
+        do_action( 'um_after_email_confirmation', $user_id );
+
+        exit( wp_redirect( $redirect ) );
+
+    }
+}, 1 );
+/*add_action( 'um_after_email_confirmation', function($user_id){
+    $new_email = get_user_meta( $user_id, 'new_email', true );
+    //var_dump($user_id,$new_email);die;
+    if($new_email)
+    {
+        if(!email_exists( $new_email ))
+            wp_update_user(['ID'=>$user_id ,'user_email'=>strip_tags($new_email)]);
+        delete_user_meta( $user_id, 'new_email' );
+    }
+} );*/
 add_action('wp_ajax_cp_change_name',function(){
     $rez=[];
     $rez['result']=false;
@@ -479,9 +561,9 @@ add_action('wp_sc_ajax_get_plugins_list',function (){
         wp_send_json( ['result'=>false,'message'=>'hwd_info must be not empty'] );
     if(!is_array($_REQUEST['hwd_info'])||!isset($_REQUEST['hwd_info']['hwd_id'])||!isset($_REQUEST['hwd_info']['name'])||!isset($_REQUEST['hwd_info']['os']))
         wp_send_json( ['result'=>false,'message'=>'hwd_info must be an array([hwd_id,name,os])'] );
-    $user = get_user_by( 'login', $_REQUEST['login'] );
+    $user = get_user_by( 'email', $_REQUEST['login'] );
     if(!$user)
-        $user = get_user_by( 'email', $_REQUEST['login'] );
+        $user = get_user_by( 'login', $_REQUEST['login'] );
     if(!$user||!wp_check_password( $_REQUEST['password'], $user->user_pass ))
         wp_send_json( ['result'=>false,'message'=>'Wrong login or password'] );
     $status = get_user_meta( $user->ID, 'account_status', true );
@@ -497,7 +579,7 @@ add_action('wp_sc_ajax_get_plugins_list',function (){
     if(!$reged_pc&&count($comps)>=2)
         wp_send_json( ['result'=>false,'message'=>'Install limit reached'] );
     if(!$reged_pc)
-        add_row('products',['id'=>$_REQUEST['hwd_info']['hwd_id'],'inner_id'=>generateRandomString(),'name'=>$_REQUEST['hwd_info']['name'],'os'=>$_REQUEST['hwd_info']['os']],$user);
+        add_row('comps',['id'=>$_REQUEST['hwd_info']['hwd_id'],'inner_id'=>generateRandomString(),'name'=>$_REQUEST['hwd_info']['name'],'os'=>$_REQUEST['hwd_info']['os']],$user);
     $rez = [];
     foreach (getUserProducts($user) as $prodd)
         $rez[] = ['prod_name'=>get_field('packName',$prodd),'item_id'=>get_field('item_id',$prodd)];
@@ -853,6 +935,264 @@ function um_custom_submit_form_errors_hook_login( $args ) {
     }
 }
 add_action( 'um_submit_form_errors_hook_login', 'um_custom_submit_form_errors_hook_login', 10 );
+remove_action( 'um_submit_form_register', 'um_submit_form_register', 10 );
+function um_custom_submit_form_register( $args ) {
+    if ( isset( UM()->form()->errors ) ) {
+        return false;
+    }
+
+    /**
+     * UM hook
+     *
+     * @type filter
+     * @title um_add_user_frontend_submitted
+     * @description Extend user data on registration form submit
+     * @input_vars
+     * [{"var":"$submitted","type":"array","desc":"Registration data"}]
+     * @change_log
+     * ["Since: 2.0"]
+     * @usage
+     * <?php add_filter( 'um_add_user_frontend_submitted', 'function_name', 10, 1 ); ?>
+     * @example
+     * <?php
+     * add_filter( 'um_add_user_frontend_submitted', 'my_add_user_frontend_submitted', 10, 1 );
+     * function my_add_user_frontend_submitted( $submitted ) {
+     *     // your code here
+     *     return $submitted;
+     * }
+     * ?>
+     */
+    $args = apply_filters( 'um_add_user_frontend_submitted', $args );
+
+    extract( $args );
+    $unique_userID = UM()->query()->count_users() + 1;
+    if ( empty( $user_login ) ) {
+        $user_login = 'user' . $unique_userID;
+    }
+
+    if ( ! empty( $username ) && empty( $user_login ) ) {
+        $user_login = $username;
+    }
+
+    if ( ! empty( $first_name ) && ! empty( $last_name ) && empty( $user_login ) ) {
+
+        if ( UM()->options()->get( 'permalink_base' ) == 'name' ) {
+            $user_login = rawurlencode( strtolower( str_replace( " ", ".", $first_name . " " . $last_name ) ) );
+        } elseif ( UM()->options()->get( 'permalink_base' ) == 'name_dash' ) {
+            $user_login = rawurlencode( strtolower( str_replace( " ", "-", $first_name . " " . $last_name ) ) );
+        } elseif ( UM()->options()->get( 'permalink_base' ) == 'name_plus' ) {
+            $user_login = strtolower( str_replace( " ", "+", $first_name . " " . $last_name ) );
+        } else {
+            $user_login = strtolower( str_replace( " ", "", $first_name . " " . $last_name ) );
+        }
+
+        // if full name exists
+        $count = 1;
+        $temp_user_login = $user_login;
+        while ( username_exists( $temp_user_login ) ) {
+            $temp_user_login = $user_login . $count;
+            $count++;
+        }
+        if ( $temp_user_login !== $user_login ) {
+            $user_login = $temp_user_login;
+        }
+    }
+
+    if ( empty( $user_login ) && ! empty( $user_email ) ) {
+        $user_login = $user_email;
+    }
+
+
+
+    if ( empty( $user_login ) || strlen( $user_login ) > 30 && ! is_email( $user_login ) ) {
+        $user_login = 'user' . $unique_userID;
+    }
+
+    if ( isset( $username ) && is_email( $username ) ) {
+        $user_email = $username;
+    }
+
+    if ( ! isset( $user_password ) ) {
+        $user_password = UM()->validation()->generate( 8 );
+    }
+
+    if ( empty( $user_email ) ) {
+        $site_url = @$_SERVER['SERVER_NAME'];
+        $user_email = 'nobody' . $unique_userID . '@' . $site_url;
+        /**
+         * UM hook
+         *
+         * @type filter
+         * @title um_user_register_submitted__email
+         * @description Change user default email if it's empty on registration
+         * @input_vars
+         * [{"var":"$user_email","type":"string","desc":"Default email"}]
+         * @change_log
+         * ["Since: 2.0"]
+         * @usage
+         * <?php add_filter( 'um_user_register_submitted__email', 'function_name', 10, 1 ); ?>
+         * @example
+         * <?php
+         * add_filter( 'um_user_register_submitted__email', 'my_user_register_submitted__email', 10, 1 );
+         * function my_user_register_submitted__email( $user_email ) {
+         *     // your code here
+         *     return $user_email;
+         * }
+         * ?>
+         */
+        $user_email = apply_filters( 'um_user_register_submitted__email', $user_email );
+    }
+
+    $credentials = array(
+        'user_login'    => $user_login,
+        'user_password' => $user_password,
+        'user_email'    => trim( $user_email ),
+    );
+
+    $args['submitted'] = array_merge( $args['submitted'], $credentials );
+    $args = array_merge( $args, $credentials );
+
+    //get user role from global or form's settings
+    $user_role = UM()->form()->assigned_role( UM()->form()->form_id );
+
+    //get user role from field Role dropdown or radio
+    if ( isset( $args['role'] ) ) {
+        global $wp_roles;
+        $um_roles = get_option( 'um_roles' );
+
+        if ( ! empty( $um_roles ) ) {
+            $role_keys = array_map( function( $item ) {
+                return 'um_' . $item;
+            }, get_option( 'um_roles' ) );
+        } else {
+            $role_keys = array();
+        }
+
+        $exclude_roles = array_diff( array_keys( $wp_roles->roles ), array_merge( $role_keys, array( 'subscriber' ) ) );
+
+        //if role is properly set it
+        if ( ! in_array( $args['role'], $exclude_roles ) ) {
+            $user_role = $args['role'];
+        }
+    }
+
+    /**
+     * UM hook
+     *
+     * @type filter
+     * @title um_registration_user_role
+     * @description Change user role on registration process
+     * @input_vars
+     * [{"var":"$role","type":"string","desc":"User role"},
+     * {"var":"$submitted","type":"array","desc":"Registration data"}]
+     * @change_log
+     * ["Since: 2.0"]
+     * @usage
+     * <?php add_filter( 'um_registration_user_role', 'function_name', 10, 2 ); ?>
+     * @example
+     * <?php
+     * add_filter( 'um_registration_user_role', 'my_registration_user_role', 10, 2 );
+     * function my_user_register_submitted__email( $role, $submitted ) {
+     *     // your code here
+     *     return $role;
+     * }
+     * ?>
+     */
+    $user_role = apply_filters( 'um_registration_user_role', $user_role, $args );
+
+    $userdata = array(
+        'user_login'    => $user_login,
+        'user_pass'     => $user_password,
+        'user_email'    => $user_email,
+        'role'          => $user_role,
+    );
+
+    $user_id = wp_insert_user( $userdata );
+
+    /**
+     * UM hook
+     *
+     * @type action
+     * @title um_user_register
+     * @description After complete UM user registration.
+     * @input_vars
+     * [{"var":"$user_id","type":"int","desc":"User ID"},
+     * {"var":"$args","type":"array","desc":"Form data"}]
+     * @change_log
+     * ["Since: 2.0"]
+     * @usage add_action( 'um_user_register', 'function_name', 10, 2 );
+     * @example
+     * <?php
+     * add_action( 'um_user_register', 'my_user_register', 10, 2 );
+     * function my_user_register( $user_id, $args ) {
+     *     // your code here
+     * }
+     * ?>
+     */
+    do_action( 'um_user_register', $user_id, $args );
+
+    return $user_id;
+}
+add_action( 'um_submit_form_register', 'um_custom_submit_form_register', 10 );
+add_filter( 'manage_users_custom_column', function ($val, $column_name, $user_id){
+    //var_dump($column_name);
+    return $val;
+}, 11, 3 );
+remove_action( 'um_submit_form_errors_hook_logincheck', 'um_submit_form_errors_hook_logincheck', 9999 );
+function um_custom_submit_form_errors_hook_logincheck( $args ) {
+    // Logout if logged in
+    if ( is_user_logged_in() ) {
+        wp_logout();
+    }
+
+    $user_id = ( isset( UM()->login()->auth_id ) ) ? UM()->login()->auth_id : '';
+    um_fetch_user( $user_id );
+    $status = um_user( 'account_status' ); // account status
+    switch( $status ) {
+        case 'awaiting_email_confirmation':
+            UM()->form()->add_error( 'username', __( 'Your account is awaiting e-mail verification.', 'ultimate-member' ) );
+            UM()->user()->assign_secretkey();
+            UM()->mail()->send( um_user( 'user_email' ), 'checkmail_email' );
+            exit( wp_redirect(  add_query_arg( 'err', esc_attr( $status ), '/confirm-email/' ) ) );
+            break;
+        // If user can't login to site...
+        case 'inactive':
+        case 'awaiting_admin_review':
+        case 'rejected':
+            um_reset_user();
+            exit( wp_redirect(  add_query_arg( 'err', esc_attr( $status ), UM()->permalinks()->get_current_url() ) ) );
+            break;
+
+    }
+
+    if ( isset( $args['form_id'] ) && $args['form_id'] == UM()->shortcodes()->core_login_form() && UM()->form()->errors && ! isset( $_POST[ UM()->honeypot ] ) ) {
+        exit( wp_redirect( um_get_core_page( 'login' ) ) );
+    }
+
+}
+add_action('um_reset_password_errors_hook',function ($post_form){
+    $user = "";
+
+    foreach ( $_POST as $key => $val ) {
+        if ( strstr( $key, "username_b") ) {
+            $user = trim( $val );
+        }
+    }
+    if (!( ( ! is_email( $user ) && ! username_exists( $user ) ) || ( is_email( $user ) && ! email_exists( $user ) ) ))
+    {
+        if ( is_email( $user ) ) {
+            $user_id = email_exists( $user );
+        } else {
+            $user_id = username_exists( $user );
+        }
+        $status = get_user_meta( $user_id, 'account_status', true );
+        if($status=='awaiting_email_confirmation')
+            UM()->form()->add_error('username_b', __( 'Your account is awaiting e-mail verification.','ultimate-member') );
+        //var_dump($post_form);
+    }
+    //die;
+});
+add_action( 'um_submit_form_errors_hook_logincheck', 'um_custom_submit_form_errors_hook_logincheck', 9999 );
 add_filter('acf/update_value/name=is_baned', function ( $value, $post_id, $field ) {
     if($field == 'is_baned'&&get_post_type($post_id)=='pl_key'&&!get_field('is_baned', $post_id)&&$value)
     {
