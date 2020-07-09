@@ -47,33 +47,20 @@ $(function(){
          }
          if (wt + wh >= et && wt + wh - eh * 2 <= (et + (wh - eh))){
             if(temporaryScroll < wt){
-                  // console.log('down');
-                  incrementX();
-   
-                  $way.css({
-                     "transform":"translate("+ addTranslateX*5+ "px,"+addTranslateY*5+"px)"
-                  });
-                  // console.log("addTranslateX    "+ addTranslateX*10+ " addTranslateY   "+addTranslateY*10);
-                  
-   
+               incrementX();
             }else{
-               // console.log('up');
                decrementX();
-   
-               $way.css({
-                  "transform":"translate("+ addTranslateX*5+ "px,"+addTranslateY*5+"px)"
-               });
-               // console.log("addTranslateX    "+ addTranslateX*10+ " addTranslateY   "+addTranslateY*10);
-   
             }
+            $way.css({
+               "transform":"translate("+ addTranslateX*5+ "px,"+addTranslateY*5+"px)"
+            });
          } else {
             incrementX();
-               addTranslateX=0;
+            addTranslateX=0;
          }
          temporaryScroll = wt;
       }
-      
-      $(window).scroll(function(){
+      $(window).on('scroll',function(){
          scrollTracking();
       });
          
@@ -95,7 +82,16 @@ $(function(){
       }
    }
   
+   // const container = document.querySelector('.img-way');
 
+   // window.addEventListener('scroll', () => {
+   //    console.log(window.pageYOffset);
+      
+   //     container.style.transform = `
+   //         translate(${-Math.floor(window.pageYOffset + 120)}px,
+   //         ${-Math.floor(window.pageYOffset * 0.36666 + 120 )}px)
+   //     `;
+   // });
 
 
 
