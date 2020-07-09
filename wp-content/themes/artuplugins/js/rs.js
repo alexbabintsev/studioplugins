@@ -202,7 +202,7 @@ $(function() {
                 if(data.result)
                 {
                     scriptShowModal("modal-success-name-change");
-                    $('.fn_name').html(data.name);
+                    $('.fn_name,.header__login .header__nav-link-loggedin').html(data.name);
                 }
                 else
                 {

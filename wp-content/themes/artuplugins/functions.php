@@ -315,7 +315,7 @@ add_action('wp_ajax_cp_change_email',function(){
 add_action('wp_ajax_cp_change_name',function(){
     $rez=[];
     $rez['result']=false;
-    if( wp_verify_nonce( $_REQUEST['_wpnonce'], 'cp_change_name') ){
+    //if( wp_verify_nonce( $_REQUEST['_wpnonce'], 'cp_change_name') ){
         // обрабатываем данные формы
         $cur_user_id = get_current_user_id();
         if($cur_user_id){
@@ -331,9 +331,9 @@ add_action('wp_ajax_cp_change_name',function(){
         }
         else
             $rez['msg']='No user';
-    }
-    else
-        $rez['msg']='Nonce error';
+    //}
+    //else
+    //    $rez['msg']='Nonce error';
     echo json_encode($rez);
     wp_die();
 });
