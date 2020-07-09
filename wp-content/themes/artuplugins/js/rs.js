@@ -307,6 +307,10 @@ $(function() {
     {
         scriptShowModal("modal-success-password-change");
     }*/
+    if($('main.login-page').length>0&&(new URL(window.location.href)).searchParams.get('updated')=='password_changed')
+    {
+        scriptShowModal("modal-success-password-change");
+    }
 });
 function scriptShowModal(mod)
 {

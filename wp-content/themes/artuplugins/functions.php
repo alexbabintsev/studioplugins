@@ -288,10 +288,17 @@ add_action('wp_ajax_cp_change_email',function(){
                 else
                 {
                     $user = wp_get_current_user();
-                    wp_update_user(['ID'=>$user->ID ,'user_email'=>strip_tags($_REQUEST['email'])]);
-                    $rez['result']=true;
-                    $rez['email']=strip_tags($_REQUEST['email']);
-                    UM()->user()->email_pending();
+                    if(wp_update_user(['ID'=>$user->ID ,'user_email'=>strip_tags($_REQUEST['email'])]))
+                    {
+                        $rez['result']=true;
+                        $rez['email']=strip_tags($_REQUEST['email']);
+                        //um_user( 'user_email' );
+                        //var_dump(update_meta_cache( 'user', [$cur_user_id] ),um_user( 'user_email' ));
+                        //UM()->user()->email_pending();
+                        UM()->user()->assign_secretkey();
+                        UM()->user()->set_status( 'awaiting_email_confirmation' );
+                        UM()->mail()->send( strip_tags($_REQUEST['email']), 'checkmail_email' );
+                    }
                 }
             }
             else
@@ -477,6 +484,9 @@ add_action('wp_sc_ajax_get_plugins_list',function (){
         $user = get_user_by( 'email', $_REQUEST['login'] );
     if(!$user||!wp_check_password( $_REQUEST['password'], $user->user_pass ))
         wp_send_json( ['result'=>false,'message'=>'Wrong login or password'] );
+    $status = get_user_meta( $user->ID, 'account_status', true );
+    if ( $status=='banned' )
+        wp_send_json( ['result'=>false,'message'=>'User is inactive'] );
     $comps = get_field('comps',$user);
     if(!is_array($comps))
         $comps =[];
@@ -691,6 +701,178 @@ function isMac()
             return true;
     return false;
 }
+add_filter( 'um_admin_views_users', function ($views){
+    if ( isset( $_REQUEST['status'] ) && sanitize_key( $_REQUEST['status'] ) == 'banned' ) {
+        $current = 'class="current"';
+    } else {
+        $current = '';
+    }
+    $views[ 'banned' ] = '<a href="' . esc_url( admin_url( 'users.php' ) . '?status=banned' ) . '" ' . $current . '>Banned <span class="count">(' . UM()->query()->count_users_by_status( 'banned' ) . ')</span></a>';
+    //var_dump($views);
+    return $views;
+} );
+add_filter( 'um_admin_bulk_user_actions_hook',function ($actions){
+    $actions['um_ban']         =array(
+        'label' => __( 'Ban', 'ultimate-member' )
+    );
+    $actions['um_unban']         =array(
+        'label' => __( 'Unban', 'ultimate-member' )
+    );
+    return $actions;
+});
+add_action( "um_admin_custom_hook_um_ban", function ($uid) {
+    $user_id = um_user('ID');
+    $status = get_user_meta( $user_id, 'account_status', true );
+    if($status!='banned'){
+        delete_user_meta( $user_id, 'pre_ban_status' );
+        add_user_meta( $user_id,'pre_ban_status',$status, true );
+        delete_user_meta( $user_id, 'account_status_name');
+        add_user_meta( $user_id,'account_status_name',__( 'Banned', 'ultimate-member' ), true );
+        delete_user_meta( $user_id,'account_secret_hash');
+        UM()->user()->set_status('banned');
+    }
+});
+add_action( "um_admin_custom_hook_um_unban", function ($uid) {
+    $user_id = um_user('ID');
+    $status = get_user_meta( $user_id, 'account_status', true );
+    if($status=='banned'){
+        $old_status = get_user_meta( $user_id, 'pre_ban_status', true );
+        UM()->user()->set_status($old_status);
+    }
+});
+add_action( 'set_current_user', function (){
+    global $current_user;
+    //var_dump($current_user);die;
+    if ( ! empty( $current_user ) ) {
+        if ( $current_user instanceof WP_User ) {
+            $status = get_user_meta( $current_user->ID, 'account_status', true );
+            if($status=='banned')
+                wp_set_current_user( 0 );
+        }
+    }
+
+} );
+add_action( 'init', 'log_out_banned_user' );
+function log_out_banned_user() {
+    if ( ! is_user_logged_in() )
+        return;
+
+    $user = wp_get_current_user();
+    $status = get_user_meta( $user->ID, 'account_status', true );
+    if ( $status!='banned' )
+        return;
+
+    wp_logout();
+    wp_redirect( home_url( '/' ) );
+    exit;
+}
+remove_action( 'um_submit_form_errors_hook_login', 'um_submit_form_errors_hook_login', 10 );
+function um_custom_submit_form_errors_hook_login( $args ) {
+    $is_email = false;
+
+    $form_id = $args['form_id'];
+    $mode = $args['mode'];
+    $user_password = $args['user_password'];
+
+
+    if ( isset( $args['username'] ) && $args['username'] == '' ) {
+        UM()->form()->add_error( 'username', __( 'Please enter your username or email', 'ultimate-member' ) );
+    }
+
+    if ( isset( $args['user_login'] ) && $args['user_login'] == '' ) {
+        UM()->form()->add_error( 'user_login', __( 'Please enter your username', 'ultimate-member' ) );
+    }
+
+    if ( isset( $args['user_email'] ) && $args['user_email'] == '' ) {
+        UM()->form()->add_error( 'user_email', __( 'Please enter your email', 'ultimate-member' ) );
+    }
+
+    if ( isset( $args['username'] ) ) {
+        $authenticate = $args['username'];
+        $field = 'username';
+        if ( is_email( $args['username'] ) ) {
+            $is_email = true;
+            $data = get_user_by('email', $args['username'] );
+            $user_name = isset( $data->user_login ) ? $data->user_login : null;
+        } else {
+            $user_name  = $args['username'];
+        }
+    } elseif ( isset( $args['user_email'] ) ) {
+        $authenticate = $args['user_email'];
+        $field = 'user_email';
+        $is_email = true;
+        $data = get_user_by('email', $args['user_email'] );
+        $user_name = isset( $data->user_login ) ? $data->user_login : null;
+    } else {
+        $field = 'user_login';
+        $user_name = $args['user_login'];
+        $authenticate = $args['user_login'];
+    }
+
+    if ( $args['user_password'] == '' ) {
+        UM()->form()->add_error( 'user_password', __( 'Please enter your password', 'ultimate-member' ) );
+    }
+
+    $user = get_user_by( 'login', $user_name );
+    $status = get_user_meta( $user->ID, 'account_status', true );
+    if ( $status=='banned' )
+    {
+        if ( isset( $args['username'] ))
+            UM()->form()->add_error( 'username', __( 'User is banned', 'ultimate-member' ) );
+        elseif ( isset( $args['user_login'] ))
+            UM()->form()->add_error( 'user_login', __( 'User is banned', 'ultimate-member' ) );
+        elseif ( isset( $args['user_email'] ))
+            UM()->form()->add_error( 'user_email', __( 'User is banned', 'ultimate-member' ) );
+        else
+            UM()->form()->add_error( 'user_password', __( 'User is banned', 'ultimate-member' ) );
+    }
+
+    if ( $user && wp_check_password( $args['user_password'], $user->data->user_pass, $user->ID ) ) {
+        UM()->login()->auth_id = username_exists( $user_name );
+    } else {
+        UM()->form()->add_error( 'user_password', __( 'Password is incorrect. Please try again.', 'ultimate-member' ) );
+    }
+
+    // @since 4.18 replacement for 'wp_login_failed' action hook
+    // see WP function wp_authenticate()
+    $ignore_codes = array( 'empty_username', 'empty_password' );
+
+    $user = apply_filters( 'authenticate', null, $authenticate, $args['user_password'] );
+    if ( is_wp_error( $user ) && ! in_array( $user->get_error_code(), $ignore_codes ) ) {
+        UM()->form()->add_error( $user->get_error_code(), __( $user->get_error_message(), 'ultimate-member' ) );
+    }
+
+    $authenticate_user = apply_filters( 'wp_authenticate_user', $user_name, $args['user_password'] );
+    if ( is_wp_error( $authenticate_user ) && ! in_array( $authenticate_user->get_error_code(), $ignore_codes ) ) {
+        UM()->form()->add_error( $authenticate_user->get_error_code(), __( $authenticate_user->get_error_message(), 'ultimate-member' ) );
+    }
+
+    // if there is an error notify wp
+    if ( UM()->form()->has_error( $field ) || UM()->form()->has_error( $user_password ) || UM()->form()->count_errors() > 0 ) {
+        do_action( 'wp_login_failed', $user_name );
+    }
+}
+add_action( 'um_submit_form_errors_hook_login', 'um_custom_submit_form_errors_hook_login', 10 );
+add_filter('acf/update_value/name=is_baned', function ( $value, $post_id, $field ) {
+    if($field == 'is_baned'&&get_post_type($post_id)=='pl_key'&&!get_field('is_baned', $post_id)&&$value)
+    {
+        $owner = get_field('owner', $post_id);
+        if($owner)
+        {
+            $status = get_user_meta( $owner->ID, 'account_status', true );
+            if($status!='banned'){
+                delete_user_meta( $owner->ID, 'pre_ban_status' );
+                add_user_meta( $owner->ID,'pre_ban_status',$status, true );
+                delete_user_meta( $owner->ID, 'account_status_name');
+                add_user_meta( $owner->ID,'account_status_name',__( 'Banned', 'ultimate-member' ), true );
+                delete_user_meta( $owner->ID,'account_secret_hash');
+                UM()->user()->set_status('banned');
+            }
+        }
+
+    }
+    return $value;
+}, 10, 3);
 /*function pl_key_custom_filters() {
     global $typenow;
     global $wp_query;

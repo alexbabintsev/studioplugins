@@ -176,25 +176,6 @@
         </div>
     </div>
 </div>
-<div class="default-modal default-modal-illustration modal-success-password-change">
-    <div class="default-modal__content default-modal__content-illustration"><a class="default-modal__mobile-logo" href="#">
-            <svg width="92" height="20">
-                <use xlink:href="#icon-mobile_logo"></use>
-            </svg></a>
-        <div class="default-modal__close" data-modal-close>
-            <svg width="100%" height="100%">
-                <use xlink:href="#icon-close"></use>
-            </svg>
-        </div>
-        <div class="default-modal__inner">
-            <div class="default-modal__illustration">
-                <img src="<?= get_theme_file_uri( '/img/modals/succact.svg' )?>" alt="">
-            </div>
-            <h2 class="default-modal__title default-modal__title-illustration"><span>Password </span>successfully <span>changed!</span> </h2>
-            <p class="default-modal__subtitle">Now use your new password in PremiereStudio and on this site</p>
-        </div>
-    </div>
-</div>
 <div class="default-modal default-modal-illustration modal-success-confirm-mail">
     <div class="default-modal__content default-modal__content-illustration"><a class="default-modal__mobile-logo" href="#">
             <svg width="92" height="20">
@@ -272,6 +253,25 @@
         </div>
     </div>
 <?php endif;?>
+<div class="default-modal default-modal-illustration modal-success-password-change">
+    <div class="default-modal__content default-modal__content-illustration"><a class="default-modal__mobile-logo" href="#">
+            <svg width="92" height="20">
+                <use xlink:href="#icon-mobile_logo"></use>
+            </svg></a>
+        <div class="default-modal__close" data-modal-close>
+            <svg width="100%" height="100%">
+                <use xlink:href="#icon-close"></use>
+            </svg>
+        </div>
+        <div class="default-modal__inner">
+            <div class="default-modal__illustration">
+                <img src="<?= get_theme_file_uri( '/img/modals/succact.svg' )?>" alt="">
+            </div>
+            <h2 class="default-modal__title default-modal__title-illustration"><span>Password </span>successfully <span>changed!</span> </h2>
+            <p class="default-modal__subtitle">Now use your new password in PremiereStudio and on this site</p>
+        </div>
+    </div>
+</div>
 <div class="default-modal  modal-video">
     <div class="default-modal__content default-modal__content-video">
         <div class="default-modal__close" data-modal-close>
