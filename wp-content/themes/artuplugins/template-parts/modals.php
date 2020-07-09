@@ -176,25 +176,6 @@
         </div>
     </div>
 </div>
-<div class="default-modal default-modal-illustration modal-success-password-change">
-    <div class="default-modal__content default-modal__content-illustration"><a class="default-modal__mobile-logo" href="#">
-            <svg width="92" height="20">
-                <use xlink:href="#icon-mobile_logo"></use>
-            </svg></a>
-        <div class="default-modal__close" data-modal-close>
-            <svg width="100%" height="100%">
-                <use xlink:href="#icon-close"></use>
-            </svg>
-        </div>
-        <div class="default-modal__inner">
-            <div class="default-modal__illustration">
-                <img src="<?= get_theme_file_uri( '/img/modals/succact.svg' )?>" alt="">
-            </div>
-            <h2 class="default-modal__title default-modal__title-illustration"><span>Password </span>successfully <span>changed!</span> </h2>
-            <p class="default-modal__subtitle">Now use your new password in PremiereStudio and on this site</p>
-        </div>
-    </div>
-</div>
 <div class="default-modal default-modal-illustration modal-success-confirm-mail">
     <div class="default-modal__content default-modal__content-illustration"><a class="default-modal__mobile-logo" href="#">
             <svg width="92" height="20">
@@ -267,11 +248,29 @@
                     <img src="<?= get_theme_file_uri( '/img/modals/succact.svg' )?>" alt="">
                 </div>
                 <h2 class="default-modal__title default-modal__title-illustration"><span>Name </span>successfully <span>changed!</span> </h2>
-                <p class="default-modal__subtitle">Now use newemail@artu.studio in PremiereStudio and this site</p>
             </div>
         </div>
     </div>
 <?php endif;?>
+<div class="default-modal default-modal-illustration modal-success-password-change">
+    <div class="default-modal__content default-modal__content-illustration"><a class="default-modal__mobile-logo" href="#">
+            <svg width="92" height="20">
+                <use xlink:href="#icon-mobile_logo"></use>
+            </svg></a>
+        <div class="default-modal__close" data-modal-close>
+            <svg width="100%" height="100%">
+                <use xlink:href="#icon-close"></use>
+            </svg>
+        </div>
+        <div class="default-modal__inner">
+            <div class="default-modal__illustration">
+                <img src="<?= get_theme_file_uri( '/img/modals/succact.svg' )?>" alt="">
+            </div>
+            <h2 class="default-modal__title default-modal__title-illustration"><span>Password </span>successfully <span>changed!</span> </h2>
+            <p class="default-modal__subtitle">Now use your new password in PremiereStudio and on this site</p>
+        </div>
+    </div>
+</div>
 <div class="default-modal  modal-video">
     <div class="default-modal__content default-modal__content-video">
         <div class="default-modal__close" data-modal-close>
@@ -296,5 +295,22 @@
         <video loop="" playsinline="" muted="" data-keepplaying="" class="main-video-modal" data-ratio="1.7777777777778"  preload="metadata" data-src="/wp-content/themes/artuplugins/video/abstract-preview.mp4">
             <source type="video/mp4" data-src="/wp-content/themes/artuplugins/video/abstract-preview.mp4">
         </video>
+    </div>
+</div>
+<div class="default-modal help-success-modal">
+    <div class="default-modal__content help-success">
+        <div class="default-modal__close" data-modal-close>
+            <svg width="100%" height="100%">
+                <use xlink:href="#icon-close"></use>
+            </svg>
+        </div>
+        <div class="help-success__left">
+            <p class="help-success__question">Nothing worked?</p>
+            <p class="help-success__answer">Send us a message and we will help</p>
+        </div>
+        <div class="help-success__right">
+            <p class="title help-success__title">We have <span>received your message and</span> we will <span>answer you</span> soon</p><a class="help-success__mail" href="mailto:enteredemail@test.com">enteredemail@test.com</a>
+            <p class="help-success__text">Entered text from message field sample Entered text from message field sample Entered text from message field sample Entered text from message field sample Entered text from message field sample Entered text from message field sample </p>
+        </div>
     </div>
 </div>

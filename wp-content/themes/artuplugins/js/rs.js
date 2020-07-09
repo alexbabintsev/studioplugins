@@ -202,7 +202,7 @@ $(function() {
                 if(data.result)
                 {
                     scriptShowModal("modal-success-name-change");
-                    $('.fn_name').html(data.name);
+                    $('.fn_name,.header__login .header__nav-link-loggedin').html(data.name);
                 }
                 else
                 {
@@ -307,6 +307,18 @@ $(function() {
     {
         scriptShowModal("modal-success-password-change");
     }*/
+    if($('main.login-page').length>0&&(new URL(window.location.href)).searchParams.get('updated')=='password_changed')
+    {
+        scriptShowModal("modal-success-password-change");
+    }
+    $('.help-c-footer .wpcf7').on('wpcf7mailsent',function(e){
+
+        let email = $(this).find('input[name="you-email"]').val();
+        console.debug(email);
+        $('.help-success-modal a.help-success__mail').html(email).attr('href','mailto:'+email);
+        $('.help-success-modal p.help-success__text').html($(this).find('input[name="mess"]').val());
+        scriptShowModal("help-success-modal");
+    });
 });
 function scriptShowModal(mod)
 {
