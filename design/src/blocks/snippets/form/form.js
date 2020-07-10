@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 });
                 um_error_permission = false;
                 setTimeout( function() {
-                    isEvent = true;
+                    um_error_permission = true;
                 }, 1000 );
             }
         }

@@ -1,3 +1,4 @@
+let stopScrollSlider = true;
 $(function(){
    var waytocreate__slider = new Swiper('.waytocreate__slider', {
       loop: false,
@@ -7,13 +8,67 @@ $(function(){
       grabCursor: true,
       pagination: {
          el: '.swiper-pag',
-      }
+      },
+      on:{
+         reachBeginning: function () { 
+            console.log('test cstart');
+
+            setTimeout(function(){
+               stopScrollSlider = false;
+            }, 500)
+
+         },
+         reachEnd: function () { 
+            console.log('test end');
+
+            setTimeout(function(){
+               stopScrollSlider = false;
+            }, 500)
+         },
+         fromEdge: function(){
+            stopScrollSlider = true;
+         },
+      },
       // effect: 'fade',
       // fadeEffect: {
       //    crossFade: true
       // },
    });
+   //NEXT SLIDE ON MOUSEWHEEL
+   let fp_slider = $('.waytocreate__slider')[0];
 
+   function addOnWheel(elem, handler) {
+      if (elem.addEventListener) {
+         if ('onwheel' in document) {
+            elem.addEventListener("wheel", handler);
+         } else if ('onmousewheel' in document) {
+            elem.addEventListener("mousewheel", handler);
+         } else {
+            elem.addEventListener("MozMousePixelScroll", handler);
+         }
+      } else { 
+         fp_slider.attachEvent("onmousewheel", handler);
+      }
+      }
+      addOnWheel(fp_slider, function(e) {
+         if ($('.waytocreate__slider:hover').length != 0) {
+            var delta = e.deltaY || e.detail || e.wheelDelta;
+
+            if (delta > 0){
+               waytocreate__slider.slideNext();
+            }else{
+               waytocreate__slider.slidePrev();
+            }
+            if(stopScrollSlider){
+               e.preventDefault();
+            }else{
+               console.log('permit scroll');
+            }
+         }
+
+
+      
+      });
 
 
    if($('.img-way').length){
