@@ -1,5 +1,6 @@
 let stopScrollSlider = true;
 $(function(){
+   if($('.waytocreate__slider').length){
    var waytocreate__slider = new Swiper('.waytocreate__slider', {
       loop: false,
       slidesPerView: "auto",
@@ -50,7 +51,8 @@ $(function(){
          fp_slider.attachEvent("onmousewheel", handler);
       }
       }
-      addOnWheel(fp_slider, function(e) {
+
+               addOnWheel(fp_slider, function(e) {
          if ($('.waytocreate__slider:hover').length != 0) {
             var delta = e.deltaY || e.detail || e.wheelDelta;
 
@@ -65,10 +67,9 @@ $(function(){
                console.log('permit scroll');
             }
          }
-
-
-      
       });
+      }
+
 
 
    if($('.img-way').length){
