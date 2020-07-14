@@ -25,6 +25,20 @@ $(function(){
             $(this).addClass('is-active');
             tr_folder_slider.removeClass('is-active');
             $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').addClass('is-active');  
+            //АКТИВАЦИЯ СРАЗУ ВСЕХ ВИДЕО
+            // let videos = $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').find('video');
+            // videos.each(function(index){
+            //     console.log(this);
+            //     let active_slider_video_src = $(this).find('source').attr('data-src');
+            //     $(this).find('source').attr('src', active_slider_video_src);
+            //     this.load();
+            //     this.play();
+            //     $(this).css( "background-color", "black" );
+            //     let vidoe_poster = $(this).siblings('img');
+            //     setTimeout(function(){
+            //         vidoe_poster.css('display', 'none');
+            //     }, 100);
+            // });
         }
 
     });
@@ -95,6 +109,14 @@ $(function(){
         $(this).parent().siblings().find('.folder-nav').slideUp();
         $(this).siblings('.folder-nav').slideToggle();
         $(this).toggleClass('is-active');
+        //MAKE ACTIVE APPROPRIATE SLIDER ON DESCTOP
+        if(!$(this).hasClass('no-subfolders') && !$(window).width()<= 767){
+            console.log($(this).siblings('ul').find('li.is-active').text());
+            let singleindex = $(this).siblings('ul').find('li.is-active').attr('data-singleindex');
+            let groupindex = $(this).siblings('ul').find('li.is-active').attr('data-groupindex');
+            tr_folder_slider.removeClass('is-active');
+            $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').addClass('is-active');  
+        }
      });
     
 
