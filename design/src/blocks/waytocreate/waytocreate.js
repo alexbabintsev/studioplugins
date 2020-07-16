@@ -7,6 +7,10 @@ $(function(){
       // spaceBetween: 100,
       speed: 500,
       grabCursor: true,
+      navigation: {
+         nextEl: '.swiper-button-next',
+         prevEl: '.swiper-button-prev',
+      },
       pagination: {
          el: '.swiper-pag',
       },

@@ -35,6 +35,20 @@ class main_waytocreate_widget extends WP_Widget {
                         </div>
                     <?php endforeach;?>
                 </div>
+                <div class="swiper-nav">
+                    <div class="swiper-button-prev">
+                    <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="1" width="33" height="33" stroke="black" stroke-width="2"/>
+                        <path d="M19 12L14.0877 16.9123L19 22" stroke="black" stroke-width="2"/>
+                    </svg>
+                    </div>   
+                    <div class="swiper-button-next">
+                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="33" height="33" stroke="black" stroke-width="2"/>
+                            <path d="M16 13L20.9123 17.9123L16 23" stroke="black" stroke-width="2"/>
+                        </svg>
+                    </div>   
+                </div>
                 <div class="swiper-pag waytocreate__pag"></div>
             </div>
         </section>
