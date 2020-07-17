@@ -57,7 +57,7 @@
         }
         .swiper-button-prev{
             top: 0;
-            left: 0;
+            left: 37px;
             right: auto;
             &:hover{
                 path{
@@ -67,8 +67,8 @@
         }
         .swiper-button-next{
             top: 0;
-            left: auto;
-            right: 0;
+            left: 87px;
+            right: auto;
             &:hover{
                 path{
                     transform: translateX(2px);
@@ -76,15 +76,37 @@
             }
         }
         .swiper-nav{
-            width: 85px;
+            width: 100%;
+            max-width: 1302px;
+            margin-left: auto;
+            margin-right: auto;
             height: 35px;
             position: absolute;
             top: 45px;
-            left: 105px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
         }
     }
     &__pag{
-        display: none;
+        display: flex;
+        justify-content: center;
+        margin-top: 28px;
+        position: relative;
+        z-index: 1;
+        span{
+            width: 6px;
+            height: 6px;
+            border-radius: 0;
+            margin: 0 20px 0 0!important;
+            cursor: pointer;
+            &:last-child{
+                margin-right: 0!important;
+            }
+        }
+        .swiper-pagination-bullet-active{
+            background: $c-red;
+        }
     }
 
 }
@@ -250,6 +272,7 @@
     .waytocreate{
         padding-top: 40px;
         padding-bottom: 133px;
+        min-height: 400px;
         &__title{
             padding-left: 50px;
             text-align: left;
@@ -308,21 +331,18 @@
                 }
             }
         }
+
+        &__slider{
+            .swiper-nav{
+                display: none;
+            }
+        }
         &__pag{
-            display: flex;
-            justify-content: center;
             margin-top: 19px;
             span{
                 width: 3px;
                 height: 3px;
-                border-radius: 0;
                 margin: 0 12px 0 0!important;
-                &:last-child{
-                    margin-right: 0!important;
-                }
-            }
-            .swiper-pagination-bullet-active{
-                background: $c-red;
             }
         }
     }

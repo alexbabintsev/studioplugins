@@ -269,14 +269,14 @@ function um_account_content_hook_myproducts( $output ){
                 <a href="#" data-modal="modal-act-code">Add new product</a>
             </div>
     <?php else:?>
-        <div class="account-grid-2__add-prod">
-            <a href="#" data-modal="modal-act-code">
+        <a href="#" data-modal="modal-act-code" class="account-grid-2__add-prod">
+            <div class="account-grid-2__add-plus">
                 <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M60 0H40V40H0V60H40V100H60V60H100V40H60V0Z" fill="white"/>
                 </svg>
                 <p>Add new product</p>
-            </a>
-        </div>
+            </div>
+        </a>
 
     <?php endif;?>
     </div>

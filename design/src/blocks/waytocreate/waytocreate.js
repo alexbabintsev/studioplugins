@@ -12,7 +12,7 @@ $(function(){
          prevEl: '.swiper-button-prev',
       },
       pagination: {
-         el: '.swiper-pag',
+         el: '.swiper-pagination',
       },
       on:{
          reachBeginning: function () { 

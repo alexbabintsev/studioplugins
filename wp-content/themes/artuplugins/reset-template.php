@@ -12,7 +12,7 @@ get_header();
             <div class="container">
                 <div class="account-grid">
                     <div class="account-grid__left">
-                        <h1 class="title resetcheckmail__title">Confirm <span>your mail</span></h1>
+                        <h1 class="title resetcheckmail__title">Check <span>your mail</span></h1>
                         <h2 class="subtitle resetcheckmail__subtitle"><?php _e( 'We have sent you a password reset link to your e-mail. Please check your inbox.', 'ultimate-member' ); ?></h2>
                     </div>
                     <div class="account-grid__right">

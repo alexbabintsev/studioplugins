@@ -434,6 +434,16 @@
          }
       }
    }
+   .body-text-animations-page{
+      .benefits{
+         padding-bottom: 73px;
+      }
+   }
+   .body-transitions-page{
+      .benefits{
+         padding-bottom: 60px;
+      }
+   }
 }
 @media screen and(max-width: $mobile){
    .benefits .btn{
@@ -473,7 +483,6 @@
    }
    .body-text-animations-page, .body-transitions-page, .is_pl_product {
       .benefits {
-         padding-bottom: 60px;
          &__title {
             text-align: left;
             padding-left: 10px;

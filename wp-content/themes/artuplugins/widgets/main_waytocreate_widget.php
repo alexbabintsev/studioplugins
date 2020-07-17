@@ -49,7 +49,7 @@ class main_waytocreate_widget extends WP_Widget {
                         </svg>
                     </div>   
                 </div>
-                <div class="swiper-pag waytocreate__pag"></div>
+                <div class="swiper-pagination waytocreate__pag"></div>
             </div>
         </section>
         <?php
