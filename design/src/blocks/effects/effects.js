@@ -1,6 +1,24 @@
 // const { default: Swiper } = require("swiper");
 
 $(function(){
+    // АКТИВАЦИЯ СРАЗУ ВСЕХ ВИДЕО
+    let start_videos = $('.tr-folder-slider[data-singleindex="'+1+'"][data-groupindex="'+1+'"]').find('video');
+    start_videos.each(function(index){
+        // console.log(this);
+        let active_slider_video_src = $(this).find('source').attr('data-src');
+        $(this).find('source').attr('src', active_slider_video_src);
+        this.addEventListener('loadedmetadata', (event) => {
+            console.log('test 234');
+            this.pause();
+          });
+        this.load();
+        // this.play();
+        $(this).css( "background-color", "black" );
+        let vidoe_poster = $(this).siblings('img');
+        setTimeout(function(){
+            vidoe_poster.css('display', 'none');
+        }, 10);
+    });
     // EFFECTS FOLDER NAVIGATION
     let folder_nav_item = $('.folder-nav__item');
     let tr_folder_slider = $('.tr-folder-slider');
@@ -28,7 +46,7 @@ $(function(){
             // АКТИВАЦИЯ СРАЗУ ВСЕХ ВИДЕО
             let videos = $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').find('video');
             videos.each(function(index){
-                console.log(this);
+                // console.log(this);
                 let active_slider_video_src = $(this).find('source').attr('data-src');
                 $(this).find('source').attr('src', active_slider_video_src);
                 this.load();
@@ -37,7 +55,7 @@ $(function(){
                 let vidoe_poster = $(this).siblings('img');
                 setTimeout(function(){
                     vidoe_poster.css('display', 'none');
-                }, 100);
+                }, 10);
             });
         }
 
@@ -48,6 +66,20 @@ $(function(){
         let groupindex = $(this).attr('data-groupindex');
         tr_folder_slider.removeClass('is-active');
         $('.tr-folder-slider[data-singleindex="0"][data-groupindex="'+groupindex+'"]').addClass('is-active');  
+        // АКТИВАЦИЯ СРАЗУ ВСЕХ ВИДЕО
+        let videos = $('.tr-folder-slider[data-singleindex="'+0+'"][data-groupindex="'+groupindex+'"]').find('video');
+        videos.each(function(index){
+            console.log(this);
+            let active_slider_video_src = $(this).find('source').attr('data-src');
+            $(this).find('source').attr('src', active_slider_video_src);
+            this.load();
+            this.play();
+            $(this).css( "background-color", "black" );
+            let vidoe_poster = $(this).siblings('img');
+            setTimeout(function(){
+                vidoe_poster.css('display', 'none');
+            }, 10);
+        }); 
     });
 
     //EFFECTS FOLDER STARS
@@ -115,7 +147,21 @@ $(function(){
             let singleindex = $(this).siblings('ul').find('li.is-active').attr('data-singleindex');
             let groupindex = $(this).siblings('ul').find('li.is-active').attr('data-groupindex');
             tr_folder_slider.removeClass('is-active');
-            $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').addClass('is-active');  
+            $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').addClass('is-active');
+            // АКТИВАЦИЯ СРАЗУ ВСЕХ ВИДЕО
+            let videos = $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').find('video');
+            videos.each(function(index){
+                console.log(this);
+                let active_slider_video_src = $(this).find('source').attr('data-src');
+                $(this).find('source').attr('src', active_slider_video_src);
+                this.load();
+                this.play();
+                $(this).css( "background-color", "black" );
+                let vidoe_poster = $(this).siblings('img');
+                setTimeout(function(){
+                    vidoe_poster.css('display', 'none');
+                }, 100);
+            });  
         }
      });
     
