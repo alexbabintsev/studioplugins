@@ -315,9 +315,9 @@ $(function() {
 
         let email = $(this).find('input[name="you-email"]').val();
         console.debug(email);
-        $('.help-success-modal a.help-success__mail').html(email).attr('href','mailto:'+email);
-        $('.help-success-modal p.help-success__text').html($(this).find('input[name="mess"]').val());
-        scriptShowModal("help-success-modal");
+        $('.help-success a.help-success__mail').html(email).attr('href','mailto:'+email);
+        $('.help-success p.help-success__text').html($(this).find('input[name="mess"]').val());
+        $('.help-c-footer__form-block').addClass('is-active');
     });
 });
 function scriptShowModal(mod)

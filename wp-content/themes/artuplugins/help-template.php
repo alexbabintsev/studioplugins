@@ -47,7 +47,7 @@ get_header();
                                     <div class="help-aside__item-title"><?= $m_block['title']?></div>
                                     <ul>
                                         <?php $b_index=0; foreach ($m_block['blocks'] as $block):?>
-                                        <li class="<?= $is_first?'is-active':'' ?> tabs-nav__item" data-tab-id="<?= $mb_index."_".$b_index;?>" data-page-id="{&quot;media&quot;: 767, &quot;id&quot;:&quot;how<?=$b_index;?>&quot;}"><?= $block['title']?>
+                                        <li class="<?= $is_first?'is-active':'' ?> tabs-nav__item" data-tab-id="<?= $mb_index."_".$b_index;?>" data-page-id="{&quot;media&quot;: 767, &quot;id&quot;:&quot;how<?= $mb_index."_".$b_index;?>&quot;}"><?= $block['title']?>
                                             <svg width="9" height="14">
                                                 <use xlink:href="#icon-arr-right"></use>
                                             </svg>
@@ -60,7 +60,7 @@ get_header();
                         <div class="help-c__content-list">
                             <?php $is_first = true; $mb_index=0; foreach (get_field('main_blocks') as $m_block):?>
                                 <?php $b_index=0; foreach ($m_block['blocks'] as $block):?>
-                                    <div class="tabs-content help-c__content<?= $is_first?' is-active':'' ?>" data-tab-id="<?= $mb_index."_".$b_index;?>" data-page="how<?=$b_index;?>" id="<?= $block['html_id']?>">
+                                    <div class="tabs-content help-c__content<?= $is_first?' is-active':'' ?>" data-tab-id="<?= $mb_index."_".$b_index;?>" data-page="how<?= $mb_index."_".$b_index;?>" id="<?= $block['html_id']?>">
                                         <div class="mob-page-header">
                                             <img class="mob-page-header__logo" src="<?= get_theme_file_uri( '/img/logo.svg' )?>" alt="logo">
                                             <div class="mob-page-close" data-page-close>
@@ -82,7 +82,13 @@ get_header();
                         <div class="help-c-footer__title"><?= get_field('footer_title'); ?></div>
                         <?= get_field('description'); ?>
                     </div>
-                    <?= do_shortcode('[contact-form-7 id="'.get_field('form').'" html_class="help-c-footer__form main-form"]');?>
+                    <div class="help-c-footer__form-block">
+                        <?= do_shortcode('[contact-form-7 id="'.get_field('form').'" html_class="help-c-footer__form main-form"]');?>
+                        <div class="help-success__right help-success">
+                            <p class="title help-success__title">We have <span>received your message and</span> we will <span>answer you</span> soon</p><a class="help-success__mail" href="mailto:enteredemail@test.com">enteredemail@test.com</a>
+                            <p class="help-success__text">Entered text from message field sample Entered text from message field sample Entered text from message field sample Entered text from message field sample Entered text from message field sample Entered text from message field sample </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

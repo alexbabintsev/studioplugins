@@ -223,11 +223,29 @@
   justify-content: space-between;
   background-color: $c-lgray;
   padding: 50px 52px;
+  .wpcf7{
+    transition: 0.3s;
+  }
   &__txt-block {
     flex-shrink: 0;
     max-width: 344px;
     width: 100%;
     margin-right: 72px;
+  }
+  &__form-block{
+    position: relative;
+    width: 100%;
+    &.is-active{
+      .help-success{
+        opacity: 1;
+        top: 0;
+      }
+      .wpcf7{
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(30px);
+      }
+    }
   }
   &__title {
     font-weight: bold;
@@ -250,7 +268,59 @@
     width: 100%;
   }
 }
-
+.help-success{
+  position: absolute;
+  top: 30px;
+  left: 0;
+  opacity: 0;
+  transition: 0.3s;
+  .help-success__title{
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 110%;
+    color: #051227;
+    margin-bottom: 10px;
+    max-width: 439px;
+    letter-spacing: 0;
+    &::before{
+      display: none;
+    }
+  }
+  &__left{
+    width: 100%;
+    max-width: 344px;
+  }
+  &__right{
+    width: 100%;
+    max-width: 709px;
+    padding-top: 10px;
+  }
+  &__question{
+    font-size: 38px;
+    line-height: 110%;
+    color: black;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 0.3px;
+  }
+  &__answer{
+    font-size: 14px;
+    line-height: 140%;
+    color: black;
+  }
+  &__mail{
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 10px;
+    color: black;
+  }
+  &__text{
+    font-size: 14px;
+    line-height: 140%;
+    color: black;
+  }
+}
 @media (max-width: $desktop) {
   .help-c {
     &__header {
@@ -281,7 +351,13 @@
     }
   }
 }
+
 @media (max-width: $tablet) {
+  .help-success{
+    .title.help-success__title{
+      text-align: left;
+    }
+  }
   .help-c-footer {
     display: block;
     &__title {
@@ -496,4 +572,13 @@
       margin-bottom: 10px;
     }
   }
+  .help-success{
+    .title.help-success__title{
+      font-weight: 800;
+      font-size: 18px;
+      line-height: 110%;
+    }
+  }
+
+
 }
