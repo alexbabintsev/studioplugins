@@ -1,24 +1,45 @@
 // const { default: Swiper } = require("swiper");
 
 $(function(){
+    // $('.test__video').on('timeupdate', function(){
+    //     console.log('timeupdate');
+    // })
     // АКТИВАЦИЯ СРАЗУ ВСЕХ ВИДЕО
+    //PROMICE
+    let loadedPromises = [];
     let start_videos = $('.tr-folder-slider[data-singleindex="'+1+'"][data-groupindex="'+1+'"]').find('video');
     start_videos.each(function(index){
         // console.log(this);
+        let el = this;
         let active_slider_video_src = $(this).find('source').attr('data-src');
         $(this).find('source').attr('src', active_slider_video_src);
-        this.addEventListener('loadedmetadata', (event) => {
-            console.log('test 234');
-            this.pause();
-          });
-        this.load();
-        // this.play();
-        $(this).css( "background-color", "black" );
-        let vidoe_poster = $(this).siblings('img');
+        el.load();
+        let p = new Promise((res, rej) =>{
+
+        el.curenttime = 0;
+        el.pause();
+        return res(el);
+
+
+        });
+        loadedPromises.push(p);
+
+
+    });
+    Promise.all(loadedPromises).then((entries)=>{
+        entries.forEach(function(entry) {
+            // entry.load();
+            entry.play();
+            $(entry).css( "background-color", "black" );
+        let vidoe_poster = $(entry).siblings('img');
         setTimeout(function(){
             vidoe_poster.css('display', 'none');
         }, 10);
+        });
     });
+
+    //PROMICE
+
     // EFFECTS FOLDER NAVIGATION
     let folder_nav_item = $('.folder-nav__item');
     let tr_folder_slider = $('.tr-folder-slider');
@@ -33,6 +54,7 @@ $(function(){
                 $(this).siblings().removeClass('is-active');
                 $(this).addClass('is-active');
                 $(this).parent().slideToggle();
+                pause_videos()
                 tr_folder_slider.removeClass('is-active');
                 $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').addClass('is-active');  
                 set_folder_select();
@@ -41,21 +63,39 @@ $(function(){
         }else{
             $(this).siblings().removeClass('is-active');
             $(this).addClass('is-active');
+            pause_videos()
             tr_folder_slider.removeClass('is-active');
             $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').addClass('is-active');  
             // АКТИВАЦИЯ СРАЗУ ВСЕХ ВИДЕО
             let videos = $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').find('video');
             videos.each(function(index){
                 // console.log(this);
+                let el = this;
                 let active_slider_video_src = $(this).find('source').attr('data-src');
                 $(this).find('source').attr('src', active_slider_video_src);
-                this.load();
-                this.play();
-                $(this).css( "background-color", "black" );
-                let vidoe_poster = $(this).siblings('img');
+                el.load();
+                let p = new Promise((res, rej) =>{
+
+                el.curenttime = 0;
+                el.pause();
+                return res(el);
+
+        
+                });
+                loadedPromises.push(p);
+        
+        
+            });
+            Promise.all(loadedPromises).then((entries)=>{
+                entries.forEach(function(entry) {
+                    entry.load();
+                    entry.play();
+                    $(entry).css( "background-color", "black" );
+                let vidoe_poster = $(entry).siblings('img');
                 setTimeout(function(){
                     vidoe_poster.css('display', 'none');
                 }, 10);
+                });
             });
         }
 
@@ -64,22 +104,40 @@ $(function(){
     let no_subfolders = $('.no-subfolders');
     no_subfolders.on('click', function(){
         let groupindex = $(this).attr('data-groupindex');
+        pause_videos()
         tr_folder_slider.removeClass('is-active');
         $('.tr-folder-slider[data-singleindex="0"][data-groupindex="'+groupindex+'"]').addClass('is-active');  
         // АКТИВАЦИЯ СРАЗУ ВСЕХ ВИДЕО
         let videos = $('.tr-folder-slider[data-singleindex="'+0+'"][data-groupindex="'+groupindex+'"]').find('video');
         videos.each(function(index){
-            console.log(this);
+            // console.log(this);
+            let el = this;
             let active_slider_video_src = $(this).find('source').attr('data-src');
             $(this).find('source').attr('src', active_slider_video_src);
-            this.load();
-            this.play();
-            $(this).css( "background-color", "black" );
-            let vidoe_poster = $(this).siblings('img');
+            el.load();
+            let p = new Promise((res, rej) =>{
+
+            el.curenttime = 0;
+            el.pause();
+            return res(el);
+
+    
+            });
+            loadedPromises.push(p);
+    
+    
+        });
+        Promise.all(loadedPromises).then((entries)=>{
+            entries.forEach(function(entry) {
+                entry.load();
+                entry.play();
+                $(entry).css( "background-color", "black" );
+            let vidoe_poster = $(entry).siblings('img');
             setTimeout(function(){
                 vidoe_poster.css('display', 'none');
             }, 10);
-        }); 
+            });
+        });
     });
 
     //EFFECTS FOLDER STARS
@@ -146,22 +204,40 @@ $(function(){
             console.log($(this).siblings('ul').find('li.is-active').text());
             let singleindex = $(this).siblings('ul').find('li.is-active').attr('data-singleindex');
             let groupindex = $(this).siblings('ul').find('li.is-active').attr('data-groupindex');
+            pause_videos()
             tr_folder_slider.removeClass('is-active');
             $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').addClass('is-active');
             // АКТИВАЦИЯ СРАЗУ ВСЕХ ВИДЕО
             let videos = $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').find('video');
             videos.each(function(index){
-                console.log(this);
+                // console.log(this);
+                let el = this;
                 let active_slider_video_src = $(this).find('source').attr('data-src');
                 $(this).find('source').attr('src', active_slider_video_src);
-                this.load();
-                this.play();
-                $(this).css( "background-color", "black" );
-                let vidoe_poster = $(this).siblings('img');
+                el.load();
+                let p = new Promise((res, rej) =>{
+
+                el.curenttime = 0;
+                el.pause();
+                return res(el);
+
+        
+                });
+                loadedPromises.push(p);
+        
+        
+            });
+            Promise.all(loadedPromises).then((entries)=>{
+                entries.forEach(function(entry) {
+                    entry.load();
+                    entry.play();
+                    $(entry).css( "background-color", "black" );
+                let vidoe_poster = $(entry).siblings('img');
                 setTimeout(function(){
                     vidoe_poster.css('display', 'none');
-                }, 100);
-            });  
+                }, 10);
+                });
+            });
         }
      });
     
@@ -188,6 +264,7 @@ $(function(){
             let folder_gr_mob_index = $(this).attr('data-groupindex');
             $('.folder-nav-group').removeClass('is-active');
             $('.folder-nav-group[data-groupindex="'+folder_gr_mob_index+'"]').addClass('is-active');
+            pause_videos()
             tr_folder_slider.removeClass('is-active');
             $('.tr-folder-slider[data-singleindex="0"][data-groupindex="'+folder_gr_mob_index+'"]').addClass('is-active');  
 
@@ -198,6 +275,7 @@ $(function(){
             $('.folder-nav-group').removeClass('is-active');
             $('.folder-nav-group[data-groupindex="'+folder_gr_mob_index+'"]').addClass('is-active');
             let current_singlge_index = $('.folder-nav-group[data-groupindex="'+folder_gr_mob_index+'"]').find('.folder-nav__item.is-active').attr('data-singleindex');
+            pause_videos()
             tr_folder_slider.removeClass('is-active');
             $('.tr-folder-slider[data-singleindex="'+current_singlge_index+'"][data-groupindex="'+folder_gr_mob_index+'"]').addClass('is-active');  
         }
@@ -207,6 +285,15 @@ $(function(){
         set_folder_select();
 
     });
+
+    function pause_videos(){
+        let video_for_pause = $('.tr-folder-slider.is-active').find('video');
+        console.log('fired paused');
+        video_for_pause.each(function(){
+            this.pause();
+        });
+        
+    }
 
 //VIDEO
     //LZAY LOAD VIDEO 
@@ -219,21 +306,21 @@ $(function(){
     
 
     
-    //HOVER ON VIDEO
-    $("body").on("mouseover", ".txt_video", function(){
-        this.load();
-        this.play();
-        $(this).css( "background-color", "black" );
-        let vidoe_poster = $(this).siblings('img');
-        setTimeout(function(){
-            vidoe_poster.css('display', 'none');
-        }, 100);
+    // //HOVER ON VIDEO
+    // $("body").on("mouseover", ".txt_video", function(){
+    //     this.load();
+    //     this.play();
+    //     $(this).css( "background-color", "black" );
+    //     let vidoe_poster = $(this).siblings('img');
+    //     setTimeout(function(){
+    //         vidoe_poster.css('display', 'none');
+    //     }, 100);
         
         
-      });
-      $("body").on("mouseleave", ".txt_video", function(){
-        this.pause();
-      })
+    //   });
+    //   $("body").on("mouseleave", ".txt_video", function(){
+    //     this.pause();
+    //   })
     //MAIN VIDEO
     // let firstlink = true;
     // let $main_video = $('.main-video');
