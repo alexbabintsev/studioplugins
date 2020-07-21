@@ -134,8 +134,7 @@
                     height: 100%;
                     top: 0;
                     left: 0;
-                    background: -o-linear-gradient(20.29deg,#0A1524 -1.03%,rgba(11,19,32,.9) 98.62%);
-                    background: linear-gradient(69.71deg,#0A1524 -1.03%,rgba(11,19,32,.9) 98.62%);
+                    background: rgba(31, 31, 34, 0.9);
                     z-index: -1;
                 }
             }
@@ -147,8 +146,7 @@
                     height: 100%;
                     top: 0;
                     left: 0;
-                    background: -o-linear-gradient(20.29deg,#FF244C -1.03%,rgba(255,36,76,.9) 98.62%);
-                    background: linear-gradient(69.71deg,#FF244C -1.03%,rgba(255,36,76,.9) 98.62%);
+                    background: rgba(1, 37, 136, 0.9);
                     z-index: -1;
                 }
             }
@@ -156,7 +154,6 @@
                 width: 261px;
                 img{
                     width: 256px;
-                    transform: translate(-27px,9px);
                 }
             }
             &-text{
@@ -164,7 +161,7 @@
                 padding-top: 10px;
                 max-width: 249px;
                 padding-top: 59px;
-                padding-bottom: 60px;
+                padding-bottom: 40px;
                 &-title{
                     font-size: 28px;
                     line-height: 110%;

@@ -16,16 +16,17 @@
         &__left{
             max-width: 545px;
             padding-bottom: 252px;
+            z-index: 1;
         }
         &__right{
             position: relative;
             width: 50%;
             img{
-                width: 1050px;
+                width: 780px;
                 position: absolute;
                 top: 50%;
                 left: 50%;
-                transform: translate(-54%,-48.68%);
+                transform: translate(-47.3%,-63.4%);
                 pointer-events: none;
             }
         }
@@ -119,7 +120,7 @@
                 right: 0;
                 height: 100%;
                 img{
-                    width: 700px;
+                    width: 650px;
                 }
             }
         }
@@ -142,7 +143,7 @@
             }
             &__right{
                 img{
-                    width: 500px;
+                    width: 450px;
                 }
             }
             &__links{
@@ -175,7 +176,8 @@
                 top: -52px;
                 right: -4px;
                 img{
-                    width: 259px;
+                    width: 191px;
+                    transform: translate(-47.3%,-49.4%);
                 }
             }
             &__left{
