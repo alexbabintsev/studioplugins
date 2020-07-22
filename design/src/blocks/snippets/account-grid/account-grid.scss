@@ -318,6 +318,9 @@
     }
     .account-grid-2{
         padding: 40px 20px 20px;
+        &__title{
+            max-width: 100%;
+        }
         &__subtitle{
             margin-bottom: 38px;
         }
