@@ -77,11 +77,14 @@
 
 
             <div class="account-grid-2__links account-grid-2__links-mobile">
-                <?php foreach ( UM()->account()->tabs as $id => $info ) {
+                <!-- <?php foreach ( UM()->account()->tabs as $id => $info ) {
                     if ( isset( $info['custom'] ) || UM()->options()->get( "account_tab_{$id}" ) == 1 || $id == 'general' ) { ?>
                         <a data-tab="<?php echo esc_attr( $id )?>" href="<?php echo esc_url( UM()->account()->tab_link( $id ) ); ?>"><?php echo esc_html( $info['title'] ); ?></a>
                     <?php }
-                } ?>
+                } ?> -->
+                <a href="#" data-modal="modal-change-email">Change email</a>
+                <a href="#" data-modal="modal-change-pass">Change password</a>
+                <a href="#" data-modal="modal-change-name">Change name</a>
             </div>
 
 
