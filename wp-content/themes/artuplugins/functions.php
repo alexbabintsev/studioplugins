@@ -1194,7 +1194,7 @@ add_action('um_reset_password_errors_hook',function ($post_form){
 });
 add_action( 'um_submit_form_errors_hook_logincheck', 'um_custom_submit_form_errors_hook_logincheck', 9999 );
 add_filter('acf/update_value/name=is_baned', function ( $value, $post_id, $field ) {
-    if($field == 'is_baned'&&get_post_type($post_id)=='pl_key'&&!get_field('is_baned', $post_id)&&$value)
+    if($field['name'] == 'is_baned'&&get_post_type($post_id)=='pl_key'&&!get_field('is_baned', $post_id)&&$value)
     {
         $owner = get_field('owner', $post_id);
         if($owner)
@@ -1206,7 +1206,13 @@ add_filter('acf/update_value/name=is_baned', function ( $value, $post_id, $field
                 delete_user_meta( $owner->ID, 'account_status_name');
                 add_user_meta( $owner->ID,'account_status_name',__( 'Banned', 'ultimate-member' ), true );
                 delete_user_meta( $owner->ID,'account_secret_hash');
-                UM()->user()->set_status('banned');
+
+                do_action( 'um_when_status_is_set', $owner->ID );
+                delete_user_meta( $owner->ID, 'account_status' );
+                update_user_meta( $owner->ID, 'account_status', 'banned' );
+                do_action( 'um_after_user_status_is_changed_hook', $owner->ID );
+                do_action( 'um_after_user_status_is_changed', $status, $owner->ID );
+                //UM()->user()->set_status('banned');
             }
         }
 

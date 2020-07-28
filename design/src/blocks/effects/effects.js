@@ -2,24 +2,25 @@
 
 $(function(){
     //LOAD AND PLAY VIDEO FUNCTION
-    function loadAndPlayVideo(video){
-        if (!video.classList.contains('loaded')) {
-            let source = video.querySelectorAll('source');
-            source.forEach(s => {
-                s.src = s.dataset.src;
-            });
-            video.load();
-            video.play();
-            video.classList.add('loaded');
-            video.style.background = 'black';
-            video.parentNode.querySelector('img').style.display = 'none';
-        } else {
-            video.play();
+    function loadAndPlayVideo(video, index){
+        if(index < 10){
+            if (!video.classList.contains('loaded')) {
+                let source = video.querySelector('source');
+                source.src = source.dataset.src;
+                video.load();
+                video.play();
+                video.classList.add('loaded');
+                video.style.background = 'black';
+                video.parentNode.querySelector('img').style.display = 'none';
+            } else {
+                video.play();
+            }
         }
+
     }
     
     //PLAY INITIAL VIDEOS
-    document.querySelectorAll('.tr-folder-slider[data-singleindex="'+1+'"][data-groupindex="'+1+'"] video').forEach(v => loadAndPlayVideo(v));
+    document.querySelectorAll('.tr-folder-slider[data-singleindex="'+1+'"][data-groupindex="'+1+'"] video').forEach((v, i) => loadAndPlayVideo(v,i));
 
 
     // EFFECTS FOLDER NAVIGATION
@@ -32,8 +33,7 @@ $(function(){
         if($(window).width()<= 767){
             
             if($(this).parent().parent().hasClass('is-active')){
-                let active_slider = document.querySelector('.tr-folder-slider.is-active');
-                active_slider.querySelectorAll('video').forEach(v=>v.pause());
+                // document.querySelectorAll('.tr-folder-slider.is-active video').forEach(v=>v.pause());
                 $(this).siblings().removeClass('is-active');
                 $(this).addClass('is-active');
                 $(this).parent().slideToggle();
@@ -41,25 +41,16 @@ $(function(){
                 $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').addClass('is-active');  
                 set_folder_select();
                 // АКТИВАЦИЯ СРАЗУ ВСЕХ ВИДЕО
-                let videos = $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').find('video');
-                videos.each(function(index){
-                    let el = this;
-                    loadAndPlayVideo(el);
-                });
+                document.querySelectorAll('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"] video').forEach((v, i) => loadAndPlayVideo(v,i));
             }
         }else{
-            let active_slider = document.querySelector('.tr-folder-slider.is-active');
-            active_slider.querySelectorAll('video').forEach(v=>v.pause());
+            // document.querySelectorAll('.tr-folder-slider.is-active video').forEach(v=>v.pause());
             $(this).siblings().removeClass('is-active');
             $(this).addClass('is-active');
             tr_folder_slider.removeClass('is-active');
             $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').addClass('is-active');  
             // АКТИВАЦИЯ СРАЗУ ВСЕХ ВИДЕО
-            let videos = $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').find('video');
-            videos.each(function(index){
-                let el = this;
-                loadAndPlayVideo(el);
-            });
+            document.querySelectorAll('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"] video').forEach((v, i) => loadAndPlayVideo(v,i));
         }
 
     });
@@ -74,11 +65,7 @@ $(function(){
         tr_folder_slider.removeClass('is-active');
         $('.tr-folder-slider[data-singleindex="0"][data-groupindex="'+groupindex+'"]').addClass('is-active');  
         // АКТИВАЦИЯ СРАЗУ ВСЕХ ВИДЕО
-        let videos = $('.tr-folder-slider[data-singleindex="'+0+'"][data-groupindex="'+groupindex+'"]').find('video');
-        videos.each(function(index){
-            let el = this;
-            loadAndPlayVideo(el);
-        });
+        document.querySelectorAll('.tr-folder-slider[data-singleindex="'+0+'"][data-groupindex="'+groupindex+'"] video').forEach((v, i) => loadAndPlayVideo(v,i));
     });
 
 
@@ -92,18 +79,13 @@ $(function(){
         //MAKE ACTIVE APPROPRIATE SLIDER ON DESCTOP
         if(!$(this).hasClass('no-subfolders') && !$(window).width()<= 767){
             // console.log($(this).siblings('ul').find('li.is-active').text());
-            let active_slider = document.querySelector('.tr-folder-slider.is-active');
-            active_slider.querySelectorAll('video').forEach(v=>v.pause());
+            // document.querySelectorAll('.tr-folder-slider.is-active video').forEach(v=>v.pause());
             let singleindex = $(this).siblings('ul').find('li.is-active').attr('data-singleindex');
             let groupindex = $(this).siblings('ul').find('li.is-active').attr('data-groupindex');
             tr_folder_slider.removeClass('is-active');
             $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').addClass('is-active');
             // АКТИВАЦИЯ СРАЗУ ВСЕХ ВИДЕО
-            let videos = $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').find('video');
-            videos.each(function(index){
-                let el = this;
-                loadAndPlayVideo(el);
-            });
+            document.querySelectorAll('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"] video').forEach((v, i) => loadAndPlayVideo(v,i));
         }
      });
     
@@ -125,8 +107,7 @@ $(function(){
     let folder_group_mob__item = $('.folder-group-mob__item');
     folder_group_mob__item.on('click', function(){
         if ($(this).hasClass('no-subfolders-mob')){
-            let active_slider = document.querySelector('.tr-folder-slider.is-active');
-            active_slider.querySelectorAll('video').forEach(v=>v.pause());
+            // document.querySelectorAll('.tr-folder-slider.is-active video').forEach(v=>v.pause());
             $(this).siblings().removeClass('is-active');
             $(this).addClass('is-active');
             let folder_gr_mob_index = $(this).attr('data-groupindex');
@@ -134,15 +115,10 @@ $(function(){
             $('.folder-nav-group[data-groupindex="'+folder_gr_mob_index+'"]').addClass('is-active');
             tr_folder_slider.removeClass('is-active');
             $('.tr-folder-slider[data-singleindex="0"][data-groupindex="'+folder_gr_mob_index+'"]').addClass('is-active');  
-            let videos = $('.tr-folder-slider[data-singleindex="0"][data-groupindex="'+folder_gr_mob_index+'"]').find('video');
-            videos.each(function(index){
-                let el = this;
-                loadAndPlayVideo(el);
-            }); 
+            document.querySelectorAll('.tr-folder-slider[data-singleindex="0"][data-groupindex="'+folder_gr_mob_index+'"] video').forEach((v, i) => loadAndPlayVideo(v,i));
 
         }else{
-            let active_slider = document.querySelector('.tr-folder-slider.is-active');
-            active_slider.querySelectorAll('video').forEach(v=>v.pause());
+            // document.querySelectorAll('.tr-folder-slider.is-active video').forEach(v=>v.pause());
             $(this).siblings().removeClass('is-active');
             $(this).addClass('is-active');
             let folder_gr_mob_index = $(this).attr('data-groupindex');
@@ -152,11 +128,7 @@ $(function(){
             tr_folder_slider.removeClass('is-active');
             $('.tr-folder-slider[data-singleindex="'+current_singlge_index+'"][data-groupindex="'+folder_gr_mob_index+'"]').addClass('is-active'); 
             // АКТИВАЦИЯ СРАЗУ ВСЕХ ВИДЕО
-            let videos = $('.tr-folder-slider[data-singleindex="'+current_singlge_index+'"][data-groupindex="'+folder_gr_mob_index+'"]').find('video');
-            videos.each(function(index){
-                let el = this;
-                loadAndPlayVideo(el);
-            }); 
+            document.querySelectorAll('.tr-folder-slider[data-singleindex="'+current_singlge_index+'"][data-groupindex="'+folder_gr_mob_index+'"] video').forEach((v, i) => loadAndPlayVideo(v,i));
         }
     });
     set_folder_select();
