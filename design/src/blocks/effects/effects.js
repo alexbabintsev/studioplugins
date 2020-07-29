@@ -1,27 +1,27 @@
 // const { default: Swiper } = require("swiper");
 
 $(function(){
-    //LOAD AND PLAY VIDEO FUNCTION
-    function loadAndPlayVideo(video, index){
-        if(index < 10){
-            if (!video.classList.contains('loaded')) {
-                let source = video.querySelector('source');
-                source.src = source.dataset.src;
+    let all_video = document.querySelectorAll('.tr-folder-slider video');
+    let videoObs = new IntersectionObserver(entries => {
+        entries.forEach (entry => {
+            let video = entry.target;
+            let source = video.querySelector('source');
+            if (entry.isIntersecting){
                 video.load();
+                source.setAttribute('src', source.dataset.src);
                 video.play();
                 video.classList.add('loaded');
-                video.style.background = 'black';
                 video.parentNode.querySelector('img').style.display = 'none';
-            } else {
-                video.play();
+            }else{
+                console.log('test empty attr');
+                source.setAttribute('src', '');
+                video.load();
             }
-        }
-
-    }
-    
-    //PLAY INITIAL VIDEOS
-    document.querySelectorAll('.tr-folder-slider[data-singleindex="'+1+'"][data-groupindex="'+1+'"] video').forEach((v, i) => loadAndPlayVideo(v,i));
-
+        })
+    })
+    all_video.forEach(v=>{
+        videoObs.observe(v);
+    });
 
     // EFFECTS FOLDER NAVIGATION
     let folder_nav_item = $('.folder-nav__item');
@@ -40,8 +40,6 @@ $(function(){
                 tr_folder_slider.removeClass('is-active');
                 $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').addClass('is-active');  
                 set_folder_select();
-                // АКТИВАЦИЯ СРАЗУ ВСЕХ ВИДЕО
-                document.querySelectorAll('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"] video').forEach((v, i) => loadAndPlayVideo(v,i));
             }
         }else{
             // document.querySelectorAll('.tr-folder-slider.is-active video').forEach(v=>v.pause());
@@ -49,8 +47,6 @@ $(function(){
             $(this).addClass('is-active');
             tr_folder_slider.removeClass('is-active');
             $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').addClass('is-active');  
-            // АКТИВАЦИЯ СРАЗУ ВСЕХ ВИДЕО
-            document.querySelectorAll('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"] video').forEach((v, i) => loadAndPlayVideo(v,i));
         }
 
     });
@@ -64,8 +60,6 @@ $(function(){
         let groupindex = $(this).attr('data-groupindex');
         tr_folder_slider.removeClass('is-active');
         $('.tr-folder-slider[data-singleindex="0"][data-groupindex="'+groupindex+'"]').addClass('is-active');  
-        // АКТИВАЦИЯ СРАЗУ ВСЕХ ВИДЕО
-        document.querySelectorAll('.tr-folder-slider[data-singleindex="'+0+'"][data-groupindex="'+groupindex+'"] video').forEach((v, i) => loadAndPlayVideo(v,i));
     });
 
 
@@ -78,14 +72,10 @@ $(function(){
         $(this).toggleClass('is-active');
         //MAKE ACTIVE APPROPRIATE SLIDER ON DESCTOP
         if(!$(this).hasClass('no-subfolders') && !$(window).width()<= 767){
-            // console.log($(this).siblings('ul').find('li.is-active').text());
-            // document.querySelectorAll('.tr-folder-slider.is-active video').forEach(v=>v.pause());
             let singleindex = $(this).siblings('ul').find('li.is-active').attr('data-singleindex');
             let groupindex = $(this).siblings('ul').find('li.is-active').attr('data-groupindex');
             tr_folder_slider.removeClass('is-active');
             $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').addClass('is-active');
-            // АКТИВАЦИЯ СРАЗУ ВСЕХ ВИДЕО
-            document.querySelectorAll('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"] video').forEach((v, i) => loadAndPlayVideo(v,i));
         }
      });
     
@@ -107,7 +97,6 @@ $(function(){
     let folder_group_mob__item = $('.folder-group-mob__item');
     folder_group_mob__item.on('click', function(){
         if ($(this).hasClass('no-subfolders-mob')){
-            // document.querySelectorAll('.tr-folder-slider.is-active video').forEach(v=>v.pause());
             $(this).siblings().removeClass('is-active');
             $(this).addClass('is-active');
             let folder_gr_mob_index = $(this).attr('data-groupindex');
@@ -115,10 +104,8 @@ $(function(){
             $('.folder-nav-group[data-groupindex="'+folder_gr_mob_index+'"]').addClass('is-active');
             tr_folder_slider.removeClass('is-active');
             $('.tr-folder-slider[data-singleindex="0"][data-groupindex="'+folder_gr_mob_index+'"]').addClass('is-active');  
-            document.querySelectorAll('.tr-folder-slider[data-singleindex="0"][data-groupindex="'+folder_gr_mob_index+'"] video').forEach((v, i) => loadAndPlayVideo(v,i));
 
         }else{
-            // document.querySelectorAll('.tr-folder-slider.is-active video').forEach(v=>v.pause());
             $(this).siblings().removeClass('is-active');
             $(this).addClass('is-active');
             let folder_gr_mob_index = $(this).attr('data-groupindex');
@@ -127,8 +114,6 @@ $(function(){
             let current_singlge_index = $('.folder-nav-group[data-groupindex="'+folder_gr_mob_index+'"]').find('.folder-nav__item.is-active').attr('data-singleindex');
             tr_folder_slider.removeClass('is-active');
             $('.tr-folder-slider[data-singleindex="'+current_singlge_index+'"][data-groupindex="'+folder_gr_mob_index+'"]').addClass('is-active'); 
-            // АКТИВАЦИЯ СРАЗУ ВСЕХ ВИДЕО
-            document.querySelectorAll('.tr-folder-slider[data-singleindex="'+current_singlge_index+'"][data-groupindex="'+folder_gr_mob_index+'"] video').forEach((v, i) => loadAndPlayVideo(v,i));
         }
     });
     set_folder_select();
