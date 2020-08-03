@@ -35,6 +35,11 @@ $(function() {
     $(document).on('click', '.default-modal__close, [data-modal-close]', function() {
         
         callbackClose();
+        let video = $(this).siblings('video')[0];
+        if($(this).siblings('.default-modal__content-volume').hasClass('is-active')){
+            $(this).siblings('.default-modal__content-volume').removeClass('is-active');
+            video.muted = !video.muted;
+        }
 
 
     });

@@ -220,7 +220,7 @@ $(function() {
                 if(data.result)
                 {
                     $('.fn_email').html(data.email);
-                    scriptShowModal("modal-success-mail-change");
+                    scriptShowModal("modal-success-confirm-mail");
                 }
                 else
                 {
@@ -318,6 +318,21 @@ $(function() {
         $('.help-success a.help-success__mail').html(email).attr('href','mailto:'+email);
         $('.help-success p.help-success__text').html($(this).find('input[name="mess"]').val());
         $('.help-c-footer__form-block').addClass('is-active');
+    });
+
+    //LOADER FOR SUBSCRIBE FORM
+    $('.subscribe__container .wpcf7').on('wpcf7mailsent', function(){
+        let anim_btn = $(this).find('.main-form__submit-btn');
+        let circle = $(this).find('.main-form__load');
+        let check = $(this).find('.main-form__check');
+        anim_btn.addClass('loaded');
+        circle.addClass('loaded');
+        setTimeout(function(){
+            anim_btn.addClass('initstate')
+        },3000);
+        setTimeout(function(){
+            check.addClass('is-active')
+        },4000);
     });
 });
 function scriptShowModal(mod)

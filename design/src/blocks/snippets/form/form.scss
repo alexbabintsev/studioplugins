@@ -3,6 +3,14 @@
   font-size: 16px;
   line-height: 140%;
   letter-spacing: -1px;
+  &__check{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+  }
   .wpcf7-response-output{
     display: none!important;
   }
@@ -65,6 +73,17 @@
   }
   &__submit-wrapper{
     margin-top: 40px;
+    position: relative;
+    br{
+      display: none;
+    }
+    &:hover{
+      svg{
+        .checked{
+          fill: black;
+        }
+      }
+    }
   }
   &__submit-btn{
     border: 2px solid #000000;
@@ -84,6 +103,7 @@
       background: black;
       color: white;
       border: 2px solid #000000;
+
     }
   }
   .um-left{
@@ -449,5 +469,100 @@ input {
       width: 100%;
       padding: 0;
     }
+  }
+}
+
+//MAIN FORM SUBMIT ANIMATION
+
+.main-form__load, .main-form__load-b{
+  position: absolute;
+  top: 50%;
+  left: -3px;
+  transform: translate(0%, -50%);
+  width: 56px;
+  height: 56px;
+  z-index: 100;
+  transition: 0.3s;
+  pointer-events: none;
+  opacity: 0;
+  .loading-inner {
+    stroke: {
+      dasharray: 900;
+      // Thickness of line
+      width: 6;
+      miterlimit: 10;
+      linecap: round;
+    }
+    stroke: white;
+    fill: transparent;
+  }
+}
+.main-form__load-b{
+  display: none;
+  .loading-inner{
+    stroke: white;
+  }
+}
+.main-form__check{
+  pointer-events: none;
+  opacity: 0;
+  transition: 0.5s;
+  transform: translate(-50%, 40%);
+  &.is-active{
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+.main-form__load{
+  &.loaded{
+    animation: loading-circle 2s linear forwards;
+    animation-delay: 0.8s;
+  }
+}
+.main-form__submit-btn{
+  margin-right: auto;
+  &.loaded{
+    animation: button-to-circle 0.6s linear forwards;
+    // animation-delay: .1s;
+  }
+  &.initstate{
+    animation: button-to-rect 0.6s linear forwards;
+  }
+}
+
+@keyframes button-to-circle{
+  1%{
+    color: transparent;
+  }
+  100%{
+    color: transparent;
+    width: 50px;
+    border-radius: 50%;
+  }
+}
+@keyframes button-to-rect{
+  0%{
+    color: transparent;
+    width: 50px;
+    border-radius: 50%;
+  }
+  100%{
+    color: transparent;
+    width: 240px;
+    border-radius: 0%;
+  }
+}
+@keyframes loading-circle {
+  0% { 
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+  50%{
+    opacity: 1;
+    stroke-dashoffset: -100;
+  }
+  100% { 
+    opacity: 1;
+    stroke-dashoffset: -600;
   }
 }

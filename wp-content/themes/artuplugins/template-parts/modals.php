@@ -194,7 +194,7 @@
                 <img src="<?= get_theme_file_uri( '/img/modals/succconfirm.svg' )?>" alt="">
             </div>
             <h2 class="default-modal__title default-modal__title-illustration">Confirm  <span>your email</span> </h2>
-            <p class="default-modal__subtitle">We’ve sent confirmation link to newemail@artu.studio</p>
+            <p class="default-modal__subtitle">We’ve sent confirmation link to <span class="fn_email">newemail@artu.studio</span></p>
         </div>
     </div>
 </div>
@@ -291,9 +291,11 @@
                 <use xlink:href="#icon-close"></use>
             </svg>
         </div>
-
-        <video loop="" playsinline="" muted="" data-keepplaying="" class="main-video-modal" data-ratio="1.7777777777778"  preload="metadata" data-src="/wp-content/themes/artuplugins/video/abstract-preview.mp4">
-            <source type="video/mp4" data-src="/wp-content/themes/artuplugins/video/abstract-preview.mp4">
+        <div class="default-modal__content-volume">
+            <img src="/wp-content/themes/artuplugins/img/speaker.svg" alt="speaker">
+        </div>
+        <video loop="" playsinline="" muted="" data-keepplaying="" class="main-video-modal" data-ratio="1.7777777777778"  preload="metadata" data-src="/wp-content/themes/artuplugins/video/demo.mp4">
+            <source type="video/mp4" data-src="/wp-content/themes/artuplugins/video/demo.mp4">
         </video>
     </div>
 </div>

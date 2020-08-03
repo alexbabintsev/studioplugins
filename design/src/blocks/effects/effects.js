@@ -13,7 +13,7 @@ $(function(){
                 video.classList.add('loaded');
                 video.parentNode.querySelector('img').style.display = 'none';
             }else{
-                console.log('test empty attr');
+                // console.log('test empty attr');
                 source.setAttribute('src', '');
                 video.load();
             }
@@ -170,7 +170,7 @@ $(function(){
     })
     let scroll_button = $('.effects-content__footer-scrollbar');
     scroll_button.hover(function(){
-        console.log('test');
+        // console.log('test');
         
         $(this).find('.effects-content__footer-drop').toggleClass('is-active');
     })
@@ -222,6 +222,37 @@ $(function(){
     //     }
         
     // });
+    //VOLUME DEMO VIDEO
+    let demo_vol = $('.creative__volume');
+    demo_vol.on('click', function(){
+        if($(this).hasClass('is-active')){
+            let video = $(this).siblings('video')[0];
+            $(this).removeClass('is-active');
+            video.muted = !video.muted;
+            console.log('muted');
+
+        }else{
+            let video = $(this).siblings('video')[0];
+            $(this).addClass('is-active');
+            video.muted = !video.muted;
+            console.log('unmuted');
+        }
+    });
+    let demo_vol_modal = $('.default-modal__content-volume');
+    demo_vol_modal.on('click', function(){
+        if($(this).hasClass('is-active')){
+            let video = $(this).siblings('video')[0];
+            $(this).removeClass('is-active');
+            video.muted = !video.muted;
+            console.log('muted');
+
+        }else{
+            let video = $(this).siblings('video')[0];
+            $(this).addClass('is-active');
+            video.muted = !video.muted;
+            console.log('unmuted');
+        }
+    });
     function mainvideoPlay($mainvideo){
         if( $('.main-video').length){
             let main_video = $mainvideo[0];
