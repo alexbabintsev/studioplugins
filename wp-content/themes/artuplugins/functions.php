@@ -1219,6 +1219,22 @@ add_filter('acf/update_value/name=is_baned', function ( $value, $post_id, $field
     }
     return $value;
 }, 10, 3);
+add_filter( 'password_change_email', function ($pass_change_email, $user, $userdata){
+    $pass_change_email['subject'] = __( 'Password Changed' );
+    $pass_change_email['message'] = str_replace( '###USERNAME###', $user['nickname'], $pass_change_email['message'] );
+    return $pass_change_email;
+},10,3 );
+add_filter( 'email_change_email', function ($pass_change_email, $user, $userdata){
+    $pass_change_email['subject'] = __( 'Email Changed' );
+    $pass_change_email['message'] = str_replace( '###USERNAME###', $user['nickname'], $pass_change_email['message'] );
+    return $pass_change_email;
+},10,3 );
+/*add_filter( 'wp_mail_from', function wpb_sender_email( $original_email_address ) {
+    return 'tim.smith@example.com';
+} );*/
+add_filter( 'wp_mail_from_name', function( $original_email_from ) {
+    return 'StudioPlugins';
+});
 /*function pl_key_custom_filters() {
     global $typenow;
     global $wp_query;
