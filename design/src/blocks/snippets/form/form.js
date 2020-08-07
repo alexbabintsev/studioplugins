@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(event) {
+
     $('.um-field input').each(function(){
         if($(this).val().length){
             $(this).closest('.um-field').addClass('input-group--notempty');
@@ -31,6 +32,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
     })
     $('.um-field input').on('blur', function(){
         if ($(this).parent().parent().hasClass('um-field-user_login')){
+            if($(this).val().length < 3){
+                $(this).parent().siblings('.um-field-error').remove();
+                $(this).parent().parent().append('<div class="um-field-error"><span class="um-field-arrow"><i class="um-faicon-caret-up"></i></span>Your Name must contain at least 3 characters</div>');   
+            }else if ($(this).val().length > 20){
+                $(this).parent().siblings('.um-field-error').remove();
+                $(this).parent().parent().append('<div class="um-field-error"><span class="um-field-arrow"><i class="um-faicon-caret-up"></i></span>Your Name must contain less than 20 characters</div>');
+            }else{
+                $(this).parent().siblings('.um-field-error').remove();
+            }
+        }
+        if ($(this).parent().parent().hasClass('um-field-nickname')){
             if($(this).val().length < 3){
                 $(this).parent().siblings('.um-field-error').remove();
                 $(this).parent().parent().append('<div class="um-field-error"><span class="um-field-arrow"><i class="um-faicon-caret-up"></i></span>Your Name must contain at least 3 characters</div>');   

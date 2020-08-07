@@ -51,6 +51,8 @@
     padding: 0;
     input{
       padding: 20px 5px 8px 0;
+      -webkit-text-fill-color: black!important;
+      color: -internal-light-dark(black, black) !important;
     }
   }
   .um-field-label{
@@ -515,18 +517,18 @@ input {
 }
 .main-form__load{
   &.loaded{
-    animation: loading-circle 2s linear forwards;
+    animation: loading-circle 2s linear ;
     animation-delay: 0.8s;
   }
 }
 .main-form__submit-btn{
   margin-right: auto;
   &.loaded{
-    animation: button-to-circle 0.6s linear forwards;
+    animation: button-to-circle 0.6s linear forwards alternate;
     // animation-delay: .1s;
   }
   &.initstate{
-    animation: button-to-rect 0.6s linear forwards;
+    animation: button-to-rect 0.6s linear forwards alternate;
   }
 }
 
