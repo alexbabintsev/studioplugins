@@ -25,6 +25,9 @@ $(function() {
             if(newModal=='modal-video'){
                 let modalVideo = $('.modal-video').find('video');
                 mainvideoPlay(modalVideo);
+            }
+            if(newModal=='modal-video-2'){
+
                 showModal(newModal);
             }else{
                 showModal(newModal);
@@ -35,11 +38,11 @@ $(function() {
     $(document).on('click', '.default-modal__close, [data-modal-close]', function() {
         
         callbackClose();
-        let video = $(this).siblings('video')[0];
-        if($(this).siblings('.default-modal__content-volume').hasClass('is-active')){
-            $(this).siblings('.default-modal__content-volume').removeClass('is-active');
-            video.muted = !video.muted;
-        }
+        // let video = $(this).siblings('video')[0];
+        // if($(this).siblings('.default-modal__content-volume').hasClass('is-active')){
+        //     $(this).siblings('.default-modal__content-volume').removeClass('is-active');
+        //     video.muted = !video.muted;
+        // }
 
 
     });
@@ -115,6 +118,10 @@ function callbackClose() {
     }else if ( $("body").hasClass("mob-nav-open") ){
         $("body").removeClass("modal-open");
         $(".default-modal").removeClass("is-active");
+    }
+    if($('.popup-iframe')){
+        let closeframe = $('.popup-iframe');
+        $(closeframe)[0].contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
     }
     // closeYoutube();
     

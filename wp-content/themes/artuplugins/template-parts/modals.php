@@ -291,11 +291,16 @@
                 <use xlink:href="#icon-close"></use>
             </svg>
         </div>
-        <div class="default-modal__content-volume">
-            <img src="/wp-content/themes/artuplugins/img/speaker.svg" alt="speaker">
+        <iframe width="100%" data-src="https://www.youtube.com/embed/gtFdrLLkiOE?enablejsapi=1&amp;wmode=transparent" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+    </div>
+</div>
+<div class="default-modal  modal-video-t">
+    <div class="default-modal__content default-modal__content-video">
+        <div class="default-modal__close" data-modal-close>
+            <svg width="100%" height="100%">
+                <use xlink:href="#icon-close"></use>
+            </svg>
         </div>
-        <video loop="" playsinline="" muted="" data-keepplaying="" class="main-video-modal" data-ratio="1.7777777777778"  preload="metadata" data-src="/wp-content/themes/artuplugins/video/demo.mp4">
-            <source type="video/mp4" data-src="/wp-content/themes/artuplugins/video/demo.mp4">
-        </video>
+        <iframe width="100%" data-src="https://www.youtube.com/embed/gtFdrLLkiOE?enablejsapi=1&amp;wmode=transparent" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
     </div>
 </div>

@@ -197,7 +197,12 @@
 
 
 }
-
+.modal-video-2, .modal-video-t{
+  iframe{
+    width: 100%;
+    height: calc(100vw * 0.5625);
+  }
+}
 
 
 
@@ -206,14 +211,14 @@
     &__close{
       width: 20px;
       height: 20px;
-      top: 20px;
-      right: 21px;
+      top: -25px;
+      right: 10px;
     }
     &__content{
       height: 100vh;
       padding: 100px 20px;
       &-video{
-        padding: 100px 10px;
+        padding: 0px 10px;
         max-width: 100%;
         height: auto;
       }

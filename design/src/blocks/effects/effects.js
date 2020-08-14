@@ -278,9 +278,9 @@ $(function(){
     if($('body').hasClass('body-transitions-page') || $('body').hasClass('body-text-animations-page')){
         let $fullscreen_video = $('.fullscreen-video')[0];
         $fullscreen_video.play();
-        let screen_width = document.documentElement.clientWidth;
-        let screen_height= document.documentElement.clientHeight;
-        set_fullscr_video_size(screen_width, screen_height);
+        // let screen_width = document.documentElement.clientWidth;
+        // let screen_height= document.documentElement.clientHeight;
+        // set_fullscr_video_size(screen_width, screen_height);
     }
 
 
@@ -291,13 +291,22 @@ $(function(){
         });
     }
 
-    $(window).on('resize', function(){
-        let screen_width = document.documentElement.clientWidth;
-        let screen_height= document.documentElement.clientHeight;
-        set_fullscr_video_size(screen_width, screen_height);
-    }); 
-
-    
+    // $(window).on('resize', function(){
+    //     let screen_width = document.documentElement.clientWidth;
+    //     let screen_height= document.documentElement.clientHeight;
+    //     set_fullscr_video_size(screen_width, screen_height);
+    // }); 
+    $play_demo_btn = $('.play-demo-btn');
+    $play_demo_btn.on('click', function(){
+        let data_frame = $(this).attr('data-video');
+        console.log(data_frame);
+        this.insertAdjacentHTML('afterbegin',data_frame);
+        let iframe = $(this).find('iframe');
+        this.classList.add('is-hidden');
+        iframe[0].onload = function(){
+            $(iframe)[0].contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        };
+    });
 });
 
 //TRANSITION FOLDER-SLIDERs INIT FUNCTION
