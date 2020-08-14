@@ -967,6 +967,14 @@ function um_custom_submit_form_register( $args ) {
     extract( $args );
     $unique_userID = UM()->query()->count_users() + 1;
     if ( empty( $user_login ) ) {
+		$users = get_users([
+		'orderby'      => 'id',
+		'order'        => 'DESC',
+		'number'=>1,
+		]);
+		if(count($users)>0)
+			$unique_userID = $users[0]->ID +1;
+		//var_dump($users,$unique_userID);die;
         $user_login = 'user' . $unique_userID;
     }
 
@@ -1042,7 +1050,6 @@ function um_custom_submit_form_register( $args ) {
          */
         $user_email = apply_filters( 'um_user_register_submitted__email', $user_email );
     }
-
     $credentials = array(
         'user_login'    => $user_login,
         'user_password' => $user_password,
@@ -1108,7 +1115,6 @@ function um_custom_submit_form_register( $args ) {
     );
 
     $user_id = wp_insert_user( $userdata );
-
     /**
      * UM hook
      *
@@ -1234,6 +1240,52 @@ add_filter( 'email_change_email', function ($pass_change_email, $user, $userdata
 } );*/
 add_filter( 'wp_mail_from_name', function( $original_email_from ) {
     return 'StudioPlugins';
+});
+add_filter( 'block_categories', function( $categories, $post ) {
+    return array_merge(
+        $categories,
+        array(
+            array(
+                'slug' => 'studioplugins-blocks',
+                'title' => __( 'StudioPlugins Blocks', 'valueone' ),
+            ),
+        )
+    );
+}, 10, 2 );
+add_action('acf/init', function(){
+	acf_register_block_type( [
+            'name' => 'custom-video-landing',
+            'title' => __('Custom Video Landing', 'valueone'),
+            'description' => __('', 'valueone'),
+            'category' => 'studioplugins-blocks',
+            //'icon' => '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>',
+            'keywords' => array('custom', 'video','landing'),
+            //'post_types' => array('page'),
+            'mode' => 'edit',//auto preview edit
+            'align' => 'full',//“left”, “center”, “right”, “wide”, “full”
+            'render_template' => 'blocks/custom-video-landing.php',
+            //'render_callback' => function(){},
+            //'enqueue_style' => get_template_directory_uri() . '/template-parts/blocks/testimonial/testimonial.css',
+            //'enqueue_script' => get_template_directory_uri() . '/template-parts/blocks/testimonial/testimonial.js',
+            //'enqueue_assets' => function(){},
+            'supports' =>[
+                //'align' => array( 'left', 'right', 'full' ),
+                'mode' => false,
+                //'multiple' => false,
+                //'__experimental_jsx' => true,
+            ],
+            'example'  => array(
+                'attributes' => array(
+                    'mode' => 'preview',
+                    'data' => array(
+                        //'testimonial'   => "Your testimonial text here",
+                        //'author'        => "John Smith"
+                        //'title' =>__('Test title', 'valueone'),
+                        //'subtitle' =>__('Test subtitle', 'valueone'),
+                    )
+                )
+            )
+        ] );
 });
 /*function pl_key_custom_filters() {
     global $typenow;

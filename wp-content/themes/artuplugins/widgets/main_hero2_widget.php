@@ -25,7 +25,7 @@ class main_hero2_widget extends WP_Widget {
                         <p class="hero-2-content__text"><?= $instance['text']?></p>
                         <div class="hero-2-content__links">
                             <a class="btn" target="_blank" href="<?= esc_attr($instance['buy_link'])?>"><?= $instance['buy_link_text']?></a>
-                            <a class="hero-2-content__video" data-nav='nav' href="#" data-href="#view-demo">
+                            <a class="hero-2-content__video" data-nav='nav' href="#" data-href="<?= get_field('video_url','widget_'.$args['widget_id'])?>">
                                 <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M19.2686 31.3338V18.5713C19.2686 17.7993 20.1063 17.3184 20.7729 17.7079L32.4256 24.5145C33.1081 24.9132 33.0801 25.9087 32.3763 26.2684L20.7237 32.2242C20.0583 32.5643 19.2686 32.081 19.2686 31.3338Z" fill="white"/>
                                     <circle cx="25" cy="25" r="24" stroke="white" stroke-width="2"/>
