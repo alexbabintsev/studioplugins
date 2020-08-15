@@ -291,16 +291,7 @@
                 <use xlink:href="#icon-close"></use>
             </svg>
         </div>
-        <iframe width="100%" data-src="https://www.youtube.com/embed/gtFdrLLkiOE?enablejsapi=1&amp;wmode=transparent" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+        <iframe width="100%" data-src="?enablejsapi=1&amp;wmode=transparent" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
     </div>
 </div>
-<div class="default-modal  modal-video-t">
-    <div class="default-modal__content default-modal__content-video">
-        <div class="default-modal__close" data-modal-close>
-            <svg width="100%" height="100%">
-                <use xlink:href="#icon-close"></use>
-            </svg>
-        </div>
-        <iframe width="100%" data-src="https://www.youtube.com/embed/gtFdrLLkiOE?enablejsapi=1&amp;wmode=transparent" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
-    </div>
-</div>
+
