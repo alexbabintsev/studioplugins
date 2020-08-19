@@ -302,6 +302,8 @@ $(function(){
         console.log(data_frame);
         this.insertAdjacentHTML('afterbegin',data_frame);
         let iframe = $(this).find('iframe');
+        let $fullscreen_video = $('.fullscreen-video')[0];
+        $fullscreen_video.pause();
         this.classList.add('is-hidden');
         iframe[0].onload = function(){
             $(iframe)[0].contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
