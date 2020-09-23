@@ -58,6 +58,9 @@
     &-list{
       width: 100%;
       max-width: 738px;
+      img{
+        max-width: 100%;
+      }
     }
     p {
       font-size: 14px;
