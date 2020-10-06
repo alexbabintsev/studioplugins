@@ -78,6 +78,33 @@ $table_prefix = 'wp_';
  */
 define( 'WP_DEBUG', false );
 
+// Имя пользователя для SMTP авторизации
+define( 'SMTP_USER', 'studio.plugins@mail.ru' );
+
+// Пароль пользователя для SMTP авторизации
+define( 'SMTP_PASS', 'aS7VN9PG' );
+
+// Хост почтового сервера
+define( 'SMTP_HOST', 'smtp.mail.ru' );
+
+// Обратный Email
+define( 'SMTP_FROM', 'studio.plugins@mail.ru' );
+
+// Имя для обратного мыла
+define( 'SMTP_NAME', 'StudioPlugins' );
+
+// Номер порта (25, 465, 587)
+define( 'SMTP_PORT', '465' );
+
+// Тип шифиования (ssl или tls)
+define( 'SMTP_SECURE', 'ssl' );
+
+// Включение/отключение шифрования
+define( 'SMTP_AUTH', true );
+
+// Режим отладки (0, 1, 2)
+define( 'SMTP_DEBUG',0 );
+
 /* Это всё, дальше не редактируем. Успехов! */
 
 /** Абсолютный путь к директории WordPress. */

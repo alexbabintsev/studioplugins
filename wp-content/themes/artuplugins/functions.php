@@ -266,7 +266,7 @@ add_action( 'wp_ajax_test', function (){
     $data = curl_exec($ch);
     curl_close($ch);
     $strVer = json_decode($data, true);*/
-    var_dump(getUserProducts($user));
+    //var_dump(getUserProducts($user));
     wp_die();
 } );
 add_action('wp_ajax_cp_change_email',function(){
@@ -456,6 +456,7 @@ add_action('wp_ajax_cp_change_password',function(){
                 if(isset($_REQUEST['new_password'])&&$_REQUEST['new_password']){
                     if(isset($_REQUEST['confirm_new_password'])&&$_REQUEST['confirm_new_password']){
                         if($_REQUEST['new_password']==$_REQUEST['confirm_new_password']){
+                            if ( preg_match_all('~[^a-zA-Z0-9]~m', $_REQUEST['new_password'], $o)>0 ){
                             if(UM()->validation()->strong_pass( $_REQUEST['new_password'])){
                                 if(wp_check_password( $_REQUEST['current_password'], $user->data->user_pass, $user->ID ))
                                 {
@@ -469,6 +470,12 @@ add_action('wp_ajax_cp_change_password',function(){
                             {
                                 $rez['msg']=__('Your password must contain at least one lowercase letter, one capital letter and one number', 'ultimate-member' );
                                 $rez['errors']=['new_password'=>__('Your password must contain at least one lowercase letter, one capital letter and one number', 'ultimate-member' )];
+                            }
+                            }
+                            else
+                            {
+                                $rez['msg']=__('Your password must contain only Latin letters and numbers', 'artu' );
+                                $rez['errors']=['new_password'=>__('Your password must contain only Latin letters and numbers', 'artu' )];
                             }
 
                         }
@@ -1235,9 +1242,13 @@ add_filter( 'email_change_email', function ($pass_change_email, $user, $userdata
     $pass_change_email['message'] = str_replace( '###USERNAME###', $user['nickname'], $pass_change_email['message'] );
     return $pass_change_email;
 },10,3 );
-/*add_filter( 'wp_mail_from', function wpb_sender_email( $original_email_address ) {
-    return 'tim.smith@example.com';
-} );*/
+/**/add_filter( 'wp_mail_from', function( $original_email_address ) {
+    $sitename = strtolower( $_SERVER['SERVER_NAME'] );
+    if ( substr( $sitename, 0, 4 ) == 'www.' ) {
+        $sitename = substr( $sitename, 4 );
+    }
+    return 'info@' . $sitename;
+} );
 add_filter( 'wp_mail_from_name', function( $original_email_from ) {
     return 'StudioPlugins';
 });
@@ -1287,6 +1298,180 @@ add_action('acf/init', function(){
             )
         ] );
 });
+function mihdan_send_smtp_email( PHPMailer $phpmailer ) {
+    $phpmailer->isSMTP();
+    $phpmailer->Host       = SMTP_HOST;
+    $phpmailer->SMTPAuth   = SMTP_AUTH;
+    $phpmailer->Port       = SMTP_PORT;
+    $phpmailer->Username   = SMTP_USER;
+    $phpmailer->Password   = SMTP_PASS;
+    $phpmailer->SMTPSecure = SMTP_SECURE;
+    $phpmailer->From       = SMTP_FROM;
+    $phpmailer->FromName   = SMTP_NAME;
+    $phpmailer->SMTPDebug  = SMTP_DEBUG;
+}
+add_action( 'phpmailer_init', 'mihdan_send_smtp_email' );
+add_action( 'um_change_password_errors_hook', function($args){
+    if ( preg_match_all('~[^a-zA-Z0-9]~m',$args['user_password'], $o)>0 ) {
+        UM()->form()->add_error('user_password', __('Your password must contain only Latin letters and numbers','artu' ) );
+    }
+},10,1 );
+remove_action( 'um_submit_account_errors_hook', 'um_submit_account_errors_hook' );
+add_action( 'um_submit_account_errors_hook', 'um_submit_account_errors_hook_custom',10,1);
+function um_submit_account_errors_hook_custom( $args ) {
+
+    if ( ! isset( $_POST['um_account_submit'] ) ) {
+        return;
+    }
+
+    if ( ! wp_verify_nonce( $_POST[ 'um_account_nonce_' . $_POST['_um_account_tab'] ], 'um_update_account_' . $_POST['_um_account_tab'] ) ) {
+        UM()->form()->add_error('um_account_security', __( 'Are you hacking? Please try again!', 'ultimate-member' ) );
+    }
+
+    $user = get_user_by( 'login', um_user( 'user_login' ) );
+
+    if ( isset( $_POST['_um_account_tab'] ) ) {
+        switch ( $_POST['_um_account_tab'] ) {
+            case 'delete': {
+                // delete account
+                if ( strlen(trim( $_POST['single_user_password'] ) ) == 0 ) {
+                    UM()->form()->add_error( 'single_user_password', __( 'You must enter your password', 'ultimate-member' ) );
+                } else {
+                    if ( ! wp_check_password( $_POST['single_user_password'], $user->data->user_pass, $user->data->ID ) ) {
+                        UM()->form()->add_error( 'single_user_password', __( 'This is not your password', 'ultimate-member' ) );
+                    }
+                }
+
+                UM()->account()->current_tab = 'delete';
+
+                break;
+            }
+
+            case 'password': {
+                // change password
+                if ( ( isset( $_POST['current_user_password'] ) && $_POST['current_user_password'] != '' ) ||
+                    ( isset( $_POST['user_password'] ) && $_POST['user_password'] != '' ) ||
+                    ( isset( $_POST['confirm_user_password'] ) && $_POST['confirm_user_password'] != '') ) {
+
+                    if ( $_POST['current_user_password'] == '' || ! wp_check_password( $_POST['current_user_password'], $user->data->user_pass, $user->data->ID ) ) {
+
+                        UM()->form()->add_error('current_user_password', __('This is not your password','ultimate-member') );
+                        UM()->account()->current_tab = 'password';
+                    } else { // correct password
+
+                        if ( $_POST['user_password'] != $_POST['confirm_user_password'] && $_POST['user_password'] ) {
+                            UM()->form()->add_error('user_password', __('Your new password does not match','ultimate-member') );
+                            UM()->account()->current_tab = 'password';
+                        }
+
+                        if ( UM()->options()->get( 'account_require_strongpass' ) ) {
+
+                            if ( strlen( utf8_decode( $_POST['user_password'] ) ) < 8 ) {
+                                UM()->form()->add_error('user_password', __('Your password must contain at least 8 characters','ultimate-member') );
+                            }
+
+                            if ( strlen( utf8_decode( $_POST['user_password'] ) ) > 30 ) {
+                                UM()->form()->add_error('user_password', __('Your password must contain less than 30 characters','ultimate-member') );
+                            }
+                            if ( preg_match_all('~[^a-zA-Z0-9]~m',$_POST['user_password'], $o)>0 ) {
+                                UM()->form()->add_error('user_password', __('Your password must contain only Latin letters and numbers','artu' ) );
+                            }
+
+                            if ( ! UM()->validation()->strong_pass( $_POST['user_password'] ) ) {
+                                UM()->form()->add_error('user_password', __('Your password must contain at least one lowercase letter, one capital letter and one number','ultimate-member') );
+                            }
+
+                        }
+
+                    }
+                }
+
+                break;
+            }
+
+            case 'account':
+            case 'general': {
+                // errors on general tab
+
+                $account_name_require = UM()->options()->get( 'account_name_require' );
+
+                if ( ! empty( $_POST['user_login'] ) && ! validate_username( $_POST['user_login'] ) ) {
+                    UM()->form()->add_error('user_login', __( 'Your username is invalid', 'ultimate-member' ) );
+                    return;
+                }
+
+                if ( isset( $_POST['first_name'] ) && ( strlen( trim( $_POST['first_name'] ) ) == 0 && $account_name_require ) ) {
+                    UM()->form()->add_error( 'first_name', __( 'You must provide your first name', 'ultimate-member' ) );
+                }
+
+                if ( isset( $_POST['last_name'] ) && ( strlen( trim( $_POST['last_name'] ) ) == 0 && $account_name_require ) ) {
+                    UM()->form()->add_error( 'last_name', __( 'You must provide your last name', 'ultimate-member' ) );
+                }
+
+                if ( isset( $_POST['user_email'] ) ) {
+
+                    if ( strlen( trim( $_POST['user_email'] ) ) == 0 ) {
+                        UM()->form()->add_error( 'user_email', __( 'You must provide your e-mail', 'ultimate-member' ) );
+                    }
+
+                    if ( ! is_email( $_POST['user_email'] ) ) {
+                        UM()->form()->add_error( 'user_email', __( 'Please provide a valid e-mail', 'ultimate-member' ) );
+                    }
+
+                    if ( email_exists( $_POST['user_email'] ) && email_exists( $_POST['user_email'] ) != get_current_user_id() ) {
+                        UM()->form()->add_error( 'user_email', __( 'Email already linked to another account', 'ultimate-member' ) );
+                    }
+                }
+
+                // check account password
+                if ( UM()->options()->get( 'account_general_password' ) ) {
+                    if ( strlen( trim( $_POST['single_user_password'] ) ) == 0 ) {
+                        UM()->form()->add_error('single_user_password', __( 'You must enter your password', 'ultimate-member' ) );
+                    } else {
+                        if ( ! wp_check_password( $_POST['single_user_password'], $user->data->user_pass, $user->data->ID ) ) {
+                            UM()->form()->add_error('single_user_password', __( 'This is not your password', 'ultimate-member' ) );
+                        }
+                    }
+                }
+
+                break;
+            }
+
+            default:
+                /**
+                 * UM hook
+                 *
+                 * @type action
+                 * @title um_submit_account_{$tab}_tab_errors_hook
+                 * @description On submit account current $tab validation
+                 * @change_log
+                 * ["Since: 2.0"]
+                 * @usage add_action( 'um_submit_account_{$tab}_tab_errors_hook', 'function_name', 10 );
+                 * @example
+                 * <?php
+                 * add_action( 'um_submit_account_{$tab}_tab_errors_hook', 'my_submit_account_tab_errors', 10 );
+                 * function my_submit_account_tab_errors() {
+                 *     // your code here
+                 * }
+                 * ?>
+                 */
+                do_action( 'um_submit_account_' . $_POST['_um_account_tab'] . '_tab_errors_hook' );
+                break;
+        }
+
+        UM()->account()->current_tab = $_POST['_um_account_tab'];
+    }
+
+}
+add_action( 'um_add_error_on_form_submit_validation', function($array, $key, $args){
+    if ( isset( $args[ $key ] ) ) {
+        if ( isset( $array['force_good_pass'] )  ) {
+            if ( preg_match_all('~[^a-zA-Z0-9]~m',$args[ $key ], $o)>0 ) {
+                UM()->form()->add_error( $key,  __('Your password must contain only Latin letters and numbers','artu' ) );
+            }
+        }
+    }
+},10,3 );
 /*function pl_key_custom_filters() {
     global $typenow;
     global $wp_query;
