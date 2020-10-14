@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     helpVideoBtns && helpVideoBtns.forEach(function(el) {
        el.addEventListener('click', function() {
            let video = this.dataset.video;
-           if (!this.querySelector('iframe')) {
+           if (!this.querySelector('iframe') && video) {
                this.insertAdjacentHTML('afterbegin',video);
                let iframe = $(this).find('iframe');
                this.classList.add('is-hidden');
