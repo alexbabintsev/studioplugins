@@ -194,7 +194,10 @@
                 <img src="<?= get_theme_file_uri( '/img/modals/succconfirm.svg' )?>" alt="">
             </div>
             <h2 class="default-modal__title default-modal__title-illustration">Confirm  <span>your email</span> </h2>
-            <p class="default-modal__subtitle">We’ve sent confirmation link to <span class="fn_email">newemail@artu.studio</span></p>
+            <p class="default-modal__subtitle">
+                We’ve sent confirmation link to <span class="fn_email">newemail@artu.studio</span>
+                <br>If there isn’t email in your inbox please check spam folder.
+            </p>
         </div>
     </div>
 </div>

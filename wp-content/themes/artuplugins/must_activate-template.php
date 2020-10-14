@@ -13,7 +13,10 @@ get_header();
             <div class="account-grid">
                 <div class="account-grid__left">
                     <h1 class="title confirm__title">Confirm <span>your email</span></h1>
-                    <h2 class="subtitle confirm__subtitle">We’ve sent confirmation link to <?php if(isset($_GET['email'])):?><a href="mailto:<?= $_GET['email']?>"><?= $_GET['email']?></a><?php else:?>your email<?php endif;?></h2>
+                    <h2 class="subtitle confirm__subtitle">
+                        We’ve sent the confirmation link to <?php if(isset($_GET['email'])):?><a href="mailto:<?= $_GET['email']?>"><?= $_GET['email']?></a><?php else:?>your email<?php endif;?>
+                        <p>If there isn’t email in your inbox please check spam folder.</p>
+                    </h2>
                 </div>
                 <div class="account-grid__right">
                     <div class="account-grid__illustration"><img src="<?= get_theme_file_uri( '/img/confirm/confirm.svg' )?>" alt=""></div>

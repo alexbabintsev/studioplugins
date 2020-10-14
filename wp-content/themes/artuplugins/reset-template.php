@@ -13,7 +13,10 @@ get_header();
                 <div class="account-grid">
                     <div class="account-grid__left">
                         <h1 class="title resetcheckmail__title">Check <span>your mail</span></h1>
-                        <h2 class="subtitle resetcheckmail__subtitle"><?php _e( 'We have sent you a password reset link to your e-mail. Please check your inbox.', 'ultimate-member' ); ?></h2>
+                        <h2 class="subtitle resetcheckmail__subtitle">
+                            <?php _e( 'We have sent you a password reset link to your e-mail.', 'ultimate-member' ); ?>
+                            <p>If there isn’t email in your inbox please check spam folder.</p>
+                        </h2>
                     </div>
                     <div class="account-grid__right">
                         <div class="account-grid__illustration"><img src="<?= get_theme_file_uri( '/img/confirm/confirm.svg' )?>" alt=""></div>

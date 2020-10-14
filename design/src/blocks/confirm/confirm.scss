@@ -1,0 +1,9 @@
+@media (max-width: $mobile) {
+  .confirm {
+    &__subtitle {
+      p {
+        display: inline;
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+@media (max-width: $mobile) {
+  .resetcheckmail {
+    &__subtitle {
+      p {
+        display: inline;
+      }
+    }
+  }
+}
