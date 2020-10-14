@@ -50,8 +50,9 @@
         padding: 14px;
         text-align: center;
         display: block;
-        margin: 40px auto 0;
+        margin: 40px 10px 0;
         max-width: 344px;
+        width: 100%;
         transition: 0.3s;
         &-pink{
             background: $c-magenta;
@@ -65,6 +66,14 @@
             &:hover{
                 color: $c-gold;
                 background: black;
+            }
+        }
+        &-white {
+            color: #fff;
+            border: 2px solid #fff;
+            &:hover{
+                color: #000;
+                background: #fff;
             }
         }
     }
@@ -334,6 +343,14 @@
                     padding: 0 15px;
                 }
             }
+        }
+    }
+    &__btn-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .effects__button {
+
         }
     }
 }
@@ -772,7 +789,16 @@
             }
         }
         &__button{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
             margin-top: 21px;
+            &-white {
+                margin-top: 10px;
+            }
+        }
+        &__btn-group {
+            display: block;
         }
     }
     .folder-nav-group{

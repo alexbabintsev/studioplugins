@@ -2,11 +2,12 @@
    position: relative;
    height: 100%;
    min-height: 90vh;
-   max-height: 100vh;
+   //max-height: 100vh;
    // background: radial-gradient(74.46% 120.71% at 57.53% 21.14%, #410646 0%, #051227 100%);
    z-index: 1;
    position: relative;
    overflow: hidden;
+   display: flex;
    &-video{
       position: absolute;
       bottom: 0;
@@ -25,9 +26,11 @@
       }
    }
    &__container-decor{
-      padding-top: 280px;
+      //padding-top: 280px;
+      padding-top: 98px;
       position: relative;
       padding-bottom: 42px;
+      //padding-bottom: 98px;
    }
    &__decor{
       position: absolute;
@@ -93,7 +96,8 @@
       font-size: 12px;
       line-height: 15px;
       letter-spacing: 0.14em;
-      margin-bottom: 205px;
+      //margin-bottom: 205px;
+      margin-bottom: 40px;
       p{
          text-transform: uppercase;
          padding-right: 30px;
@@ -119,39 +123,47 @@
       }
    }
    &__downloads{
-      display: flex;
-      a{
+      //display: flex;
+      //a{
+      //   display: block;
+      //   padding-left: 30px;
+      //   position: relative;
+      //   margin-right: 40px;
+      //   color: white;
+      //   font-weight: 600;
+      //   font-size: 14px;
+      //   line-height: 17px;
+      //   &:last-child{
+      //      margin-right: 0;
+      //   }
+      //   img{
+      //      position: absolute;
+      //      left: 0;
+      //      top: 50%;
+      //      transform: translateY(-50%);
+      //   }
+      //   &::after{
+      //      position: absolute;
+      //      content: '';
+      //      width: calc(100% - 32px);
+      //      height: 1px;
+      //      background: white;
+      //      bottom: -2px;
+      //      right: 1px;
+      //      transition: 0.3s;
+      //   }
+      //   &:hover{
+      //      &::after{
+      //         width: 0;
+      //      }
+      //   }
+      //}
+      .btn {
          display: block;
-         padding-left: 30px;
-         position: relative;
-         margin-right: 40px;
-         color: white;
-         font-weight: 600;
-         font-size: 14px;
-         line-height: 17px;
-         &:last-child{
-            margin-right: 0;
-         }
-         img{
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-         }
-         &::after{
-            position: absolute;
-            content: '';
-            width: calc(100% - 32px);
-            height: 1px; 
-            background: white;
-            bottom: -2px;
-            right: 1px;
-            transition: 0.3s;
-         }
-         &:hover{
-            &::after{
-               width: 0;
-            }
+         max-width: 344px;
+         margin-bottom: 10px;
+         &:last-child {
+            margin-bottom: 0;
          }
       }
       &-mob{
