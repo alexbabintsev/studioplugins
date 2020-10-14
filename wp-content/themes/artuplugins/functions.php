@@ -115,7 +115,7 @@ function teheme_styles_scripts() {
     //wp_enqueue_script( 'artu-map-google', 'https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&key='.$gkey, array(),false, true );
     wp_enqueue_script( 'artu-lib-js', get_theme_file_uri( '/js/libs.min.js' ), array(), $tversion, true );
     wp_enqueue_script( 'artu-scripts', get_theme_file_uri( '/js/scripts.min.js' ), array(), $tversion, true );
-    wp_enqueue_script( 'artu-rs', get_theme_file_uri( '/js/rs.js' ), array(), $tversion, true );
+    wp_enqueue_script( 'artu-rs', get_theme_file_uri( '/js/rs.js' ), array(), $tversion.'.1', true );
     //wp_enqueue_script( 'ya-share2', 'https://yastatic.net/share2/share.js', array(), false, true );
     wp_localize_script( 'artu-rs', 'myajax',
         array(
@@ -323,16 +323,19 @@ add_action( 'init',  function (){
         delete_option( "um_cache_userdata_{$user_id}" );
 
         um_fetch_user( $user_id );
-
+        $status = get_user_meta( $user_id, 'account_status', true );
+        $new_email = get_user_meta( $user_id, 'new_email', true );
         if ( strtolower( $_REQUEST['hash'] ) !== strtolower( um_user( 'account_secret_hash' ) ) ) {
+            if($status == 'approved'&&!$new_email)
+                wp_die( __( 'This account is already active.', 'ultimate-member' ) );
             wp_die( __( 'This activation link is expired or have already been used.', 'ultimate-member' ) );
         }
-        $status = get_user_meta( $user_id, 'account_status', true );
+
         if($status=='awaiting_email_confirmation')
             UM()->user()->approve();
         else if($status == 'approved')
         {
-            $new_email = get_user_meta( $user_id, 'new_email', true );
+
             //var_dump($user_id,$new_email);die;
             if($new_email)
             {
@@ -456,7 +459,7 @@ add_action('wp_ajax_cp_change_password',function(){
                 if(isset($_REQUEST['new_password'])&&$_REQUEST['new_password']){
                     if(isset($_REQUEST['confirm_new_password'])&&$_REQUEST['confirm_new_password']){
                         if($_REQUEST['new_password']==$_REQUEST['confirm_new_password']){
-                            if ( preg_match_all('~[^a-zA-Z0-9]~m', $_REQUEST['new_password'], $o)>0 ){
+                            if ( preg_match_all('~[^a-zA-Z0-9]~m', $_REQUEST['new_password'], $o)<1 ){
                             if(UM()->validation()->strong_pass( $_REQUEST['new_password'])){
                                 if(wp_check_password( $_REQUEST['current_password'], $user->data->user_pass, $user->ID ))
                                 {
@@ -1472,6 +1475,10 @@ add_action( 'um_add_error_on_form_submit_validation', function($array, $key, $ar
         }
     }
 },10,3 );
+add_filter('password_reset_expiration', function ($defaults){
+
+    return $defaults*2;
+}, 10);
 /*function pl_key_custom_filters() {
     global $typenow;
     global $wp_query;

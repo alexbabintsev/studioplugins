@@ -338,9 +338,45 @@ $(function() {
 function scriptShowModal(mod)
 {
     if($(".default-modal.is-active").length) {
-        callbackClose();
+        callbackCloseа();
             setTimeout(function () {showModal(mod);}, 300);
     }
     else
         showModal(mod);
+}
+function callbackCloseа() {
+
+
+    if ( modalPrev ) {
+        $('.default-modal.is-active').removeClass('is-active');
+        // setTimeout(function() {
+        $('.'+ modalPrev +'').addClass('is-active');
+        // }, 300);
+        modalPrev = null;
+        return false;
+    }
+    if ($("body").hasClass("modal-open") && !$("body").hasClass("mob-nav-open")) {
+        $("body").removeClass("modal-open");
+        $(".default-modal").removeClass("is-active");
+        setTimeout(function () {
+            $('html').removeClass('no-scroll');
+            $('html').css('margin-right', '');
+            $('.header').css('padding-right', '');
+            /////////////////////
+            modalCloseMac();
+            /////////////////////
+        }, 300);
+    }else if ( $("body").hasClass("mob-nav-open") ){
+        $("body").removeClass("modal-open");
+        $(".default-modal").removeClass("is-active");
+    }
+    /*if($('.popup-iframe')){
+        let closeframe = $('.popup-iframe');
+        $(closeframe)[0].contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+    }*/
+    // closeYoutube();
+
+
+
+
 }
