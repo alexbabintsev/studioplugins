@@ -20,7 +20,7 @@ get_header();
                 <div class="downloaded-banner__right">
                     <div class="downloaded-banner__video-wrapp">
 <!--                        <div class="help-video-btn downloaded-banner__video-btn" data-video-id='i57p-G0Xs2M' data-video='--><?//= esc_attr(get_field('video_code_win'))?><!--'>-->
-                        <a href="#" class="help-video-btn downloaded-banner__video-btn">
+                        <a href="<?= get_field('image_link_win')?>" class="help-video-btn downloaded-banner__video-btn">
                             <div class="help-c__media-txt-block" style="background-image:url(<?= get_field('video_image_win')?>)"></div>
                         </a>
                     </div>
@@ -37,9 +37,10 @@ get_header();
                 </div>
                 <div class="downloaded-banner__right">
                     <div class="downloaded-banner__video-wrapp">
-                        <div class="help-video-btn downloaded-banner__video-btn" data-video-id='i57p-G0Xs2M' data-video='<?= esc_attr(get_field('video_code_mac'))?>'>
+                        <!--<div class="help-video-btn downloaded-banner__video-btn" data-video-id='i57p-G0Xs2M' data-video='<?//= esc_attr(get_field('video_code_mac'))?>'>-->
+                        <a href="<?= get_field('image_link_mac')?>" class="help-video-btn downloaded-banner__video-btn">
                             <div class="help-c__media-txt-block" style="background-image:url(<?= get_field('video_image_mac')?>)"></div>
-                        </div>
+                        </a>
                     </div>
                     <?= get_field('mobile_text_mac')?>
                 </div>
