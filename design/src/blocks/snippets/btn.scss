@@ -74,4 +74,84 @@
       }
     }
   }
+  &--red {
+    border-color: $c-red;
+    color: #fff;
+    background-color: $c-red;
+    svg {
+      fill: #fff;
+    }
+    &:hover {
+      border-color: #000;
+      background-color: #000;
+      color: $c-red;
+      svg {
+        fill: $c-red;
+      }
+    }
+    &:focus,
+    &:active {
+      background-color: rgba(0,0,0,.8);
+      border-color: rgba(0,0,0,.8);
+      color: $c-red;
+      svg {
+        fill: $c-red;
+      }
+    }
+  }
+  &--yellow {
+    border-color: $c-gold;
+    background-color: $c-gold;
+    color: #000;
+    svg {
+      fill: #000;
+    }
+    &:hover {
+      border-color: #000;
+      background-color: #000;
+      color: $c-gold;
+      svg {
+        fill: $c-gold;
+      }
+    }
+    &:focus,
+    &:active {
+      background-color: rgba(0,0,0,.8);
+      border-color: rgba(0,0,0,.8);
+      color: $c-gold;
+      svg {
+        fill: $c-gold;
+      }
+    }
+  }
+  &--pink {
+    border-color: $c-magenta;
+    background-color: $c-magenta;
+    color: #000;
+    svg {
+      fill: #000;
+    }
+    &:hover {
+      border-color: #000;
+      background-color: #000;
+      color: $c-magenta;
+      svg {
+        fill: $c-magenta;
+      }
+    }
+    &:focus,
+    &:active {
+      background-color: rgba(0,0,0,.8);
+      border-color: rgba(0,0,0,.8);
+      color: $c-magenta;
+      svg {
+        fill: $c-magenta;
+      }
+    }
+  }
+  &.ap {
+    svg {
+      margin-top: -2px;
+    }
+  }
 }

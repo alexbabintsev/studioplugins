@@ -3,6 +3,8 @@ $(document).ready(function () {
     // Страницы и ссылки на них
     var pagesList = {
 		"1.Главная": "index.html",
+		"1.1.Transitions": "transitions.html",
+		"1.2.Text animations": "text-anim.html",
 		"2.Register": "register.html",
 		"3.Confirm": "confirm.html",
 		"4.Login": "login.html",
@@ -12,7 +14,23 @@ $(document).ready(function () {
 		"8.Account": "account.html",
 		"9.Account/added prod": "accountaddedsingle.html",
 		"10.Account/added 2 prod": "accountaddeddouble.html",
-		"11.Модальные окна": "popups.html",
+		"11.Help-contact": "help-contact.html",
+		"12.EULA": "eula.html",
+		"13.Политика": "policy.html",
+		"14.Модальные окна": "popups.html",
+		"15.Downloaded": "downloaded.html",
+		"15.404": "page-404.html",
+		"16.Linked": "linked.html",
+		"17.Blog": "blog.html",
+		"18.Article": "article.html",
+		"19.Account-new": "account-new-page.html",
+		"19.1.Account-new-google": "account-new-page-google.html",
+		"20.Catalog": "catalog.html",
+		"21.Cart": "cart.html",
+		"22.Any-product": "any-product.html",
+		"23.Bundle page": "bundle-page.html",
+		"24.mailing-letter": "mailing-letter.html",
+		"25.Download page": "download.html",
     };
 
     $('body').each(function(){

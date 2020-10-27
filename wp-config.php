@@ -23,10 +23,10 @@
 define( 'DB_NAME', 'artuplugins' );
 
 /** Имя пользователя MySQL */
-define( 'DB_USER', 'root' );
+define( 'DB_USER', 'mysql' );
 
 /** Пароль к базе данных MySQL */
-define( 'DB_PASSWORD', '' );
+define( 'DB_PASSWORD', 'mysql' );
 
 /** Имя сервера MySQL */
 define( 'DB_HOST', 'localhost' );

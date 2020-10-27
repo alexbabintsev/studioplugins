@@ -1,8 +1,13 @@
+.confirm{
+  &__subtitle{
+    max-width: 500px;
+  }
+}
 @media (max-width: $mobile) {
   .confirm {
-    &__subtitle {
-      p {
-        display: inline;
+    &__subtitle { 
+      br{
+        display: none;
       }
     }
   }

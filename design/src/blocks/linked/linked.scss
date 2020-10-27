@@ -1,7 +1,7 @@
 .linked{
     &__title{
         margin-top: 9px;
-        margin-bottom: 13px;
+        margin-bottom: 10px;
         &-2{
             margin-bottom: 40px;
         }
@@ -12,7 +12,7 @@
         color: black;
         font-weight: 400;
         position: relative;
-        margin-bottom: 21px;
+        margin-bottom: 31px;
         padding-right: 85px;
     }
     &__count{
@@ -30,18 +30,17 @@
         justify-content: space-between;
         width: 100%;
         max-width: 708px;
-        margin-bottom: 42px;
         &__item{
             background: black;
             width: 100%;
             max-width: 344px;
-            padding: 32px 30px 23px;
+            padding: 31px 30px 29px;
             &-img{
                 display: block;
                 min-height: 56px;
                 display: flex;
                 align-items: center;
-                margin-bottom: 26px;
+                margin-bottom: 30px;
                 img{
                     display: block;
                     max-width: 66px;
@@ -68,6 +67,7 @@
                 color: $c-red;
                 display: block;
                 transition: 0.3s;
+                text-transform: capitalize;
                 &:hover{
                     color: white;
                 }
@@ -89,11 +89,24 @@
 }
 @media screen and (max-width: $tablet){
     .linked{
+        &__subtitle{
+            margin-bottom: 32px;
+        }
         &__count{
             font-size: 48px;
             bottom: auto;
-            top: 50%;
+            top: 54%;
             transform: translateY(-50%);
+            right: -2px;
+            font-size: 42px;
+        }
+        &__title{
+            margin-bottom: 23px;
+        }
+        &-os{
+            &__item{
+                margin-bottom: 10px;
+            }
         }
     }
 }

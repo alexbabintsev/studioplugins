@@ -1,0 +1,14 @@
+section.features
+    .container
+        h2.features__title
+            span.title Features
+        .features__list
+            each data in ['Animation Studio Extenstion', 'Fastest render speed for all presets', 'Drag-and-drop method to use', 'Perfect for vertical videos', 'Sound FX includes', 'Online Support', 'Best timesaver for video editors', 'Works with any footages', 'Ready to use Design Presets']
+                .features-item
+                    img(src='img/squares.svg' alt='decor')
+                    p=data
+        .features__btn-group
+            button(type='button').btn.btn--red
+                span.btn__inner Buy all for 45$
+            button(type='button').btn.btn--white
+                span.btn__inner Subscribe for 14$/month

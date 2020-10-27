@@ -1,0 +1,128 @@
+.mailing-letter{
+    width: 100%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 57px 100px 120px;
+    background: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    &__header{
+        margin-bottom: 59px;
+        a{
+            display: block;
+            width: 182px;
+            height: 44px;
+            margin-left: auto;
+            margin-right: auto;
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                object-position: center;
+            }
+        }
+    }
+    &__body{
+        position: relative;
+        background: url(../img/mailing-letter/mailing-letter-bg.jpg);
+        background-size: cover;
+        background-position: center;
+        z-index: 1;
+        padding: 120px 65px 40px;
+        &::before{
+            position: absolute;
+            content: '';
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(78.26deg, #0A1524 -1.03%, rgba(11, 19, 32, 0.9) 98.62%);
+            z-index: -1;
+        }
+    }
+    &__title{
+        font-style: normal;
+        font-weight: bold;
+        font-size: 48px;
+        line-height: 110%;
+        margin-bottom: 60px;
+        color: white;
+        letter-spacing: -2px;
+        &::before{
+            display: none;
+        }
+    }
+    &__subtitle{
+        font-style: normal;
+        font-weight: normal;
+        font-size: 30px;
+        line-height: 36px;
+        text-align: center;
+        text-transform: uppercase;
+        color: white;
+        margin-bottom: 13px;
+    }
+    &__txt{
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 140%;
+        text-align: center;
+        color: white;
+    }
+    .btn{
+        margin-bottom: 103px;
+        color: white;
+        background: #FF244C;
+        margin-top: 38px;
+        height: 54px;
+        width: 100%;
+        max-width: 284px;
+        transition: 0.3s;
+        &:hover{
+            color: #FF244C;
+            background: white;
+        }
+    }
+    &__dec{
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 450px;
+        mix-blend-mode: overlay;
+    }
+    &__footer{
+        p{
+            color: rgba(255, 255, 255, 0.5);
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1.7px;
+        }
+    }
+}
+
+@media screen and (max-width: $mobile-big){
+    .mailing-letter{
+        height: 100%;
+        padding: 40px 20px 20px;
+        &__body{
+            padding: 40px 20px 60px;
+        }
+        &__title{
+            font-size: 28px;
+            line-height: 110%;
+        }
+        &__subtitle{
+            font-size: 24px;
+        }
+        .btn{
+            max-width: 100%;
+        }
+    }
+}

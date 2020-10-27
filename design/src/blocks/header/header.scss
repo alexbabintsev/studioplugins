@@ -10,7 +10,7 @@
   &__left{
     a{
       line-height: 98px;
-      transition: 0.3s;
+      transition: 0.25s;
       svg{
         transform: translate(-1px, 5px);
       }
@@ -29,8 +29,61 @@
   &__right{
     display: flex;
     align-items: center;
+    margin-left: auto;
+    margin-right: 41px;
     a{
       letter-spacing: -0.2px;
+    }
+  }
+  &__cart{
+    margin-right: 24px;
+    border: 2px solid black;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    color: black;
+    &-count{
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 14px;
+      height: 14px;
+      text-align: center;
+      border-left: 2px solid black;
+      padding-left: 19px;
+      padding-right: 18px;
+      transition: 0.3s;
+    }
+    svg{
+      width: 47px;
+      height: 36px;
+      flex-shrink: 0;
+      margin-right: -2px;
+      path, rect{
+        transition: 0.3s;
+      }
+      path{
+        fill: black;
+      }
+      rect{
+        stroke: black;
+      }
+    }
+    &:hover {
+      @media screen and (min-width: $tablet){
+        border: 2px solid $c-red;
+        .header__cart-count{
+          color: $c-red;
+          border-color: $c-red;
+        }
+        path{
+          fill: $c-red;
+        }
+        rect{
+          stroke: $c-red;
+        }
+      }
+
     }
   }
   &__nav{
@@ -98,6 +151,19 @@ body{
   .header-scroll{
     background: rgba(242,246,249,.8);
     backdrop-filter: blur(5px);
+    .header__cart{
+      border: 2px solid black;
+      &-count{
+        color: black;
+        border-color: black;
+      }
+      svg path{
+        fill: black;
+      }
+      svg rect{
+        stroke: black;
+      }
+    }
     .header__left{
       a{
         line-height: 60px;
@@ -178,7 +244,11 @@ body{
     height: 50px;
   }
 }
-.body-home-page, .body-transitions-page, .body-text-animations-page{
+.body-home-page,
+.body-transitions-page,
+.body-text-animations-page,
+.body-any-page,
+.body-download-page {
   .header{
     position: fixed;
     top: 0;
@@ -200,6 +270,30 @@ body{
     &__nav{
       border-right: 1px solid white;
     }
+    &__cart{
+      border: 2px solid white;
+      color: white;
+      &-count{
+        border-left: 2px solid white;
+      }
+      svg{
+        path{
+          fill: white;
+        }
+        rect{
+          stroke: white;
+        }
+      }
+      &:hover{
+        @media screen and (min-width: $tablet){
+          border: 2px solid $c-red;
+          svg path{
+            fill: $c-red;
+          }
+        }
+
+      }
+    }
   }
   .burger{
     span{
@@ -207,7 +301,17 @@ body{
     }
   }
 }
-@media screen and (max-width: $mobile-big){
+@media screen and (max-width: $desktop){
+  .header{
+    &__nav{
+      margin-right: 20px;
+      &-link{
+        margin-right: 20px;
+      }
+    }
+  }
+}
+@media screen and (max-width: $tablet){
   .burger{
     z-index: 11;
   }
@@ -280,6 +384,34 @@ body{
         }
       }
     }
+    &__cart{
+      margin-right: 8px;
+      transform: translateY(-1px);
+      margin-left: auto;
+      border: none!important;
+      position: relative;
+      &-count{
+        position: absolute;
+        top: 9px;
+        right: 10px;
+        background: $c-red;
+        color: white;
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+        font-weight: 600;
+        font-size: 8px;
+        line-height: 140%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        border: none;
+      }
+      rect{
+        display: none;
+      }
+    }
     .header__nav-link-logout{
       font-size: 18px;
       line-height: 110%;
@@ -306,6 +438,23 @@ body{
     transform: none;
     opacity: 1;
     visibility: visible;
+  }
+  .body-home-page,
+  .body-transitions-page,
+  .body-text-animations-page,
+  .body-any-page,
+  .download-page,
+  .body-download-page {
+    .header{
+      &__cart{
+        border: none;
+        position: relative;
+        &-count{
+          border: none;
+          color: white!important;
+        }
+      }
+    }
   }
 }
 @media screen and (max-width: $mobile-big){

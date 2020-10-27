@@ -346,6 +346,37 @@
       }
    }
 }
+.body-download-page {
+   .benefits {
+      padding-top: 140px;
+      padding-bottom: 77px;
+      &__title {
+         text-align: center;
+         margin-bottom: 40px;
+         margin-left: 0;
+      }
+      .title {
+         &::before {
+            width: 301px;
+            height: 65px;
+            transform: translate(-135px,-6px);
+         }
+      }
+      .btn-group {
+         margin-top: 20px;
+         .btn {
+            max-width: 292px;
+            width: 100%;
+            margin-left: 0;
+            margin-right: 20px;
+            margin-top: 0;
+            &:last-child {
+               margin-right: 0;
+            }
+         }
+      }
+   }
+}
 @media screen and (max-width: 1350px){
    .benefits{
       .section-decor{
@@ -363,20 +394,8 @@
 }
 @media screen and(max-width: $tablet){
    .benefits{
-      //&__title{
-      //   text-align: left;
-      //   padding-left: 34px;
-      //   max-width: 210px;
-      //   margin-bottom: 19px;
-      //   &::before{
-      //      transform: translateY(-142%);
-      //      left: -119px;
-      //   }
-      //}
       &__title{
          font-size: 28px;
-         //text-align: left;
-         //margin-left: 34px;
          margin-bottom: 21px;
          .title {
             text-align: left;
@@ -405,7 +424,8 @@
          }
       }
    }
-   .body-text-animations-page, .body-transitions-page, .is_pl_product {
+   .body-text-animations-page, .body-transitions-page, .is_pl_product,
+   .body-download-page {
       .benefits {
          &__title {
             margin-bottom: 20px;
@@ -418,6 +438,25 @@
             }
          }
       }
+   }
+   .body-download-page {
+      .benefits {
+         padding-top: 60px;
+         &__title {
+            .title {
+               text-align: center;
+            }
+         }
+         .btn-group {
+            margin-top: 24px;
+            .btn {
+               max-width: none;
+               width: auto;
+               margin-right: 14px;
+            }
+         }
+      }
+
    }
 }
 @media screen and(max-width: $mobile-big){
@@ -441,6 +480,11 @@
    }
    .body-transitions-page{
       .benefits{
+         padding-bottom: 60px;
+      }
+   }
+   .body-download-page {
+      .benefits {
          padding-bottom: 60px;
       }
    }
@@ -507,6 +551,18 @@
          }
          &__item-4 {
             order: 4;
+         }
+      }
+   }
+   .body-download-page {
+      .benefits {
+         padding-bottom: 31px;
+         &__title {
+            .title {
+               &::before {
+                  transform: translate(-50px,-20px);
+               }
+            }
          }
       }
    }

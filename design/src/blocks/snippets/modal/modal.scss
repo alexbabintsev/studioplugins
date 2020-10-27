@@ -196,9 +196,37 @@
     text-align: center;
     width: 100%;
     max-width: 460px;
+    a{
+      border-bottom: 1px solid black;
+      transition: 0.3s;
+      display: inline-block;
+      max-height: 18px;
+      &:hover{
+        border-bottom: 1px solid transparent;
+      }
+    }
   }
-
-
+  &__img-fail {
+    display: flex;
+    max-width: 289px;
+    margin: 0 auto 30px;
+  }
+  &--fail {
+    .default-modal {
+      &__title {
+        max-width: none;
+        margin-bottom: 30px;
+      }
+      &__subtitle {
+        max-width: 500px;
+        margin-bottom: 41px;
+      }
+    }
+    .btn {
+      max-width: 344px;
+      width: 100%;
+    }
+  }
 }
 .modal-video-2, .modal-video-t{
   iframe{
@@ -206,24 +234,138 @@
     height: calc(100vw * 0.5625);
   }
 }
-
-
+.modal-cancellation{
+  .btn{
+    max-width: 344px;
+    width: 100%;
+  }
+  &__title{
+    max-width: 100%;
+    margin-bottom: 40px;
+  }
+  .default-modal__subtitle{
+    margin-bottom: 40px;
+  }
+  &__list {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .cart-item-sm {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &__product{
+    padding: 20px 100px  20px 40px;
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    max-width: 384px;
+    margin-left: auto;
+    margin-right: auto;
+    &-title{
+      font-style: normal;
+      font-weight: 800;
+      font-size: 14px;
+      line-height: 110%;
+      color: white;
+    }
+    &.txt_anim{
+      background: #6E44E6;
+    }
+    &.transit{
+        background: #E7AF22;
+    }
+    &.anim_pres{
+        background: #E23078;
+    }
+    &.eff_pack{
+        background: #72BF35;
+    }
+    &-img{
+      width: 55px;
+      height: 55px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 40px;
+      img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+  }
+}
+.modal-thx-purchase {
+  text-align: center;
+  .default-modal {
+    &__title {
+      max-width: none;
+      margin-bottom: 40px;
+    }
+  }
+  &__wrap {
+    max-width: 384px;
+    width: 100%;
+  }
+  &__list {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .cart-item-sm {
+    margin: 0 auto 5px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &__txt {
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .btn {
+    max-width: 344px;
+    width: 100%;
+  }
+}
+.modal-sub-canceled {
+  .default-modal {
+    &__title {
+      margin-bottom: 0;
+    }
+  }
+}
 
 @media screen and (max-width: $mobile){
   .default-modal{
     &__close{
       width: 20px;
       height: 20px;
-      top: -25px;
-      right: 10px;
+      //top: -25px;
+      top: 20px;
+      //right: 10px;
+      right: 20px;
     }
     &__content{
-      height: 100vh;
+      //height: 100vh;
+      min-height: 100%;
       padding: 100px 20px;
       &-video{
         padding: 0px 10px;
         max-width: 100%;
         height: auto;
+        .default-modal {
+          &__close {
+            top: -25px;
+            right: 10px;
+          }
+        }
       }
       &-illustration{
         padding-top: 54px;
@@ -242,7 +384,7 @@
     &__illustration{
       width: 100%;
       padding: 0 10px;
-      margin-bottom: 0;
+      margin-bottom: 37px;
       &-desctop{
         display: none;
       }
@@ -261,16 +403,42 @@
         }
       }
     }
+    &__img-fail {
+      max-width: 218px;
+    }
+    &--fail {
+      .default-modal {
+        &__content {
+          padding: 80px 20px 32px;
+        }
+      }
+    }
   }
-  // .help-success{
-  //   justify-content: flex-start;
-  //   align-items: flex-start;
-  //   flex-direction: column;
-  //   width: 100%;
-  // }
-  // &__question{
-  //   font-size: 30px;
-  // }
+  .default-modal-illustration {
+    .default-modal {
+      &__content {
+        padding-top: 90px;
+      }
+    }
+  }
+  .modal-cancellation {
+    &__title {
+      margin-bottom: 30px;
+    }
+  }
+  .modal-thx-purchase {
+    .default-modal {
+      &__content {
+        padding-top: 80px;
+      }
+      &__title {
+        margin-bottom: 32px;
+      }
+    }
+    .cart-item-sm {
+      margin-bottom: 10px;
+    }
+  }
 }
 
 @media screen and (max-width: 340px){

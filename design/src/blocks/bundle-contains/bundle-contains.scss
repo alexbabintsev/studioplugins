@@ -1,0 +1,150 @@
+.bundle-contains {
+  color: #fff;
+  background-color: $c-dbrown;
+  padding: 140px 0;
+  &__title {
+    font-size: 48px;
+    line-height: 110%;
+    letter-spacing: -0.04em;
+    text-align: center;
+    padding-right: 74px;
+    margin-bottom: 40px;
+  }
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 20px;
+    margin-bottom: 40px;
+  }
+  &__btn-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .btn {
+      margin-right: 20px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+.rotate-square {
+  font-size: 30px;
+  line-height: 140%;
+  letter-spacing: normal;
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+  padding: 9px 9px;
+  margin-left: 14px;
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: $c-red;
+    transform: rotate(-8deg);
+    z-index: -1;
+  }
+}
+
+@media (max-width: 1439px) {
+  .bundle-contains {
+    &__title {
+      padding-right: 0;
+    }
+  }
+}
+@media (max-width: $tablet) {
+  .bundle-contains {
+    &__list {
+      grid-gap: 10px;
+    }
+    .product-item {
+      &--sm {
+        padding: 20px 10px;
+      }
+    }
+  }
+}
+@media (max-width: $mobile-big) {
+  .bundle-contains {
+    padding: 60px 0 92px;
+    &__title {
+      font-size: 28px;
+      margin-bottom: 27px;
+      span {
+        &:first-child {
+          display: block;
+        }
+        &.rotate-square {
+          font-size: 15px;
+          line-height: 140%;
+        }
+      }
+    }
+  }
+  .rotate-square {
+    padding: 5px 2px;
+    margin-right: 20px;
+  }
+}
+@media (max-width: 640px) {
+  .bundle-contains {
+    &__list {
+      display: block;
+    }
+    .product-item {
+      margin-bottom: 10px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      &--sm {
+        padding: 20px;
+      }
+    }
+  }
+}
+@media (max-width: $mobile) {
+  .bundle-contains {
+    .container {
+      padding: 0 $grid-spacing-sm;
+    }
+    &__title {
+      font-size: 28px;
+      letter-spacing: normal;
+    }
+    &__list {
+      margin-bottom: 20px;
+    }
+    &__btn-group {
+      display: block;
+      .btn {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        &:last-child {
+          margin-right: auto;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+  .rotate-square {
+    display: inline-block;
+    transform: translate(2px, 3px);
+    padding: 3px 2px;
+  }
+}
+@media (max-width: $mobile-sm) {
+  .bundle-contains {
+    .product-item {
+      &--sm {
+        padding-bottom: 10px;
+      }
+    }
+  }
+}

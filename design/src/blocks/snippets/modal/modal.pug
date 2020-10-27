@@ -7,13 +7,13 @@
         .default-modal__inner
             h2.default-modal__title Enter <span>your</span> videohive <span>activation code</span>
             form.main-form.default-modal__form(name="modal-act-code-form" novalidate="novalidate")
-               .input-group
-                  .input-group__label Activation code
-                  input(type="text" name="act_code")
-               .submit-wrapper.main-form__submit-wrapper
-                  button(type="submit").main-form__submit-btn Activate
-               .main-form__login
-                  a(href="#").main-form__question Where can I find activation code?
+                .input-group
+                    .input-group__label Activation code
+                    input(type="text" name="act_code")
+                .submit-wrapper.main-form__submit-wrapper
+                    button(type="submit").main-form__submit-btn Activate
+                .main-form__login
+                    a(href="#").main-form__question Where can I find activation code?
 .default-modal.modal-change-email
     .default-modal__content
         a(href="#").default-modal__mobile-logo
@@ -23,11 +23,11 @@
         .default-modal__inner
             h2.default-modal__title Enter <span>your new email</span> 
             form.main-form.default-modal__form(name="modal-change-email-form" novalidate="novalidate")
-               .input-group
-                  .input-group__label New email
-                  input(type="text" name="new_email")
-               .submit-wrapper.main-form__submit-wrapper
-                  button(type="submit").main-form__submit-btn Change email
+                .input-group
+                    .input-group__label New email
+                    input(type="text" name="new_email")
+                .submit-wrapper.main-form__submit-wrapper
+                    button(type="submit").main-form__submit-btn Change email
 .default-modal.modal-change-pass
     .default-modal__content
         a(href="#").default-modal__mobile-logo
@@ -37,11 +37,11 @@
         .default-modal__inner
             h2.default-modal__title.default-modal__title-chp Enter <span>your current password</span> 
             form.main-form.default-modal__form(name="modal-change-pass-form" novalidate="novalidate")
-               .input-group
-                  .input-group__label Password
-                  input(type="text" name="current_password")
-               .submit-wrapper.main-form__submit-wrapper
-                  button(type="submit").main-form__submit-btn Create new password
+                .input-group
+                    .input-group__label Password
+                    input(type="text" name="current_password")
+                .submit-wrapper.main-form__submit-wrapper
+                    button(type="submit").main-form__submit-btn Create new password
 .default-modal.modal-change-pass-new
     .default-modal__content
         a(href="#").default-modal__mobile-logo
@@ -51,14 +51,14 @@
         .default-modal__inner
             h2.default-modal__title.default-modal__title-chp Enter <span>new password</span> 
             form.main-form.default-modal__form(name="modal-change-pass-form" novalidate="novalidate")
-               .input-group
-                  .input-group__label New password
-                  input(type="text" name="new_password")
-               .input-group
-                  .input-group__label Confirm new password
-                  input(type="text" name="confirm new_password")
-               .submit-wrapper.main-form__submit-wrapper
-                  button(type="submit").main-form__submit-btn Create new password
+                .input-group
+                    .input-group__label New password
+                    input(type="text" name="new_password")
+                .input-group
+                    .input-group__label Confirm new password
+                    input(type="text" name="confirm new_password")
+                .submit-wrapper.main-form__submit-wrapper
+                    button(type="submit").main-form__submit-btn Create new password
 .default-modal.modal-change-name
     .default-modal__content
         a(href="#").default-modal__mobile-logo
@@ -68,11 +68,11 @@
         .default-modal__inner
             h2.default-modal__title Enter <span>your name</span> 
             form.main-form.default-modal__form(name="modal-change-name-form" novalidate="novalidate")
-               .input-group
-                  .input-group__label Name
-                  input(type="text" name="name")
-               .submit-wrapper.main-form__submit-wrapper
-                  button(type="submit").main-form__submit-btn Save
+                .input-group
+                    .input-group__label Name
+                    input(type="text" name="name")
+                .submit-wrapper.main-form__submit-wrapper
+                    button(type="submit").main-form__submit-btn Save
 .default-modal.default-modal-illustration.modal-success-activation
     .default-modal__content.default-modal__content-illustration
         a(href="#").default-modal__mobile-logo
@@ -119,6 +119,17 @@
                 img(src="img/modals/succconfirm.svg", alt="")
             h2.default-modal__title.default-modal__title-illustration Confirm  <span>your email</span> 
             p.default-modal__subtitle We’ve sent confirmation link to newemail@artu.studio
+.default-modal.default-modal-illustration.modal-sub-canceled
+    .default-modal__content.default-modal__content-illustration
+        a(href="#").default-modal__mobile-logo
+            svg( width='92' height='20'): use(xlink:href='#icon-mobile_logo')
+        .default-modal__close(data-modal-close)
+            svg(width='100%' height='100%'): use(xlink:href='#icon-close')
+        .default-modal__inner
+            .default-modal__illustration
+                img(src="img/modals/succact.svg", alt="")
+            h2.default-modal__title.default-modal__title-illustration Subscription <span>canceled!</span>
+
 .default-modal.default-modal-illustration.modal-ban
     .default-modal__content.default-modal__content-illustration
         a(href="#").default-modal__mobile-logo
@@ -148,5 +159,80 @@
             svg(width='100%' height='100%'): use(xlink:href='#icon-close')
         <iframe class="youtube-player" width="100%" height="100%" data-src="https://www.youtube.com/embed/NM2wtte1JRE?enablejsapi=1" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+.default-modal.modal-cancellation
+    .default-modal__content
+        a(href="#").default-modal__mobile-logo
+            svg( width='92' height='20'): use(xlink:href='#icon-mobile_logo')
+        .default-modal__close(data-modal-close)
+            svg(width='100%' height='100%'): use(xlink:href='#icon-close')
+        .default-modal__inner
+            h2.default-modal__title.modal-cancellation__title Subscription  <span>cancellation</span> 
+            p(style="color: red") Вывел ниже 4 продукта, по дизайну только 1
+            .modal-cancellation__list
+                -
+                    let modal_a_act_subs = [
+                        {type: 'cart-item-sm--blue', txt: 'Text animations', img: '1', },
+                        {type: 'cart-item-sm--yellow', txt: 'Transitions', img: '2' ,},
+                        {type: 'cart-item-sm--pink', txt: 'Animation Presets', img: '3' ,},
+                        {type: 'cart-item-sm--green', txt: 'Effects pack', img: '4' ,},
+                    ]
+                each el, i in modal_a_act_subs
+                    .cart-item-sm(class=el.type).cart-item-sm--blue
+                        .cart-item-sm__name=el.txt
+                        .cart-item-sm__img-wrap
+                            img(src=`img/account/prods/${i+1}-lg.png`, alt="")
+                    //-.modal-cancellation__product(class=el.type)
+                        h4.modal-cancellation__product-title=el.txt
+                        .modal-cancellation__product-img
+                            img(src=`img/account/prods/${i+1}.png`, alt="")
+            p.default-modal__subtitle If you cancel now you’ll still be able to use product until your subscription ends on 6 Oct 2020 12:17
+            a(href="#").btn
+                span.btn__inner Cancel my subscription
 
+.default-modal.modal-thx-purchase
+    .default-modal__content
+        a(href="#").default-modal__mobile-logo
+            svg( width='92' height='20'): use(xlink:href='#icon-mobile_logo')
+        .default-modal__close(data-modal-close)
+            svg(width='100%' height='100%'): use(xlink:href='#icon-close')
+        .default-modal__inner
+            h2.default-modal__title Thank <span>for your purchase</span>
+            .modal-thx-purchase__wrap
+                .modal-thx-purchase__list
+                    .cart-item-sm.cart-item-sm--blue
+                        .cart-item-sm__name Text animations
+                        .cart-item-sm__img-wrap
+                            img(src='img/account/prods/1-lg.png' alt='')
+                    .cart-item-sm.cart-item-sm--pink
+                        .cart-item-sm__name Animation Presets
+                        .cart-item-sm__img-wrap
+                            img(src='img/account/prods/3-lg.png' alt='')
+                .modal-thx-purchase__txt These products now available at the premier studio.
+                a(href='#').btn
+                    span.btn__inner Go to account
 
+.default-modal.default-modal--fail.modal-pay-fail
+    .default-modal__content
+        a(href="#").default-modal__mobile-logo
+            svg( width='92' height='20'): use(xlink:href='#icon-mobile_logo')
+        .default-modal__close(data-modal-close)
+            svg(width='100%' height='100%'): use(xlink:href='#icon-close')
+        .default-modal__inner
+            h2.default-modal__title Payment <span>fail</span>
+            img(src='img/modals/fail.svg' alt='fail').default-modal__img-fail
+            .default-modal__subtitle Insufficient funds on your account or your card has expired. Check the card details and balance or try to pay with another card.
+            a(href='#').btn
+                span.btn__inner Back to cart
+
+.default-modal.default-modal--fail.modal-some-fail
+    .default-modal__content
+        a(href="#").default-modal__mobile-logo
+            svg( width='92' height='20'): use(xlink:href='#icon-mobile_logo')
+        .default-modal__close(data-modal-close)
+            svg(width='100%' height='100%'): use(xlink:href='#icon-close')
+        .default-modal__inner
+            h2.default-modal__title Something <span>went wrong</span>
+            img(src='img/modals/fail.svg' alt='fail').default-modal__img-fail
+            .default-modal__subtitle Try to place the order once more or <a href="#">contact us</a>
+            a(href='#').btn
+                span.btn__inner Back to cart

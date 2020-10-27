@@ -1,0 +1,25 @@
+section.other-articles
+    .container
+        .title-block
+            h2.title.other-articles__title Other <span>arcticles</span>
+        .other-articles__grid
+            -
+                let otherArticles = [
+                    {
+                        date: '19 March',
+                        txt: 'Easy for beginners – applying a preset in one click'
+                    },
+                    {
+                        date: '18 March',
+                        txt: 'No holders needed – presets work through adjusment layers'
+                    },
+                    {
+                        date: '17 March',
+                        txt: 'Over 650 elements&presets for any media content'
+                    },
+                ]
+            each data,index in otherArticles
+                .article-item
+                    .article-item__bg(style=`background-image:url(img/blog/blog-${index + 2}.jpg)`)
+                    .article-item__date=data.date
+                    a(href='#').article-item__txt=data.txt

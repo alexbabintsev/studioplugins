@@ -332,6 +332,46 @@ textarea {
     left: 0;
     color: $color-error;
   }
+  &__apply,
+  &__cancel {
+    display: none;
+    position: absolute;
+    right: 0;
+    bottom: 8px;
+    font-size: 16px;
+    line-height: 140%;
+    font-weight: 600;
+    color: $c-dblue;
+    cursor: pointer;
+  }
+  &__promo {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: calc(100% + 5px);
+    font-size: 14px;
+    line-height: 140%;
+  }
+  &--with-tools {
+    input {
+      padding-right: 50px;
+      padding-bottom: 6px;
+    }
+  }
+  &.is-apply {
+    .input-group {
+      &__apply {
+        display: block;
+      }
+    }
+  }
+  &.is-cancel {
+    .input-group {
+      &__cancel {
+        display: block;
+      }
+    }
+  }
 }
 .form-white {
   input, textarea {
@@ -566,5 +606,47 @@ input {
   100% { 
     opacity: 1;
     stroke-dashoffset: -600;
+  }
+}
+.soc-auth{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+  margin-bottom: 220px;
+  &__links{
+    display: flex;
+  }
+  a{
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+    transition: 0.3s;
+    &:hover{
+      opacity: 0.7;
+    }
+    &:first-child{
+      margin-left: 0;
+    }
+    img{
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+}
+@media screen and (max-width: $tablet){
+  .soc-auth{
+    margin-bottom: 120px;
+  }
+}
+@media screen and (max-width: $mobile){
+  .soc-auth{
+    flex-direction: column;
+    align-items: center;
+    margin-top: 28px;
+    &__txt{
+      margin-bottom: 10px;
+    }
   }
 }

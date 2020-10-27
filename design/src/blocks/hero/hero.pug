@@ -1,6 +1,7 @@
 section.hero
-   .section-decor
-      img(src="img/home/section-decor.svg", alt="section-decor")
+   .hero-video
+      video( calss="main-video" src="video/main_video.mp4" loop playsinline data-keepplaying)
+         source(type="video/mp4" data-src="video/main_video.mp4" src="video/main_video.mp4")
    .container.hero__container-decor
       .hero__decor
          img(src="img/home/hero.png", alt="hero-decor")
@@ -20,9 +21,11 @@ section.hero
                p No subscription
                p Free plugin
             .hero-content__downloads.hero-content__downloads-desc
-               a(href="#") Download for Windows
+               a(href='#').btn.btn--white
+                  span.btn__inner Download
+               //-a(href="#") Download for Windows
                   img(src="img/home/windows.svg", alt="")
-               a(href="#") Download for MacOS
+               //-a(href="#") Download for MacOS
                   img(src="img/home/apple.svg", alt="")
          .hero-content__right
             a(href="#" data-modal="modal-video").hero-content__video-icon

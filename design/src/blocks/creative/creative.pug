@@ -1,3 +1,5 @@
 - picture = req === 'transition' ? 'creative.jpg' : 'handy.jpg';
+if (req === 'download')
+    - picture = 'creative.jpg'
 section.creative
-    img(src=`img/transitions/${picture}`, alt="")
+    img(src=`img/transitions/${picture}`, alt="").creative__img-bg

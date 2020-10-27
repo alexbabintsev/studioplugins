@@ -1,5 +1,31 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
+    ///
+    /*
+    * APPLY / CANCEL for input-group
+    */
+    let inputWithToolsList = document.querySelectorAll('.input-group--with-tools input'),
+        inputGroupCancelList = document.querySelectorAll('.input-group__cancel');
+    inputWithToolsList && inputWithToolsList.forEach(function(el) {
+        el.addEventListener('keyup', function() {
+            let inputGroup = this.closest('.input-group');
+            if (this.value) {
+                inputGroup.classList.remove('is-cancel');
+                inputGroup.classList.add('is-apply');
+            }else{
+                inputGroup.classList.remove('is-apply','is-cancel');
+            }
+        });
+    });
+    inputGroupCancelList && inputGroupCancelList.forEach(function(el) {
+        el.addEventListener('click', function() {
+            let inputGroup = this.closest('.input-group');
+            inputGroup.classList.remove('is-cancel','input-group--notempty');
+            inputGroup.querySelector('input').value = '';
+        });
+    });
+    ///
+
     $('.um-field input').each(function(){
         if($(this).val().length){
             $(this).closest('.um-field').addClass('input-group--notempty');

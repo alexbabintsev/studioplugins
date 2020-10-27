@@ -1,5 +1,7 @@
 - bg = req === 'transition' ? 'bg-blue.svg' : 'bg-black.svg';
 - color = req === 'transition' ? '#3C3AA9' : '#373739';
+if (req === 'download')
+    - bg = 'bg-dark.svg'
 section.requirements
     .container
         .requirements-inner(style=`background-color: ${color}; background-image: url(img/requirements/${bg})`)
@@ -22,6 +24,26 @@ section.requirements
                             },
                             {
                                 ic: ['gpu-purple.svg'],
+                                text: 'GPU <br>required'
+                            },
+                        ];
+                else if (req === 'download')
+                    -
+                        gridItems = [
+                            {
+                                ic: ['pr-red.svg'],
+                                text: 'Adobe Premiere Pro <br>CC2019 or higher'
+                            },
+                            {
+                                ic: ['mac-red.svg', 'win.svg'],
+                                text: 'Windows or MacOS <br>compatible'
+                            },
+                            {
+                                ic: ['nvidia.svg'],
+                                text: 'Works better <br>with Nvidia'
+                            },
+                            {
+                                ic: ['gpu-red.svg'],
                                 text: 'GPU <br>required'
                             },
                         ];

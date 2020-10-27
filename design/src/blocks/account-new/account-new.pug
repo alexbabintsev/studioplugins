@@ -1,0 +1,173 @@
+section.account.account-section
+    .container
+        .account-grid-2.tabs
+            .account-grid-2__left
+                h1.title.account-grid-2__title Hi, <span>Egor</span>
+                h2.subtitle.account-grid-2__subtitle egor@artu.studio
+                ul.account-tab-ctrls
+                    -
+                        let helpAsideListOne = [
+                            {
+                                txt: 'Connected devices',
+                                id: 'account-tab-1'
+                            },
+                            {
+                                txt: '<span class="desk-txt">Your activated products</span><span class="mob-txt">Products</span>',
+                                id: 'account-tab-2'
+                            },
+                            {
+                                txt: '<span class="desk-txt">Your subscriptions</span><span class="mob-txt">Subscriptions</span>',
+                                id: 'account-tab-3'
+                            },
+                            {
+                                txt: 'Transaction history',
+                                id: 'account-tab-4'
+                            }
+                        ]
+                    each data,index in helpAsideListOne
+                        li(data-tab-id=(index+1) data-page-id='{"media": 991, "id":"'+ data.id +'"}' class=(index === 0)?'is-active':'').tabs-nav__item!=data.txt
+                            svg(width=9 height=14): use(xlink:href='#icon-arr-right')
+                if currentPage == 'account-new-page-google'
+                    .account-grid-2__links.account-grid-2__links-desctop    
+                        a(href="#" data-modal="modal-change-name") Change name
+                else
+                    .account-grid-2__links.account-grid-2__links-desctop    
+                        a(href="#" data-modal="modal-change-email") Change email
+                        a(href="#" data-modal="modal-change-pass" ) Change password
+                        a(href="#" data-modal="modal-change-name" ) Change name
+            .account-grid-2__products.fn_all_products_list
+                .dwl-links
+                    a(class="dwl_link btn btn--black" data-dwl="#" download="" href="#")
+                        span.btn__inner Download
+                div(data-tab-id="1" data-page="account-tab-1").tabs-content.is-active
+                    <div class="mob-page-header"><img class="mob-page-header__logo" src="img/logo.svg" alt="logo">
+                        <div class="mob-page-close" data-page-close="">
+                            <svg width="20" height="20">
+                                <use xlink:href="#icon-close"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    h3.account-grid-2__products-title.linked__title Connected devices
+                    p.linked__subtitle You can use Studio Plugins on 2 devices at the same time <span class="linked__count">2/2</span>
+                    .linked-os
+                        .linked-os__item
+                            .linked-os__item-img
+                                img(src="img/linked/winicon.svg", alt="win-os")
+                            p.linked-os__item-title Windows PC  
+                            p.linked-os__item-subtitle Desktop-DDDR123123BR
+                            a(href="#").linked-os__item-link unlink  
+                        .linked-os__item
+                            .linked-os__item-img
+                                img(src="img/linked/macicon.svg", alt="mac-os")
+                            p.linked-os__item-title MacOS  
+                            p.linked-os__item-subtitle Macbookpro—Artur
+                            a(href="#").linked-os__item-link unlink  
+                div(data-tab-id="2" data-page="account-tab-2").tabs-content.account-content
+                    <div class="mob-page-header"><img class="mob-page-header__logo" src="img/logo.svg" alt="logo">
+                        <div class="mob-page-close" data-page-close="">
+                            <svg width="20" height="20">
+                                <use xlink:href="#icon-close"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    h2.account-content__title Your activated products
+                    h3.account-content__subtitle Now you can launch Adobe Premiere. All theese products are already available to use in Premiere Studio.
+                    .account-content-list
+                        -
+                            let a_act_prods = [
+                                {type: 'txt_anim', txt: 'Text animations', img: '1'}, 
+                                {type: 'transit', txt: 'Transitions', img: '2'}, 
+                                {type: 'anim_pres', txt: 'Animation Presets', img: '3'}, 
+                                {type: 'eff_pack', txt: 'Effects pack', img: '4'}, 
+                            ]
+                        each el, i in a_act_prods
+                            .account-content-list__item(class=el.type)
+                                img(src="img/account/dec1.svg", alt="").account-content-list__item-decor
+                                .account-content-list__item-txt
+                                    h4=el.txt
+                                    .account-content-list__item-links
+                                        a(href="#") How to use
+                                        a(href="#") See features
+                                .account-content-list__item-img
+                                    img(src=`img/account/prods/${i+1}.png`, alt="")
+                    .account-content-links
+                        a(href="").btn
+                            span.btn__inner Add new product from Videohive
+                        a(href="").btn
+                            span.btn__inner Go to shop
+                    p(style="margin: 20px 0; color: red") В СЛУЧАЕ ЕСЛИ НЕТ ДОБАВЛЕННЫХ ПРОДУКТОВ    
+                    a(href="#" data-modal="modal-act-code").account-grid-2__add-prod
+                        .account-grid-2__add-plus
+                            <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M60 0H40V40H0V60H40V100H60V60H100V40H60V0Z" fill="white"/>
+                            </svg>
+                            p Add new product from Videohive
+                    a(href="").btn.single
+                        span.btn__inner Go to shop
+                div(data-tab-id="3" data-page="account-tab-3").tabs-content.account-content
+                    <div class="mob-page-header"><img class="mob-page-header__logo" src="img/logo.svg" alt="logo">
+                        <div class="mob-page-close" data-page-close="">
+                            <svg width="20" height="20">
+                                <use xlink:href="#icon-close"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    h2.account-content__title Your subscriptions
+                    h3.account-content__subtitle Now you can launch Adobe Premiere. All theese products are already available to use in Premiere Studio.
+                    .account-content-list
+                        -
+                            let a_act_subs = [
+                                {type: 'txt_anim', txt: 'Text animations', img: '1', status1: 'Inactive', status2: 'Subscription payment error occured', cancel: false}, 
+                                {type: 'transit', txt: 'Transitions', img: '2' ,status1: '9 days left', status2: 'Next billing date: 6 Oct 2020', cancel: true}, 
+                                {type: 'anim_pres', txt: 'Animation Presets', img: '3' , status1: '10 days left', status2: '', cancel: false}, 
+                            ]
+                        each el, i in a_act_subs
+                            .account-content-list__item.subscription(class=el.type)
+                                img(src="img/account/dec1.svg", alt="").account-content-list__item-decor
+                                .account-content-list__item-txt
+                                    h4=el.txt
+                                    .account-content-list__item-status
+                                        p=el.status1
+                                        if el.status2
+                                            p=el.status2
+                                    .account-content-list__item-links.account-content-list__item-links--long
+                                        if el.cancel
+                                            a(href="#" data-modal="modal-cancellation") Cancel subscription
+                                        else 
+                                            a(href="#") Renew subscription
+                                        a(href="#") How to use
+                                        a(href="#") See features
+                                .account-content-list__item-img
+                                    img(src=`img/account/prods/${i+1}.png`, alt="")
+                        a(href="").btn.single
+                            span.btn__inner Go to shop
+                div(data-tab-id="4" data-page="account-tab-4").tabs-content.account-content
+                    <div class="mob-page-header"><img class="mob-page-header__logo" src="img/logo.svg" alt="logo">
+                        <div class="mob-page-close" data-page-close="">
+                            <svg width="20" height="20">
+                                <use xlink:href="#icon-close"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    h2.account-content__title Transaction history
+                    .transaction-history
+                        .transaction-history__header
+                            p.transaction-history__header-date Date
+                            p.transaction-history__header-purchase Purchase
+                            p.transaction-history__header-total Total
+                        -
+                            let hist_data = [
+                                {date: '6 Sep 2020', purchase: 'Effects pack', total: '240$'},
+                                {date: '5 Sep 2020', purchase: 'Montage library', total: '45$'},
+                                {date: '4 Aug 2020', purchase: 'Animation presets', total: '37$'},
+                                {date: '3 Aug 2020', purchase: 'Text Library - Handy Text Animations', total: '43$'},
+                                {date: '1 Jul 2020', purchase: 'Video Library - Video Presets Package', total: '45$'},
+                            ]
+                        each el in hist_data
+                            .transaction-history__row
+                                .transaction-history__row-date=el.date
+                                .transaction-history__row-purchase=el.purchase
+                                .transaction-history__row-total=el.total
+
+
+

@@ -1,4 +1,4 @@
-.body-transitions-page, .body-text-animations-page{
+.body-transitions-page, .body-text-animations-page, .body-any-page{
    .nitrozime{
       padding-top: 158px;
       padding-bottom: 120px;
@@ -165,7 +165,7 @@
    }
 }
 @media (max-width: $mobile-big) {
-   .body-transitions-page{
+   .body-transitions-page, .body-any-page{
       .nitrozime{
          padding-top: 60px;
          padding-bottom: 67px;
@@ -235,6 +235,11 @@
             right: -34px;
             top: 53%;
          }
+      }
+   }
+   .body-download-page {
+      .nitrozime {
+         padding-bottom: 5px;
       }
    }
 }

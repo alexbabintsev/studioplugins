@@ -19,7 +19,7 @@
     &__col{
         &-copy{
             line-height: 77px;
-            margin-right: 379px;
+            margin-right: 365px;
             font-weight: 600;
             span{
                 letter-spacing: 0;
@@ -61,7 +61,10 @@
 }
 .body-text-animations-page,
 .body-transitions-page,
-.body-home-page, .is_pl_product{
+.body-home-page,
+.is_pl_product,
+.body-any-page,
+.body-download-page {
     .footer{
         position: absolute;
         bottom: 0;

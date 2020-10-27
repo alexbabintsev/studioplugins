@@ -1,0 +1,76 @@
+// Для секции cart -  для залогиненого добавляем класс is-login; если есть промо-код, то добавляем класс is-promo; если корзина пуста, то добавляем is-empty
+section.cart
+    .container
+        .title-block
+            h2.title Cart
+        .cart__empty Cart is empty
+        .cart__wrap
+            .cart__list
+                .cart-item.cart-item--blue(data-price='40.55')
+                    img(src='img/account/dec3.svg' alt='decor').cart-item__decor
+                    a(href='#').cart-item__inner
+                        .cart-item__content
+                            .cart-item__name Text animations
+                            .cart-item__txt 40.55$
+                        .cart-item__img-wrap
+                            img(src='img/account/prods/1-lg.png' alt='Text animations')
+                    .cart-item__delete
+                        svg(width='20' height='20'): use(xlink:href='#icon-close')
+                .cart-item.cart-item--yellow.cart-item--purchased(data-price='0')
+                    img(src='img/account/dec3.svg' alt='decor').cart-item__decor
+                    a(href='#').cart-item__inner
+                        .cart-item__content
+                            .cart-item__name Transitions
+                            .cart-item__txt Already purchased in your account
+                        .cart-item__img-wrap
+                            img(src='img/account/prods/2-lg.png' alt='Transitions')
+                    .cart-item__delete
+                        svg(width='20' height='20'): use(xlink:href='#icon-close')
+                .cart-item.cart-item--pink(data-price='45')
+                    img(src='img/account/dec3.svg' alt='decor').cart-item__decor
+                    a(href='#').cart-item__inner
+                        .cart-item__content
+                            .cart-item__name Animation Presets
+                            .cart-item__txt 45$
+                        .cart-item__img-wrap
+                            img(src='img/account/prods/3-lg.png' alt='Animation Presets')
+                    .cart-item__delete
+                        svg(width='20' height='20'): use(xlink:href='#icon-close')
+            .cart__info
+                .title-block
+                    h2.title Cart
+                .cart__subtitle-block
+                    p All Products will be available at the premier studio.
+                    p You don't need to download them.
+                // data-discount - скидка в '%'. Если есть promo-code, то для секции cart добавляем класс is-promo и в <form> изменяем data-discount. calcCart() - ф-ция для подсчёта корзины
+                form(name='form-cart' data-discount='0').form-cart
+                    // total-price - цена на выходе(с учетом промо-кода)
+                    input(type='text' name='total-price' value='2' hidden)
+                    // no-promo-price - цена без учета промо-кода
+                    input(type='text' name='no-promo-price' value='2' hidden)
+                    // класс input-group--with-tools нужен для блоков с Apply/Cancel. Для input-group добавляем классы is-apply(если видна кнопка Apply) и is-cancel(если видна кнопка Cancel)
+                    .input-group.input-group--with-tools
+                        .input-group__label Promo code
+                        input(type='text' name='promo')
+                        .input-group__apply Apply
+                        .input-group__cancel Cancel
+                        .input-group__promo Promo code applied: 10% discount
+                    .cart__save-row
+                        .cart__save-txt You save
+                        .cart__save-price
+                            span 0
+                            = '$'
+                    .cart__total-row
+                        .cart__total-txt Total
+                        .cart__total-inner
+                            .cart__total-old
+                                span 0
+                                = '$'
+                            .cart__total
+                                span 2
+                                = '$'
+                    .cart__login-txt Log in to your account to continue shopping
+                    button(type='button').btn.btn--red.cart__btn-login
+                        span.btn__inner Login
+                    button(type='button').btn.btn--red.cart__btn-buy
+                        span.btn__inner Buy

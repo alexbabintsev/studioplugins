@@ -119,7 +119,7 @@ function callbackClose() {
         $("body").removeClass("modal-open");
         $(".default-modal").removeClass("is-active");
     }
-    if($('.popup-iframe')){
+    if($('.popup-iframe').langth){
         let closeframe = $('.popup-iframe');
         $(closeframe)[0].contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
     }

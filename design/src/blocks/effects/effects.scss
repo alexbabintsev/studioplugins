@@ -13,7 +13,10 @@
         width: 1646.14px;
         height: 380.58px; 
         opacity: 0.5; 
-        z-index: -1;     
+        z-index: -1;
+        &.mob {
+            display: none;
+        }
     }
     &__title{
         text-align: center;
@@ -28,6 +31,9 @@
         &::before{
             display: none;
 
+        }
+        &-redspan {
+            color: $c-red;
         }
         &-pinkspan{
             color: $c-magenta;
@@ -79,6 +85,8 @@
     }
     &-content{
         background: rgba($c-dbrown2, 0.6);
+        position: relative;
+        z-index: 2;
         padding: 0 22px 0 11px;
         &__header{
             display: flex;
@@ -349,9 +357,24 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        .effects__button {
-
+        text-align: center;
+        margin-top: 40px;
+        .btn {
+            max-width: 344px;
+            width: 100%;
+            margin-right: 20px;
+            &:last-child {
+                margin-right: 0;
+            }
         }
+    }
+    &__link-btns-title {
+        display: none;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        color: #fff;
+        margin-right: 20px;
     }
 }
 .folder-nav{
@@ -639,6 +662,15 @@
         display: flex;
     }
 }
+.body-download-page {
+    .effects {
+        &__btn-group {
+            .btn {
+                max-width: 292px;
+            }
+        }
+    }
+}
 @media screen and (max-width: 1350px){
     .effects{
         &__decor{
@@ -691,6 +723,36 @@
     .folder-box-char{
         &__item{
             max-width: 125px;
+        }
+    }
+    .body-download-page {
+        .effects {
+            &__link-btns-title {
+                display: block;
+            }
+            &__btn-group {
+                display: flex;
+                margin-top: 34px;
+                .btn {
+                    pointer-events: none;
+                    width: auto;
+                    min-width: auto;
+                    height: auto;
+                    font-size: 0;
+                    border: none;
+                    background: none;
+                    margin-right: 14px;
+                    margin-left: 0;
+                    margin-bottom: 0;
+                    &__inner {
+                        padding: 0;
+                    }
+                    svg {
+                        margin-left: 0;
+                        margin-right: 0;
+                    }
+                }
+            }
         }
     }
 }
@@ -799,6 +861,18 @@
         }
         &__btn-group {
             display: block;
+            margin-top: 20px;
+            .btn {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 10px;
+                &:last-child {
+                    margin-left: auto;
+                    margin-right: auto;
+                    margin-bottom: 0;
+                }
+            }
         }
     }
     .folder-nav-group{
@@ -875,12 +949,30 @@
             max-width: 125px;
         }
     }
+    .body-download-page {
+        .effects {
+            &__btn-group {
+                .btn {
+                    &:last-child {
+                        margin-left: 0;
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+    }
 }
 @media screen and (max-width: $mobile){
     .effects{
         &__decor{
             top: -69px;
             transform: translateX(-38.3%);
+            &.desk {
+                display: none;
+            }
+            &.mob {
+                display: block;
+            }
         }
         &__title{
             margin-bottom: 22px;
