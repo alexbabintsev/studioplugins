@@ -1,4 +1,5 @@
 <?php
+require get_template_directory() . '/classes/acf.php';
 require get_template_directory() . '/classes/head_nav.php';
 require get_template_directory() . '/classes/footer_nav.php';
 require get_template_directory() . '/classes/um-functions.php';
@@ -250,6 +251,7 @@ function check_prodcode_callback() {
 add_action( 'wp_ajax_test', function (){
     echo 'test ajax';
     $user = wp_get_current_user();
+    //UM()->mail()->send( 'michil8888@yandex.ru', 'checkmail_email' );
     //f940d0a6-cd0d-4cf7-960a-0d1cd5a44cf9
     //Transitions - 22834323
     /*$ch = curl_init();
@@ -325,9 +327,21 @@ add_action( 'init',  function (){
         um_fetch_user( $user_id );
         $status = get_user_meta( $user_id, 'account_status', true );
         $new_email = get_user_meta( $user_id, 'new_email', true );
+
+        file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Email_confirm.log',
+            "\n\n".date('Y-m-d H:i:s')."\n".json_encode($_REQUEST)."\n".um_user( 'account_secret_hash' )."\n".$status."\n".$new_email."\n",
+            FILE_APPEND);
+
         if ( strtolower( $_REQUEST['hash'] ) !== strtolower( um_user( 'account_secret_hash' ) ) ) {
-            if($status == 'approved'&&!$new_email)
+            if($status == 'approved'&&!$new_email){
+                file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Email_confirm.log',
+                    "already active\n",
+                    FILE_APPEND);
                 wp_die( __( 'This account is already active.', 'ultimate-member' ) );
+            }
+            file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Email_confirm.log',
+                "expired\n",
+                FILE_APPEND);
             wp_die( __( 'This activation link is expired or have already been used.', 'ultimate-member' ) );
         }
 
@@ -1266,41 +1280,7 @@ add_filter( 'block_categories', function( $categories, $post ) {
         )
     );
 }, 10, 2 );
-add_action('acf/init', function(){
-	acf_register_block_type( [
-            'name' => 'custom-video-landing',
-            'title' => __('Custom Video Landing', 'valueone'),
-            'description' => __('', 'valueone'),
-            'category' => 'studioplugins-blocks',
-            //'icon' => '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>',
-            'keywords' => array('custom', 'video','landing'),
-            //'post_types' => array('page'),
-            'mode' => 'edit',//auto preview edit
-            'align' => 'full',//“left”, “center”, “right”, “wide”, “full”
-            'render_template' => 'blocks/custom-video-landing.php',
-            //'render_callback' => function(){},
-            //'enqueue_style' => get_template_directory_uri() . '/template-parts/blocks/testimonial/testimonial.css',
-            //'enqueue_script' => get_template_directory_uri() . '/template-parts/blocks/testimonial/testimonial.js',
-            //'enqueue_assets' => function(){},
-            'supports' =>[
-                //'align' => array( 'left', 'right', 'full' ),
-                'mode' => false,
-                //'multiple' => false,
-                //'__experimental_jsx' => true,
-            ],
-            'example'  => array(
-                'attributes' => array(
-                    'mode' => 'preview',
-                    'data' => array(
-                        //'testimonial'   => "Your testimonial text here",
-                        //'author'        => "John Smith"
-                        //'title' =>__('Test title', 'valueone'),
-                        //'subtitle' =>__('Test subtitle', 'valueone'),
-                    )
-                )
-            )
-        ] );
-});
+
 function mihdan_send_smtp_email( PHPMailer $phpmailer ) {
     $phpmailer->isSMTP();
     $phpmailer->Host       = SMTP_HOST;

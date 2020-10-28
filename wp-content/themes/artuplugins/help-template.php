@@ -13,10 +13,10 @@ get_header();
                 <h1 class="help-c__title"><?php the_title(  ); ?></h1>
                 <div class="help-c__header">
                     <div class="help-c__header-title"><?= get_field('head_title'); ?></div>
-                    <div class="help-c__header-btns">
+                    <div class="help-c__header-btns desk"><a class="btn" href="/download/"><span class="btn__inner">Download</span></a></div>
+                    <div class="help-c__header-btns mob">
                         <div class="help-c__header-btns-title">Available for</div>
 
-                        <!-- href был таким  -->
                         <a  class=" btn down_win dwl_link" data-dwl="<?= get_field('download_link_for_windows'); ?>" download href="<?= esc_attr(get_field('file_win'))?>">
                             <div class="btn__inner">
                                 Download for Windows<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -27,8 +27,6 @@ get_header();
                                 </svg>
                             </div>
                         </a>
-
-                        <!-- href был таким  -->
                         <a class="btn down_mac dwl_link" data-dwl="<?= get_field('download_link_for_maos'); ?>" download href="<?= esc_attr(get_field('file_mac'))?>">
                             <div class="btn__inner">
                                 Download for MaOS<svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">

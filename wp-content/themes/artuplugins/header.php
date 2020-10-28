@@ -18,8 +18,23 @@
     <meta name="msapplication-config" content="<?= get_theme_file_uri( '/favicon/browserconfig.xml' )?>">
     <meta name="theme-color" content="#ffffff">
     <?php wp_head(); ?>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+       m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+       ym(67870531, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+       });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/67870531" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
 </head>
-<body class="<?=is_front_page()?'body-home-page':''?> <?=is_singular('pl_product')?'is_pl_product '.get_field('body_css',get_queried_object_id()):''?>">
+<body class="<?=is_front_page()?'body-home-page':''?> <?=is_singular('pl_product')?'is_pl_product '.get_field('body_css',get_queried_object_id()):''?> <?= is_page()?get_field('body_html_class',get_queried_object_id()):''?>">
 <div class="wrapper">
     <header class="header">
         <div class="container header__container">

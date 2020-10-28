@@ -237,7 +237,16 @@ function um_account_content_hook_myproducts( $output ){
     $products = getUserProducts($user);
     $comps = get_field('comps',$user);
     ?>
+
     <div class="<?php if($products):?>account-grid-2__products account-grid-2__products-2<?php else:?>account-grid-2__products<?php endif;?> fn_all_products_list">
+        <div class="dwl-links"><a class="btn btn--black" href="/download/"><span class="btn__inner">Download</span></a></div>
+        <div class="mob-page-header"><img class="mob-page-header__logo" src="<?= get_theme_file_uri( '/img/logo.svg' )?>" alt="logo">
+            <div class="mob-page-close" data-page-close="">
+                <svg width="20" height="20">
+                    <use xlink:href="#icon-close"></use>
+                </svg>
+            </div>
+        </div>
         <h3 class="account-grid-2__products-title linked__title">Connected devices</h3>
         <p class="linked__subtitle">You can use Studio Plugins on 2 devices at the same time <span class="linked__count"><?=$comps?count($comps):0?>/2</span></p>
         <div class="linked-os">
