@@ -281,10 +281,7 @@
                 <use xlink:href="#icon-close"></use>
             </svg>
         </div>
-
-        <video poster="<?= get_theme_file_uri( '/img/main-poster.png' )?>" loop="" playsinline="" muted="" data-keepplaying="" class="main-video-modal" data-ratio="1.7777777777778"  preload="metadata" data-src="/wp-content/themes/artuplugins/video/main_video.mp4">
-            <source type="video/mp4" data-src="/wp-content/themes/artuplugins/video/main_video.mp4">
-        </video>
+        <iframe width="100%" data-src="?enablejsapi=1&amp;wmode=transparent" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
     </div>
 </div>
 <div class="default-modal  modal-video-2">

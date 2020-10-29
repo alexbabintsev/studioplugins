@@ -69,7 +69,7 @@ class main_hero_widget extends WP_Widget {
                         </div>
                     </div>
                     <div class="hero-content__right">
-                        <a class="hero-content__video-icon hero-video-link" data-modal="modal-video" href="#">
+                        <a class="hero-content__video-icon hero-video-link" data-modal="modal-video" href="#" data-iframe="gtFdrLLkiOE">
                             <svg class="videoplay-svg" width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path class="videoplay-svg__path1" d="M77.0732 128.604V70.8014C77.0732 69.2572 78.7487 68.2956 80.082 69.0744L132.858 99.9024C134.223 100.7 134.167 102.691 132.76 103.41L79.9835 130.385C78.6527 131.065 77.0732 130.098 77.0732 128.604Z" fill="white"/>
                                 <g style="mix-blend-mode:overlay">

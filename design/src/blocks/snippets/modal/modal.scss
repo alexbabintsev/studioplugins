@@ -228,7 +228,7 @@
     }
   }
 }
-.modal-video-2, .modal-video-t{
+.modal-video-2, .modal-video-t, .modal-video {
   iframe{
     width: 100%;
     height: calc(100vw * 0.5625);
@@ -439,6 +439,16 @@
       margin-bottom: 10px;
     }
   }
+  .modal-video, .modal-video-2{
+    .default-modal__content-video{
+      align-items: flex-start;
+      padding-top:  60px;
+    }
+    .default-modal__close{
+      top: 20px;
+    }
+  }
+
 }
 
 @media screen and (max-width: 340px){
