@@ -42,7 +42,7 @@ section.cart
                 .cart__subtitle-block
                     p All Products will be available at the premier studio.
                     p You don't need to download them.
-                // data-discount - скидка в '%'. Если есть promo-code, то для секции cart добавляем класс is-promo и в <form> изменяем data-discount. calcCart() - ф-ция для подсчёта корзины
+                // data-discount - скидка в '%'. Если есть promo-code, то для секции cart добавляем класс is-promo и в <form> изменяем data-discount. calcCart() - ф-ция для подсчёта корзины, её можно вызвать после изменения скидки.
                 form(name='form-cart' data-discount='0').form-cart
                     // total-price - цена на выходе(с учетом промо-кода)
                     input(type='text' name='total-price' value='2' hidden)
@@ -71,6 +71,6 @@ section.cart
                                 = '$'
                     .cart__login-txt Log in to your account to continue shopping
                     button(type='button').btn.btn--red.cart__btn-login
-                        span.btn__inner Login
+                        span.btn__inner Log in
                     button(type='button').btn.btn--red.cart__btn-buy
                         span.btn__inner Buy

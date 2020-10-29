@@ -193,6 +193,12 @@
       height: 130px;
       margin-bottom: 15px;
     }
+    &__video {
+      display: none;
+    }
+    &__content {
+      position: static;
+    }
     &__name {
       font-size: 24px;
     }

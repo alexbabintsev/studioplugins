@@ -614,6 +614,13 @@ input {
   justify-content: space-between;
   margin-top: 40px;
   margin-bottom: 220px;
+  &__txt{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 140%;
+    letter-spacing: 0.1px;
+  }
   &__links{
     display: flex;
   }
