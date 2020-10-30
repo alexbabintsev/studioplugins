@@ -133,7 +133,7 @@
                 <div class="submit-wrapper main-form__submit-wrapper">
                     <button class="main-form__submit-btn" type="submit">Activate</button>
                 </div>
-                <div class="main-form__login"><a class="main-form__question" href="#">Where can I find activation code?</a></div>
+                <div class="main-form__login"><a class="main-form__question" href="/help-contact/#purchase">Where can I find activation code?</a></div>
             </form>
         </div>
     </div>
@@ -153,7 +153,7 @@
                 <img src="<?= get_theme_file_uri( '/img/modals/succact.svg' )?>" alt="">
             </div>
             <h2 class="default-modal__title default-modal__title-illustration">Successfully  <span>activated!</span> </h2>
-            <p class="default-modal__subtitle">Now you can use Text animantions product in Premiere Studio. No additional actions required.</p>
+            <p class="default-modal__subtitle">Now you can use Your Package product in Premiere Studio. No additional actions required.</p>
         </div>
     </div>
 </div>
@@ -232,7 +232,7 @@
         </div>
         <div class="default-modal__inner">
             <h2 class="default-modal__title default-modal__title-illustration">Videohive <span>cant find </span>this <span>code</span>  </h2>
-            <p class="default-modal__subtitle">You may have sealed or this code does not exist.</p><a class="default-modal__border-link" href="#">Help</a>
+            <p class="default-modal__subtitle">You may have sealed or this code does not exist.</p><a class="default-modal__border-link" href="/help-contact/">Help</a>
         </div>
     </div>
 </div>

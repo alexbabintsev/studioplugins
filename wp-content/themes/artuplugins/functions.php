@@ -1505,3 +1505,20 @@ function pl_key_custom_filters_callbeck( $query ) {
     //return $query;
 }
 add_filter( 'pre_get_posts', 'pl_key_custom_filters_callbeck' );*/
+add_action( 'pre_get_posts', 'action_function_name_11' );
+function action_function_name_11( $query ) {
+    // Действия...
+    if($query->is_admin&&$query->is_search&&$query->query['post_type']=='pl_key')
+    {
+        $query->set('meta_query',[
+            'relation'		=> 'AND',
+            array(
+                'key'	 	=> 'key',
+                'value'	  	=> $query->query['s'],
+                'compare' 	=> 'LIKE',
+            ),
+        ]);
+        $query->set('s','');
+        //var_dump($query);die;
+    }
+}
