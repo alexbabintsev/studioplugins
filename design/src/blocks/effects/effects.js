@@ -275,7 +275,7 @@ $(function(){
     let $main_video = $('.main-video');
     mainvideoPlay($main_video);
     // FULLSCREEN VIDEO
-    if($('body').hasClass('body-transitions-page') || $('body').hasClass('body-text-animations-page')){
+    if($('body').hasClass('body-transitions-page') || $('body').hasClass('body-text-animations-page') || $('body').hasClass('body-download-page')){
         let $fullscreen_video = $('.fullscreen-video')[0];
         $fullscreen_video.play();
         // let screen_width = document.documentElement.clientWidth;
