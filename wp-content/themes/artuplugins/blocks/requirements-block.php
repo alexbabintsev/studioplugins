@@ -8,7 +8,7 @@
                         <div class="requirements-item__ic-container">
                             <div class="requirements-item__ic-wrapper">
                                 <?php foreach ($block['images'] as $image):?>
-                                <div class="requirements-item__ic"><img src="<?= $image?>"></div>
+                                <div class="requirements-item__ic"><img src="<?= $image['image']?>"></div>
                                 <?php endforeach;?>
                             </div>
                         </div>
