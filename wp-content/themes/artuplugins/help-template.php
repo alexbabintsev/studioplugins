@@ -13,7 +13,7 @@ get_header();
                 <h1 class="help-c__title"><?php the_title(  ); ?></h1>
                 <div class="help-c__header">
                     <div class="help-c__header-title"><?= get_field('head_title'); ?></div>
-                    <div class="help-c__header-btns desk"><a class="btn" href="/download/"><span class="btn__inner">Download</span></a></div>
+                    <div class="help-c__header-btns desk"><a class="btn" href="/premiere_studio_plugin/"><span class="btn__inner">Download</span></a></div>
                     <div class="help-c__header-btns mob">
                         <div class="help-c__header-btns-title">Available for</div>
 
