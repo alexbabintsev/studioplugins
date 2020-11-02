@@ -671,6 +671,36 @@
         }
     }
 }
+@media screen and(min-width: 769px){
+    .body-download-page .no-subfolders{
+        transition: 0.3s;
+        &:hover{
+            background: #323232;
+        }
+        &.is-active{
+            background: #323232;
+        }
+    }
+}
+
+.body-download-page .folder-box-char__item{
+    &:last-child{
+        position: relative;
+        margin-right: 169px;
+        &::after{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            transform: translateX(100%);
+            content: 'And more...';
+            font-size: 20px;
+            line-height: 110%;
+            color: #B1B1B1;
+        }
+    }
+}
 .body-download-page .effects-content__body-root{
     opacity: 0;
     height: 10px;

@@ -78,7 +78,10 @@ $(function(){
             $('.tr-folder-slider[data-singleindex="'+singleindex+'"][data-groupindex="'+groupindex+'"]').addClass('is-active');
         }
      });
-    
+    $('.body-download-page .no-subfolders').on('click', function(){
+        $(this).siblings('.no-subfolders').removeClass('is-active');
+        $(this).addClass('is-active');
+    });
 
     //SET VALUE OF FOLDER SELECTOR ON MOBILE-BIG 
     function set_folder_select(){
