@@ -671,6 +671,10 @@
         }
     }
 }
+.body-download-page .effects-content__body-root{
+    opacity: 0;
+    height: 10px;
+}
 @media screen and (max-width: 1350px){
     .effects{
         &__decor{
