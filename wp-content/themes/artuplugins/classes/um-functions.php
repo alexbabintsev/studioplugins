@@ -239,7 +239,7 @@ function um_account_content_hook_myproducts( $output ){
     ?>
 
     <div class="<?php if($products):?>account-grid-2__products account-grid-2__products-2<?php else:?>account-grid-2__products<?php endif;?> fn_all_products_list">
-        <div class="dwl-links"><a class="btn btn--black" href="/premiere_studio_plugin/"><span class="btn__inner">Download</span></a></div>
+        <div class="dwl-links"><a class="btn btn--black" href="/premiere-studio/"><span class="btn__inner">Download</span></a></div>
         <div class="mob-page-header"><img class="mob-page-header__logo" src="<?= get_theme_file_uri( '/img/logo.svg' )?>" alt="logo">
             <div class="mob-page-close" data-page-close="">
                 <svg width="20" height="20">
