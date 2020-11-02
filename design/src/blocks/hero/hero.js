@@ -8,7 +8,7 @@ $(function(){
       if (location.length) {
          setTimeout(function(){
             window.location.href= location;
-         });
+         },2000);
       }
    });
 });
