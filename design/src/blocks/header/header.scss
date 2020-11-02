@@ -99,6 +99,9 @@
       line-height: 17px;
       margin-right: 33px;
       transition: 0.3s;
+      &--mob{
+        display: none;
+      }
       &:hover{
         color: $c-red;
       }
@@ -363,6 +366,9 @@ body{
         color: white;
         margin-right: 0;
         margin-bottom: 30px;
+        &--mob{
+          display: block;
+        }
       }
     }
     &__login{
