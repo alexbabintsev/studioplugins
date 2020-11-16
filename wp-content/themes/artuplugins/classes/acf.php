@@ -44,11 +44,72 @@ add_action('acf/init', function(){
         'description' => '',
     ));
 
+    acf_add_options_page( [
+        'page_title' => __('Настройки сайта','artu' ),
+        'menu_title' => __('Настройки сайта','artu' ),
+        'menu_slug' => 'theme-options',
+        //'capability' => 'edit_posts',
+        'position' => '',
+        //'parent_slug' => 'my-parent-page',
+        'icon_url' => 'dashicons-admin-customizer',
+        'redirect' => true,
+        'post_id' => 'options',
+        'autoload' => false,
+        'update_button' => __('Update', 'acf'),
+        'updated_message' => __("Options Updated", 'acf'),
+    ] );
+
+    acf_add_local_field_group(array(
+        'key' => 'group_5fb28103c39580',
+        'title' => __('Настройки сайта','artu' ),
+        'fields' => [
+            array(
+                'key' => 'field_5fb280fa5d70a4',
+                'label' => 'Форма "Предзаказ"',
+                'name' => 'form_preorder',
+                'type' => 'post_object',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array(
+                    'width' => '',
+                    'class' => '',
+                    'id' => '',
+                ),
+                'post_type' => array(
+                    0 => 'wpcf7_contact_form',
+                ),
+                'taxonomy' => '',
+                'allow_null' => 0,
+                'multiple' => 0,
+                'return_format' => 'id',
+                'ui' => 1,
+            ),
+        ],
+        'location' => array(
+            array(
+                array(
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'theme-options',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => true,
+        'description' => __( '','artu' ),
+    ));
+
     //custom-video-landing
     acf_register_block_type( [
         'name' => 'custom-video-landing',
-        'title' => __('Custom Video Landing', 'valueone'),
-        'description' => __('', 'valueone'),
+        'title' => __('Custom Video Landing','artu' ),
+        'description' => __('','artu' ),
         'category' => 'studioplugins-blocks',
         //'icon' => '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>',
         'keywords' => array('custom', 'video','landing'),
@@ -72,8 +133,8 @@ add_action('acf/init', function(){
                 'data' => array(
                     //'testimonial'   => "Your testimonial text here",
                     //'author'        => "John Smith"
-                    //'title' =>__('Test title', 'valueone'),
-                    //'subtitle' =>__('Test subtitle', 'valueone'),
+                    //'title' =>__('Test title','artu' ),
+                    //'subtitle' =>__('Test subtitle','artu' ),
                 )
             )
         )
@@ -81,8 +142,8 @@ add_action('acf/init', function(){
     //creative-image-block
     acf_register_block_type( [
         'name' => 'creative-image-block',
-        'title' => __('Creative image block', 'valueone'),
-        'description' => __('', 'valueone'),
+        'title' => __('Creative image block','artu' ),
+        'description' => __('','artu' ),
         'category' => 'studioplugins-blocks',
         //'icon' => '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>',
         'keywords' => array('creative', 'image','block'),
@@ -106,19 +167,19 @@ add_action('acf/init', function(){
                 'data' => array(
                     //'testimonial'   => "Your testimonial text here",
                     //'author'        => "John Smith"
-                    //'title' =>__('Test title', 'valueone'),
-                    //'subtitle' =>__('Test subtitle', 'valueone'),
+                    //'title' =>__('Test title','artu' ),
+                    //'subtitle' =>__('Test subtitle','artu' ),
                 )
             )
         )
     ] );
     acf_add_local_field_group(array(
         'key' => 'group_5f992f9a322d10',
-        'title' => __('Custom Video Landing', 'valueone'),
+        'title' => __('Custom Video Landing','artu' ),
         'fields' => array(
             array(
                 'key' => 'field_5f992ff00b4394',
-                'label' => __('Image', 'valueone'),
+                'label' => __('Image','artu' ),
                 'name' => 'image',
                 'type' => 'image',
                 'instructions' => '',
@@ -157,13 +218,13 @@ add_action('acf/init', function(){
         'instruction_placement' => 'label',
         'hide_on_screen' => '',
         'active' => true,
-        'description' => __( '', 'valueone' ),
+        'description' => __( '','artu' ),
     ));
     //benefits-block
     acf_register_block_type( [
         'name' => 'benefits-block',
-        'title' => __('Benefits block', 'valueone'),
-        'description' => __('', 'valueone'),
+        'title' => __('Benefits block','artu' ),
+        'description' => __('','artu' ),
         'category' => 'studioplugins-blocks',
         //'icon' => '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>',
         'keywords' => array('creative', 'image','block'),
@@ -187,19 +248,19 @@ add_action('acf/init', function(){
                 'data' => array(
                     //'testimonial'   => "Your testimonial text here",
                     //'author'        => "John Smith"
-                    //'title' =>__('Test title', 'valueone'),
-                    //'subtitle' =>__('Test subtitle', 'valueone'),
+                    //'title' =>__('Test title','artu' ),
+                    //'subtitle' =>__('Test subtitle','artu' ),
                 )
             )
         )
     ] );
     acf_add_local_field_group(array(
         'key' => 'group_5f993d8211a9fc',
-        'title' => __('Benefits block', 'valueone'),
+        'title' => __('Benefits block','artu' ),
         'fields' =>  array(
             array(
                 'key' => 'field_5f993f8729374c',
-                'label' => __('Title', 'valueone'),
+                'label' => __('Title','artu' ),
                 'name' => 'title',
                 'type' => 'text',
                 'instructions' => '',
@@ -301,7 +362,7 @@ add_action('acf/init', function(){
             ),
             array(
                 'key' => 'field_5f99411d866668',
-                'label' => __('Mac Link', 'valueone'),
+                'label' => __('Mac Link','artu' ),
                 'name' => 'mac_link',
                 'type' => 'link',
                 'instructions' => '',
@@ -316,7 +377,7 @@ add_action('acf/init', function(){
             ),
             array(
                 'key' => 'field_5f994124fb22d0',
-                'label' => __('Windows Link', 'valueone'),
+                'label' => __('Windows Link','artu' ),
                 'name' => 'win_link',
                 'type' => 'link',
                 'instructions' => '',
@@ -346,13 +407,13 @@ add_action('acf/init', function(){
         'instruction_placement' => 'label',
         'hide_on_screen' => '',
         'active' => true,
-        'description' => __( '', 'valueone' ),
+        'description' => __( '','artu' ),
     ));
     //nitrozime-block
     acf_register_block_type( [
         'name' => 'nitrozime-block',
-        'title' => __('Nitrozime block', 'valueone'),
-        'description' => __('', 'valueone'),
+        'title' => __('Nitrozime block','artu' ),
+        'description' => __('','artu' ),
         'category' => 'studioplugins-blocks',
         //'icon' => '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>',
         'keywords' => array('creative', 'image','block'),
@@ -376,19 +437,19 @@ add_action('acf/init', function(){
                 'data' => array(
                     //'testimonial'   => "Your testimonial text here",
                     //'author'        => "John Smith"
-                    //'title' =>__('Test title', 'valueone'),
-                    //'subtitle' =>__('Test subtitle', 'valueone'),
+                    //'title' =>__('Test title','artu' ),
+                    //'subtitle' =>__('Test subtitle','artu' ),
                 )
             )
         )
     ] );
     acf_add_local_field_group(array(
         'key' => 'group_5f9942b94c8b44',
-        'title' => __('Nitrozime block', 'valueone'),
+        'title' => __('Nitrozime block','artu' ),
         'fields' => array(
             array(
                 'key' => 'field_5f9943eb004188',
-                'label' => __('Title', 'valueone'),
+                'label' => __('Title','artu' ),
                 'name' => 'title',
                 'type' => 'text',
                 'instructions' => '',
@@ -407,7 +468,7 @@ add_action('acf/init', function(){
             ),
             array(
                 'key' => 'field_5f9943f2ba1cac',
-                'label' => __('Subtitle', 'valueone'),
+                'label' => __('Subtitle','artu' ),
                 'name' => 'subtitle',
                 'type' => 'text',
                 'instructions' => '',
@@ -500,13 +561,13 @@ add_action('acf/init', function(){
         'instruction_placement' => 'label',
         'hide_on_screen' => '',
         'active' => true,
-        'description' => __( '', 'valueone' ),
+        'description' => __( '','artu' ),
     ));
     //requirements-block
     acf_register_block_type( [
         'name' => 'requirements-block',
-        'title' => __('Requirements block', 'valueone'),
-        'description' => __('', 'valueone'),
+        'title' => __('Requirements block','artu' ),
+        'description' => __('','artu' ),
         'category' => 'studioplugins-blocks',
         //'icon' => '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>',
         'keywords' => array('creative', 'image','block'),
@@ -530,15 +591,15 @@ add_action('acf/init', function(){
                 'data' => array(
                     //'testimonial'   => "Your testimonial text here",
                     //'author'        => "John Smith"
-                    //'title' =>__('Test title', 'valueone'),
-                    //'subtitle' =>__('Test subtitle', 'valueone'),
+                    //'title' =>__('Test title','artu' ),
+                    //'subtitle' =>__('Test subtitle','artu' ),
                 )
             )
         )
     ] );
     acf_add_local_field_group(array(
         'key' => 'group_5f99448c781064',
-        'title' => __('Requirements block', 'valueone'),
+        'title' => __('Requirements block','artu' ),
         'fields' => array(
             array(
                 'key' => 'field_5f99457a449ba4',
@@ -581,7 +642,7 @@ add_action('acf/init', function(){
             ),
             array(
                 'key' => 'field_5f994542e8b438',
-                'label' => __('Title', 'valueone'),
+                'label' => __('Title','artu' ),
                 'name' => 'title',
                 'type' => 'text',
                 'instructions' => '',
@@ -700,13 +761,13 @@ add_action('acf/init', function(){
         'instruction_placement' => 'label',
         'hide_on_screen' => '',
         'active' => true,
-        'description' => __( '', 'valueone' ),
+        'description' => __( '','artu' ),
     ));
     //subscribe-block
     acf_register_block_type( [
         'name' => 'subscribe-block',
-        'title' => __('Subscribe block', 'valueone'),
-        'description' => __('', 'valueone'),
+        'title' => __('Subscribe block','artu' ),
+        'description' => __('','artu' ),
         'category' => 'studioplugins-blocks',
         //'icon' => '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>',
         'keywords' => array('creative', 'image','block'),
@@ -730,19 +791,19 @@ add_action('acf/init', function(){
                 'data' => array(
                     //'testimonial'   => "Your testimonial text here",
                     //'author'        => "John Smith"
-                    //'title' =>__('Test title', 'valueone'),
-                    //'subtitle' =>__('Test subtitle', 'valueone'),
+                    //'title' =>__('Test title','artu' ),
+                    //'subtitle' =>__('Test subtitle','artu' ),
                 )
             )
         )
     ] );
     acf_add_local_field_group(array(
         'key' => 'group_5f99464af6872c',
-        'title' => __('Subscribe block', 'valueone'),
+        'title' => __('Subscribe block','artu' ),
         'fields' => array(
             array(
                 'key' => 'field_5f9946a3753f7c',
-                'label' => __('Title', 'valueone'),
+                'label' => __('Title','artu' ),
                 'name' => 'title',
                 'type' => 'text',
                 'instructions' => '',
@@ -798,13 +859,13 @@ add_action('acf/init', function(){
         'instruction_placement' => 'label',
         'hide_on_screen' => '',
         'active' => true,
-        'description' => __( '', 'valueone' ),
+        'description' => __( '','artu' ),
     ));
     //download-hero-block
     acf_register_block_type( [
         'name' => 'download-hero-block',
-        'title' => __('Download hero block', 'valueone'),
-        'description' => __('', 'valueone'),
+        'title' => __('Download hero block','artu' ),
+        'description' => __('','artu' ),
         'category' => 'studioplugins-blocks',
         //'icon' => '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>',
         'keywords' => array('creative', 'image','block'),
@@ -828,19 +889,19 @@ add_action('acf/init', function(){
                 'data' => array(
                     //'testimonial'   => "Your testimonial text here",
                     //'author'        => "John Smith"
-                    //'title' =>__('Test title', 'valueone'),
-                    //'subtitle' =>__('Test subtitle', 'valueone'),
+                    //'title' =>__('Test title','artu' ),
+                    //'subtitle' =>__('Test subtitle','artu' ),
                 )
             )
         )
     ] );
     acf_add_local_field_group(array(
         'key' => 'group_5f9947bc856040',
-        'title' => __('Download hero block', 'valueone'),
+        'title' => __('Download hero block','artu' ),
         'fields' => array(
             array(
                 'key' => 'field_5f9949bb73b644',
-                'label' => __('Subitle', 'valueone'),
+                'label' => __('Subitle','artu' ),
                 'name' => 'subtitle',
                 'type' => 'text',
                 'instructions' => '',
@@ -859,7 +920,7 @@ add_action('acf/init', function(){
             ),
             array(
                 'key' => 'field_5f99496bd0a3d8',
-                'label' => __('Title', 'valueone'),
+                'label' => __('Title','artu' ),
                 'name' => 'title',
                 'type' => 'text',
                 'instructions' => '',
@@ -878,7 +939,7 @@ add_action('acf/init', function(){
             ),
             array(
                 'key' => 'field_5f994a16116874',
-                'label' => __('Features', 'valueone'),
+                'label' => __('Features','artu' ),
                 'name' => 'features',
                 'type' => 'text',
                 'instructions' => '',
@@ -897,7 +958,7 @@ add_action('acf/init', function(){
             ),
             array(
                 'key' => 'field_5f994b975eb850',
-                'label' => __('Button text', 'valueone'),
+                'label' => __('Button text','artu' ),
                 'name' => 'button_text',
                 'type' => 'text',
                 'instructions' => '',
@@ -916,7 +977,7 @@ add_action('acf/init', function(){
             ),
             array(
                 'key' => 'field_5f994a8aa8b438',
-                'label' => __('Mac Link', 'valueone'),
+                'label' => __('Mac Link','artu' ),
                 'name' => 'mac_link',
                 'type' => 'link',
                 'instructions' => '',
@@ -931,7 +992,7 @@ add_action('acf/init', function(){
             ),
             array(
                 'key' => 'field_5f994a91f0624c',
-                'label' => __('Windows Link', 'valueone'),
+                'label' => __('Windows Link','artu' ),
                 'name' => 'win_link',
                 'type' => 'link',
                 'instructions' => '',
@@ -961,6 +1022,6 @@ add_action('acf/init', function(){
         'instruction_placement' => 'label',
         'hide_on_screen' => '',
         'active' => true,
-        'description' => __( '', 'valueone' ),
+        'description' => __( '','artu' ),
     ));
 });

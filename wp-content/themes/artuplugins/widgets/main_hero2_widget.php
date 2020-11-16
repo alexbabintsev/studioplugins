@@ -24,7 +24,7 @@ class main_hero2_widget extends WP_Widget {
                         <h1 class="hero-2-content__title"><?= $instance['title']?></h1>
                         <p class="hero-2-content__text"><?= $instance['text']?></p>
                         <div class="hero-2-content__links">
-                            <a class="btn" data-modal="modal-pre-order" target="_blank" href="<?= esc_attr($instance['buy_link'])?>"><?= $instance['buy_link_text']?></a>
+                            <a class="btn"<?= isset($instance['preoreder_modal'])&&$instance['preoreder_modal']==1?' data-modal="modal-pre-order"':''?> target="_blank" href="<?= esc_attr($instance['buy_link'])?>"><?= $instance['buy_link_text']?></a>
                             <a class="hero-2-content__video" data-nav='nav' href="#" data-href="#view-demo" data-iframe="<?= esc_attr($instance['video_link'])?>">
                                 <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M19.2686 31.3338V18.5713C19.2686 17.7993 20.1063 17.3184 20.7729 17.7079L32.4256 24.5145C33.1081 24.9132 33.0801 25.9087 32.3763 26.2684L20.7237 32.2242C20.0583 32.5643 19.2686 32.081 19.2686 31.3338Z" fill="white"/>
@@ -62,6 +62,11 @@ class main_hero2_widget extends WP_Widget {
                 Text
                 <textarea class="widefat" name="<?= esc_attr( $this->get_field_name( 'text' ))?>"><?= $instance['text']?></textarea>
             </label>
+            <label>
+                Show pre-order modal
+                <input type="hidden" name="<?= esc_attr( $this->get_field_name( 'preoreder_modal' ))?>" value="0"/>
+                <input class="widefat" type="checkbox" name="<?= esc_attr( $this->get_field_name( 'preoreder_modal' ))?>" value="1"<?= isset($instance['preoreder_modal'])&&$instance['preoreder_modal']==1?' checked="checked"':''?>/>
+            </label><br/>
             <label>
                 Buy link
                 <input class="widefat" type="text" name="<?= esc_attr( $this->get_field_name( 'buy_link' ))?>" value="<?= esc_attr($instance['buy_link'])?>"/>
