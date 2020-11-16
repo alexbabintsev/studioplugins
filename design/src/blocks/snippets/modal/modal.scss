@@ -478,3 +478,46 @@
 .mob_logo_letter{
   fill: #231F20;
 }
+.modal-pre-order{
+  .default-modal__inner{
+    position: relative;
+  }
+  &__msg{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: 0.3s;
+    pointer-events: none;
+    h2{
+      font-size: 35px;
+    }
+
+    span{
+      color: $c-red;
+    }
+  }
+  &.is-sended{
+    .modal-pre-order__msg{
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+}
+@media screen and (max-width: $mobile){
+  .modal-pre-order{
+    &__msg{
+      h2{
+        font-size: 20px;
+      }
+    }
+  }
+}

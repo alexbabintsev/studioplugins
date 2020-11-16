@@ -295,3 +295,30 @@
     </div>
 </div>
 
+<div class="default-modal default-modal--pre-order modal-pre-order">
+    <div class="default-modal__content"><a class="default-modal__mobile-logo" href="#">
+        <svg width="92" height="20">
+            <use xlink:href="#icon-mobile_logo"></use>
+        </svg></a>
+        <div class="default-modal__close" data-modal-close>
+        <svg width="100%" height="100%">
+            <use xlink:href="#icon-close"></use>
+        </svg>
+        </div>
+        <div class="default-modal__inner">
+        <h2 class="default-modal__title">Enter your <span>email</span></h2>
+        <form class="main-form default-modal__form" name="modal-pre-order-form" novalidate="novalidate">
+            <div class="input-group">
+            <div class="input-group__label">New email</div>
+            <input type="text" name="email">
+            </div>
+            <div class="submit-wrapper main-form__submit-wrapper">
+            <button class="main-form__submit-btn" type="submit">Submit</button>
+            </div>
+        </form>
+        <div class="modal-pre-order__msg">
+            <h2>You <span>will receive an email</span> when product is released</h2>
+        </div>
+        </div>
+    </div>
+</div>
