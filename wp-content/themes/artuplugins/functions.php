@@ -756,6 +756,28 @@ add_action( 'admin_init', function (){
             'description'  => __( 'Envato Token' ),
         )
     );
+    register_setting(
+        'general',
+        'mailchimp_api_key',
+        array(
+            /*'show_in_rest' => array(
+                'name' => 'title',
+            ),*/
+            'type'         => 'string',
+            'description'  => __( 'Mailchimp API key' ),
+        )
+    );
+    register_setting(
+        'general',
+        'mailchimp_list_id',
+        array(
+            /*'show_in_rest' => array(
+                'name' => 'title',
+            ),*/
+            'type'         => 'string',
+            'description'  => __( 'Mailchimp list id' ),
+        )
+    );
     add_settings_field(
         'envato_login-id',
         'Envato Login',
@@ -776,6 +798,28 @@ add_action( 'admin_init', function (){
         array(
             'id' => 'envato_token-id',
             'option_name' => 'envato_token'
+        )
+    );
+    add_settings_field(
+        'mailchimp_api_key-id',
+        'Mailchimp API key',
+        'myprefix_setting_callback_function',
+        'general',
+        'default',
+        array(
+            'id' => 'mailchimp_api_key-id',
+            'option_name' => 'mailchimp_api_key'
+        )
+    );
+    add_settings_field(
+        'mailchimp_list_id-id',
+        'Mailchimp list id',
+        'myprefix_setting_callback_function',
+        'general',
+        'default',
+        array(
+            'id' => 'mailchimp_list_id-id',
+            'option_name' => 'mailchimp_list_id'
         )
     );
 
@@ -1139,6 +1183,32 @@ function um_custom_submit_form_register( $args ) {
     );
 
     $user_id = wp_insert_user( $userdata );
+    $authToken = get_option('mailchimp_api_key');
+    $list_id = get_option('mailchimp_list_id');
+    if($authToken && $list_id){
+        $mch_server = explode('-',$authToken)[1];
+        $postData = array(
+            "email_address" => $user_email,
+            "status" => "subscribed",
+            "merge_fields" => array(
+                "FNAME"=> $nickname,
+                ),
+        );
+
+    // Setup cURL
+        $ch = curl_init('https://'.$mch_server.'.api.mailchimp.com/3.0/lists/'.$list_id.'/members/');
+        curl_setopt_array($ch, array(
+            CURLOPT_POST => TRUE,
+            CURLOPT_RETURNTRANSFER => TRUE,
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: apikey '.$authToken,
+                'Content-Type: application/json'
+            ),
+            CURLOPT_POSTFIELDS => json_encode($postData)
+        ));
+    // Send the request
+        $response = curl_exec($ch);
+    }
     /**
      * UM hook
      *
