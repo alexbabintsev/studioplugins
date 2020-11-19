@@ -29,7 +29,8 @@ $(function(){
       //submiting form
       let email = $(this).closest('.main-form').find('input[name="email"]').val();
       if(email.length){
-         $(this).closest('.main-form').submit();
+         //$(this).closest('.main-form').submit();
+          $.post(myajax.url,{action: 'dwnl_to_mailchimp',email:email},function (data) {});
       }
 
       //download file

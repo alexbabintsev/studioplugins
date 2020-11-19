@@ -1505,6 +1505,39 @@ function pl_key_custom_filters_callbeck( $query ) {
     //return $query;
 }
 add_filter( 'pre_get_posts', 'pl_key_custom_filters_callbeck' );*/
+
+add_action( 'wp_ajax_dwnl_to_mailchimp', 'dwnl_to_mailchimp');
+add_action( 'wp_ajax_nopriv_dwnl_to_mailchimp', 'dwnl_to_mailchimp');
+function dwnl_to_mailchimp (){
+    $user_email = isset($_REQUEST['email'])?$_REQUEST['email']:false;
+    $authToken = get_option('mailchimp_api_key');
+    $list_id = get_option('mailchimp_list_id');
+    if($authToken && $list_id && $user_email){
+        $mch_server = explode('-',$authToken)[1];
+        $postData = array(
+            "email_address" => $user_email,
+            "status" => "subscribed",
+            /*"merge_fields" => array(
+                "FNAME"=> $nickname,
+            ),*/
+        );
+
+        // Setup cURL
+        $ch = curl_init('https://'.$mch_server.'.api.mailchimp.com/3.0/lists/'.$list_id.'/members/');
+        curl_setopt_array($ch, array(
+            CURLOPT_POST => TRUE,
+            CURLOPT_RETURNTRANSFER => TRUE,
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: apikey '.$authToken,
+                'Content-Type: application/json'
+            ),
+            CURLOPT_POSTFIELDS => json_encode($postData)
+        ));
+        // Send the request
+        $response = curl_exec($ch);
+    }
+    wp_die();
+}
 add_action( 'pre_get_posts', 'action_function_name_11' );
 function action_function_name_11( $query ) {
     // Действия...

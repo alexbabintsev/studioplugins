@@ -33,6 +33,15 @@
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/67870531" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B50G2N0PKF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-B50G2N0PKF');
+    </script>
 </head>
 <body class="<?=is_front_page()?'body-home-page':''?> <?=is_singular('pl_product')?'is_pl_product '.get_field('body_css',get_queried_object_id()):''?> <?= is_page()?get_field('body_html_class',get_queried_object_id()):''?>">
 <div class="wrapper">
