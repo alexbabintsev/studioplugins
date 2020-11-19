@@ -2,7 +2,7 @@ $(function(){
    let $dwl_link = $('.dwl_link');
    $dwl_link.on('click', function(e){
       e.preventDefault();
-      let popup = $('.modal-pre-order');
+      let popup = $('.modal-pre-dwl');
       let a_href = $(this).attr('href');
 
       //ADDING DWL LINK TO POPUP 
@@ -24,7 +24,7 @@ $(function(){
 
 
 
-   $('.modal-pre-order .main-form__submit-btn').on('click', function(e){
+   $('.modal-pre-dwl .main-form__submit-btn').on('click', function(e){
       e.preventDefault();
       //submiting form
       let email = $(this).closest('.main-form').find('input[name="email"]').val();
@@ -33,7 +33,7 @@ $(function(){
       }
 
       //download file
-      let location_dwl = $('.modal-pre-order').find('#temporary_popup_link').attr('href');
+      let location_dwl = $('.modal-pre-dwl').find('#temporary_popup_link').attr('href');
       window.location.href= location_dwl;
       //redirect
       let location  = '/downloaded/';
