@@ -156,6 +156,8 @@ function check_prodcode_callback() {
         ));
         if(count($keys))
         {
+			//$rez['keys_rez']='yes';
+			//$rez['keys_rez']=$keys;
             $key = $keys[0];
             if(get_field('is_baned', $key))
             {
@@ -174,6 +176,7 @@ function check_prodcode_callback() {
         }
         else
         {
+			$rez['keys_rez']='no';
             $ch = curl_init();
             curl_setopt_array($ch, array(
                 CURLOPT_URL => "https://api.envato.com/v3/market/author/sale?".http_build_query(['code'=>$code]),
@@ -187,6 +190,8 @@ function check_prodcode_callback() {
             ));
             $data = curl_exec($ch);
             curl_close($ch);
+			file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR.'envato.log',$data);
+			$rez['evdata']=$data;
             $strVer = json_decode($data, true);
             if(array_key_exists('item', $strVer))
             {
@@ -251,7 +256,8 @@ function check_prodcode_callback() {
 add_action( 'wp_ajax_test', function (){
     echo 'test ajax';
     $user = wp_get_current_user();
-    //UM()->mail()->send( 'michil8888@yandex.ru', 'checkmail_email' );
+	//mail('michil8888@yandex.ru','test_mail','test_mail_text','From:StudioPlugins<hello@studioplugins.net>');
+    UM()->mail()->send( 'michil888@mail.ru', 'checkmail_email' );
     //f940d0a6-cd0d-4cf7-960a-0d1cd5a44cf9
     //Transitions - 22834323
     /*$ch = curl_init();
@@ -756,6 +762,28 @@ add_action( 'admin_init', function (){
             'description'  => __( 'Envato Token' ),
         )
     );
+    register_setting(
+        'general',
+        'mailchimp_api_key',
+        array(
+            /*'show_in_rest' => array(
+                'name' => 'title',
+            ),*/
+            'type'         => 'string',
+            'description'  => __( 'Mailchimp API key' ),
+        )
+    );
+    register_setting(
+        'general',
+        'mailchimp_list_id',
+        array(
+            /*'show_in_rest' => array(
+                'name' => 'title',
+            ),*/
+            'type'         => 'string',
+            'description'  => __( 'Mailchimp list id' ),
+        )
+    );
     add_settings_field(
         'envato_login-id',
         'Envato Login',
@@ -776,6 +804,28 @@ add_action( 'admin_init', function (){
         array(
             'id' => 'envato_token-id',
             'option_name' => 'envato_token'
+        )
+    );
+    add_settings_field(
+        'mailchimp_api_key-id',
+        'Mailchimp API key',
+        'myprefix_setting_callback_function',
+        'general',
+        'default',
+        array(
+            'id' => 'mailchimp_api_key-id',
+            'option_name' => 'mailchimp_api_key'
+        )
+    );
+    add_settings_field(
+        'mailchimp_list_id-id',
+        'Mailchimp list id',
+        'myprefix_setting_callback_function',
+        'general',
+        'default',
+        array(
+            'id' => 'mailchimp_list_id-id',
+            'option_name' => 'mailchimp_list_id'
         )
     );
 
@@ -1139,6 +1189,32 @@ function um_custom_submit_form_register( $args ) {
     );
 
     $user_id = wp_insert_user( $userdata );
+    $authToken = get_option('mailchimp_api_key');
+    $list_id = get_option('mailchimp_list_id');
+    if($authToken && $list_id){
+        $mch_server = explode('-',$authToken)[1];
+        $postData = array(
+            "email_address" => $user_email,
+            "status" => "subscribed",
+            "merge_fields" => array(
+                "FNAME"=> $nickname,
+            ),
+        );
+
+        // Setup cURL
+        $ch = curl_init('https://'.$mch_server.'.api.mailchimp.com/3.0/lists/'.$list_id.'/members/');
+        curl_setopt_array($ch, array(
+            CURLOPT_POST => TRUE,
+            CURLOPT_RETURNTRANSFER => TRUE,
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: apikey '.$authToken,
+                'Content-Type: application/json'
+            ),
+            CURLOPT_POSTFIELDS => json_encode($postData)
+        ));
+        // Send the request
+        $response = curl_exec($ch);
+    }
     /**
      * UM hook
      *
@@ -1282,7 +1358,8 @@ add_filter( 'block_categories', function( $categories, $post ) {
 }, 10, 2 );
 
 function mihdan_send_smtp_email( PHPMailer $phpmailer ) {
-    $phpmailer->isSMTP();
+	if(MAIL_METHOD=='smtp')
+		$phpmailer->isSMTP();
     $phpmailer->Host       = SMTP_HOST;
     $phpmailer->SMTPAuth   = SMTP_AUTH;
     $phpmailer->Port       = SMTP_PORT;
@@ -1459,6 +1536,23 @@ add_filter('password_reset_expiration', function ($defaults){
 
     return $defaults*2;
 }, 10);
+add_action( 'pre_get_posts', 'action_function_name_11' );
+function action_function_name_11( $query ) {
+    // Действия...
+    if($query->is_admin&&$query->is_search&&$query->query['post_type']=='pl_key')
+    {
+        $query->set('meta_query',[
+            'relation'		=> 'AND',
+            array(
+                'key'	 	=> 'key',
+                'value'	  	=> $query->query['s'],
+                'compare' 	=> 'LIKE',
+            ),
+        ]);
+        $query->set('s','');
+        //var_dump($query);die;
+    }
+}
 /*function pl_key_custom_filters() {
     global $typenow;
     global $wp_query;
@@ -1505,20 +1599,3 @@ function pl_key_custom_filters_callbeck( $query ) {
     //return $query;
 }
 add_filter( 'pre_get_posts', 'pl_key_custom_filters_callbeck' );*/
-add_action( 'pre_get_posts', 'action_function_name_11' );
-function action_function_name_11( $query ) {
-    // Действия...
-    if($query->is_admin&&$query->is_search&&$query->query['post_type']=='pl_key')
-    {
-        $query->set('meta_query',[
-            'relation'		=> 'AND',
-            array(
-                'key'	 	=> 'key',
-                'value'	  	=> $query->query['s'],
-                'compare' 	=> 'LIKE',
-            ),
-        ]);
-        $query->set('s','');
-        //var_dump($query);die;
-    }
-}

@@ -334,6 +334,9 @@ $(function() {
             check.addClass('is-active')
         },4000);
     });
+	$('.modal-pre-order .wpcf7').on('wpcf7mailsent', function(){
+        $('.modal-pre-order').addClass('is-sended');
+    });
 });
 function scriptShowModal(mod)
 {

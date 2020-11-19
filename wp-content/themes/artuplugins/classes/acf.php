@@ -43,6 +43,67 @@ add_action('acf/init', function(){
         'active' => true,
         'description' => '',
     ));
+	
+	acf_add_options_page( [
+        'page_title' => __('Настройки сайта','artu' ),
+        'menu_title' => __('Настройки сайта','artu' ),
+        'menu_slug' => 'theme-options',
+        //'capability' => 'edit_posts',
+        'position' => '',
+        //'parent_slug' => 'my-parent-page',
+        'icon_url' => 'dashicons-admin-customizer',
+        'redirect' => true,
+        'post_id' => 'options',
+        'autoload' => false,
+        'update_button' => __('Update', 'acf'),
+        'updated_message' => __("Options Updated", 'acf'),
+    ] );
+
+    acf_add_local_field_group(array(
+        'key' => 'group_5fb28103c39580',
+        'title' => __('Настройки сайта','artu' ),
+        'fields' => [
+            array(
+                'key' => 'field_5fb280fa5d70a4',
+                'label' => 'Форма "Предзаказ"',
+                'name' => 'form_preorder',
+                'type' => 'post_object',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array(
+                    'width' => '',
+                    'class' => '',
+                    'id' => '',
+                ),
+                'post_type' => array(
+                    0 => 'wpcf7_contact_form',
+                ),
+                'taxonomy' => '',
+                'allow_null' => 0,
+                'multiple' => 0,
+                'return_format' => 'id',
+                'ui' => 1,
+            ),
+        ],
+        'location' => array(
+            array(
+                array(
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'theme-options',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => true,
+        'description' => __( '','artu' ),
+    ));
 
     //custom-video-landing
     acf_register_block_type( [
