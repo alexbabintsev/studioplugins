@@ -306,20 +306,16 @@
         </svg>
         </div>
         <div class="default-modal__inner">
-        <h2 class="default-modal__title">Enter your <span>email</span></h2>
-            <?= get_field('form_preorder','option')?do_shortcode('[contact-form-7 id="'.get_field('form_preorder','option').'" html_class="main-form default-modal__form"]'):''?>
-            <!--<form class="main-form default-modal__form" name="modal-pre-order-form" novalidate="novalidate">
-                <div class="input-group">
-                <div class="input-group__label">New email</div>
-                <input type="text" name="email">
-                </div>
-                <div class="submit-wrapper main-form__submit-wrapper">
-                <button class="main-form__submit-btn" type="submit">Submit</button>
-                </div>
-            </form>-->
-        <div class="modal-pre-order__msg">
-            <h2>You <span>will receive an email</span> when product is released</h2>
-        </div>
+        <h2 class="default-modal__title">Enter <span>your email</span></h2>
+        <form class="main-form default-modal__form" name="modal-pre-order-form" novalidate="novalidate">
+            <div class="input-group">
+            <div class="input-group__label">Your email</div>
+            <input type="text" name="email" autocomplete="off">
+            </div>
+            <div class="submit-wrapper main-form__submit-wrapper">
+            <button class="main-form__submit-btn" type="submit">Download</button>
+            </div>
+        </form>
         </div>
     </div>
 </div>
