@@ -320,7 +320,7 @@ $(function() {
         $('.help-c-footer__form-block').addClass('is-active');
     });
     //FOR YANDEX METRIKA УДАЛИТЬ КОГДА БУДУТ ОСТАЛЬНЫЕ ОБНОВЛЕНИЯ КОД ДУБЛИРУЕТСЯ (https://prnt.sc/vmuuet https://prnt.sc/vmuuxk) 
-    $('.dwl_link').on('click', function(){
+    /*$('.dwl_link').on('click', function(){
         //YANDEX METRIKA
         let link_txt = $(this).find('.btn__inner').text();
         if(link_txt.includes('Download for MacOS')){
@@ -330,7 +330,7 @@ $(function() {
             console.log('ym kode win os');
             ym(67870531,'reachGoal','download-win')
         }
-    });
+    });*/
     $('.body-download-page .download-hero__btn-demo').on('click', function(){
         console.log('ym kode watch-demo');
         ym(67870531,'reachGoal','watch-demo');
@@ -357,6 +357,13 @@ $(function() {
     });
     $('.modal-pre-order .wpcf7').on('wpcf7mailsent', function(){
         $('.modal-pre-order').addClass('is-sended');
+    });
+    $('.modal-pre-dwl-mobile .wpcf7').on('wpcf7mailsent', function(){
+        $('.modal-pre-dwl-mobile').addClass('is-sended');
+        ym(67870531,'reachGoal','download-mobile')
+        setTimeout(function(){
+            window.location.href = '/downloaded/';
+        },4000);
     });
 });
 function scriptShowModal(mod)

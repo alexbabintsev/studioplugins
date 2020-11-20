@@ -339,12 +339,29 @@
         <form class="main-form default-modal__form" name="modal-pre-order-form" novalidate="novalidate">
             <div class="input-group">
             <div class="input-group__label">Your email</div>
-            <input type="text" name="email">
+            <input type="email" name="email" required>
             </div>
             <div class="submit-wrapper main-form__submit-wrapper">
             <button class="main-form__submit-btn" type="submit">Download</button>
             </div>
         </form>
+        </div>
+    </div>
+</div>
+
+<div class="default-modal default-modal--pre-order modal-pre-dwl-mobile">
+    <div class="default-modal__content"><a class="default-modal__mobile-logo" href="#">
+            <svg width="92" height="20">
+                <use xlink:href="#icon-mobile_logo"></use>
+            </svg></a>
+        <div class="default-modal__close" data-modal-close>
+            <svg width="100%" height="100%">
+                <use xlink:href="#icon-close"></use>
+            </svg>
+        </div>
+        <div class="default-modal__inner">
+            <h2 class="default-modal__title">Enter <span>your email</span></h2>
+            <?= get_field('form_dwnl_mob','option')?do_shortcode('[contact-form-7 id="'.get_field('form_dwnl_mob','option').'" html_class="main-form default-modal__form"]'):''?>
         </div>
     </div>
 </div>

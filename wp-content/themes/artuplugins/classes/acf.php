@@ -85,6 +85,30 @@ add_action('acf/init', function(){
                 'return_format' => 'id',
                 'ui' => 1,
             ),
+
+            array(
+                'key' => 'field_5fb7cf95abc6a8',
+                'label' => 'Форма "Скачать на мобилки"',
+                'name' => 'form_dwnl_mob',
+                'type' => 'post_object',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array(
+                    'width' => '',
+                    'class' => '',
+                    'id' => '',
+                ),
+                'post_type' => array(
+                    0 => 'wpcf7_contact_form',
+                ),
+                'taxonomy' => '',
+                'allow_null' => 0,
+                'multiple' => 0,
+                'return_format' => 'id',
+                'ui' => 1,
+            ),
+
         ],
         'location' => array(
             array(
