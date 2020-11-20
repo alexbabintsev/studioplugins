@@ -362,6 +362,9 @@
         <div class="default-modal__inner">
             <h2 class="default-modal__title">Enter <span>your email</span></h2>
             <?= get_field('form_dwnl_mob','option')?do_shortcode('[contact-form-7 id="'.get_field('form_dwnl_mob','option').'" html_class="main-form default-modal__form"]'):''?>
+            <div class="modal-pre-order__msg">
+                <h2>Download links links have been sent <span>on your email</span></h2>
+            </div>
         </div>
     </div>
 </div>
