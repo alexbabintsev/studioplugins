@@ -1,3 +1,6 @@
+//VARIABLE FOR YANDEX METRIKA YM
+let ym_kode = 67870531;
+//VARIABLE FOR YANDEX METRIKA YM
 $(function() {
 
    //BURGER
@@ -38,6 +41,8 @@ $(function() {
       e.preventDefault();
 
          if($(this).hasClass('hero-2-content__video') && $(window).width()<1199){
+            ym(ym_kode,'reachGoal','watch-demo');
+            console.log('test 123');
             let modalIframe = $('.modal-video-2').find('iframe');
             let data_iframe = $(this).attr('data-iframe');
             console.log(data_iframe);
@@ -49,6 +54,7 @@ $(function() {
                 $(modalIframe)[0].contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
             };
          }else{
+            ym(ym_kode,'reachGoal','watch-demo');
             if(smooth_scroll){
                var _href = $(this).attr("data-href");
                $("html, body").animate({ scrollTop: $(_href).offset().top -0+ "px" }, 500);

@@ -8,6 +8,15 @@ $(function(){
       //ADDING DWL LINK TO POPUP 
       popup.find('#temporary_popup_link').remove();
       popup.append('<a style="display: none" id="temporary_popup_link" href="'+a_href+'" download></a>')
+
+      //YANDEX METRIKA
+      let link_txt = $(this).find('.btn__inner').text();
+      if(link_txt.includes('Download for MacOS')){
+         ym(ym_kode,'reachGoal','download-macos')
+      }else if (link_txt.includes('Download for Windows')){
+         ym(ym_kode,'reachGoal','download-win')
+      }
+
       // $('.dwl_temp').remove();
       // $(this)[0].insertAdjacentHTML('afterend', '<a class="dwl_temp" download style="display: none" href="'+$(this).attr('data-dwl')+'"></a>');
       // $('.dwl_temp')[0].click();

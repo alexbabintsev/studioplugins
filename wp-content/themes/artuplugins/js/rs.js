@@ -322,6 +322,7 @@ $(function() {
 
     //LOADER FOR SUBSCRIBE FORM
     $('.subscribe__container .wpcf7').on('wpcf7mailsent', function(){
+
         let anim_btn = $(this).find('.main-form__submit-btn');
         let circle = $(this).find('.main-form__load');
         let check = $(this).find('.main-form__check');
@@ -333,6 +334,9 @@ $(function() {
         setTimeout(function(){
             check.addClass('is-active')
         },4000);
+        if($(this).closest('body').hasClass('body-download-page')){
+            ym(ym_kode,'reachGoal','button-subscribe')
+        }
     });
     $('.modal-pre-order .wpcf7').on('wpcf7mailsent', function(){
         $('.modal-pre-order').addClass('is-sended');
