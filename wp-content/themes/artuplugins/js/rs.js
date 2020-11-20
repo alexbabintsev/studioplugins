@@ -319,7 +319,23 @@ $(function() {
         $('.help-success p.help-success__text').html($(this).find('input[name="mess"]').val());
         $('.help-c-footer__form-block').addClass('is-active');
     });
-
+    //FOR YANDEX METRIKA УДАЛИТЬ КОГДА БУДУТ ОСТАЛЬНЫЕ ОБНОВЛЕНИЯ КОД ДУБЛИРУЕТСЯ (https://prnt.sc/vmuuet https://prnt.sc/vmuuxk) 
+    $('.dwl_link').on('click', function(){
+        //YANDEX METRIKA
+        let link_txt = $(this).find('.btn__inner').text();
+        if(link_txt.includes('Download for MacOS')){
+            console.log('ym kode mak os');
+            ym(67870531,'reachGoal','download-macos')
+        }else if (link_txt.includes('Download for Windows')){
+            console.log('ym kode win os');
+            ym(67870531,'reachGoal','download-win')
+        }
+    });
+    $('.body-download-page .download-hero__btn-demo').on('click', function(){
+        console.log('ym kode watch-demo');
+        ym(67870531,'reachGoal','watch-demo');
+    });
+    //FOR YANDEX METRIKA УДАЛИТЬ КОГДА БУДУТ ОСТАЛЬНЫЕ ОБНОВЛЕНИЯ КОД ДУБЛИРУЕТСЯ (https://prnt.sc/vmuuet https://prnt.sc/vmuuxk) 
     //LOADER FOR SUBSCRIBE FORM
     $('.subscribe__container .wpcf7').on('wpcf7mailsent', function(){
 
@@ -335,7 +351,8 @@ $(function() {
             check.addClass('is-active')
         },4000);
         if($(this).closest('body').hasClass('body-download-page')){
-            ym(ym_kode,'reachGoal','button-subscribe')
+            console.log('ym kode button-subscribe');
+            ym(67870531,'reachGoal','button-subscribe')
         }
     });
     $('.modal-pre-order .wpcf7').on('wpcf7mailsent', function(){
