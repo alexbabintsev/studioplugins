@@ -335,6 +335,14 @@ $(function() {
         console.log('ym kode watch-demo');
         ym(67870531,'reachGoal','watch-demo');
     });
+    $('.body-text-animations-page .hero-2-content__links .btn').on('click', function(){
+        console.log('ym kode buy-text-presets');
+        ym(67870531,'reachGoal','buy-text-presets')
+    });
+    $('.body-transitions-page .hero-2-content__links .btn').on('click', function(){
+        console.log('ym kode buy-transitions');
+        ym(67870531,'reachGoal','buy-transitions')
+    });
     //FOR YANDEX METRIKA УДАЛИТЬ КОГДА БУДУТ ОСТАЛЬНЫЕ ОБНОВЛЕНИЯ КОД ДУБЛИРУЕТСЯ (https://prnt.sc/vmuuet https://prnt.sc/vmuuxk) 
     //LOADER FOR SUBSCRIBE FORM
     $('.subscribe__container .wpcf7').on('wpcf7mailsent', function(){
@@ -365,6 +373,7 @@ $(function() {
             window.location.href = '/downloaded/';
         },4000);
     });
+    
 });
 function scriptShowModal(mod)
 {
