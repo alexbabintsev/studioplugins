@@ -373,6 +373,28 @@ $(function() {
             window.location.href = '/downloaded/';
         },4000);
     });
+    $('.modal-buy form.main-form').on('submit', function(e){
+        e.preventDefault();
+        $(this).find('input[name="email"]').removeClass('invalid');
+        if(this.checkValidity())
+        {
+            $.post(myajax.url,{action: 'create_2co_order',prod_id:$(this).find('input.prod_id_input').val(),email:$(this).find('input[name="email"]').val()},function (data) {
+                if(data.result)
+                {
+                    $('#2co_form .pname_input').val(data.pname);
+                    $('#2co_form .pprice_input').val(data.price);
+                    $('#2co_form .porder_input').val(data.order_id);
+                    $('#2co_form').submit();
+                }
+                else
+                {
+                    console.error(data.msg);
+                }
+            },'JSON');
+        }else{
+            $(this).find('input[name="email"]').addClass('invalid');
+        }
+    });
     
 });
 function scriptShowModal(mod)

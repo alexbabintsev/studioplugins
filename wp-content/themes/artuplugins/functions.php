@@ -60,6 +60,7 @@ endif;
 add_action( 'after_setup_theme', 'theme_setup' );
 function artu_init()
 {
+    global $wp;
     register_post_type('pl_product', array(
         'labels' => array(
             'name' => 'Продукты',
@@ -106,6 +107,34 @@ function artu_init()
         'show_in_rest' => false,
         'supports' => array('custom-fields'),
     ));
+    register_post_type('pl_orders', array(
+        'labels' => array(
+            'name' => 'Заказы',
+            'singular_name' => 'Заказ', // админ панель Добавить->Функцию
+            'add_new' => 'Добавить заказ',
+            'add_new_item' => 'Добавить новый заказ', // заголовок тега <title>
+            'edit_item' => 'Редактировать заказ',
+            'new_item' => 'Новый заказ',
+            'all_items' => 'Все заказы',
+            'view_item' => 'Просмотр заказов на сайте',
+            'search_items' => 'Искать заказ',
+            'not_found' =>  'Заказ не найден.',
+            'not_found_in_trash' => 'В корзине нет заказов.',
+            'menu_name' => 'Заказы' // ссылка в меню в админке
+        ),
+        'public' => false,
+        'show_ui' => true, // показывать интерфейс в админке
+        'has_archive' => false,
+        'menu_icon' => 'dashicons-email-alt2', // иконка в меню
+        'menu_position' => 20, // порядок в меню
+        'show_in_rest' => false,
+        'supports' => array('custom-fields'),
+    ));
+
+    add_rewrite_rule( "socauth/(google|facebook|apple)/?$", "index.php?socauth=".'$matches[1]', 'top' );
+    add_rewrite_rule( "paycallback/(2co)/?$", "index.php?paycallback=".'$matches[1]', 'top' );
+    $wp->add_query_var('socauth');
+    $wp->add_query_var('paycallback');
 }
 add_action( 'init', 'artu_init' );
 function teheme_styles_scripts() {
@@ -593,6 +622,8 @@ add_action('wp_sc_ajax_get_plugins_list',function (){
     $status = get_user_meta( $user->ID, 'account_status', true );
     if ( $status=='banned' )
         wp_send_json( ['result'=>false,'message'=>'User is inactive'] );
+	if($status == 'awaiting_email_confirmation')
+		wp_send_json( ['result'=>false,'message'=>'Confirm your email'] );
     $comps = get_field('comps',$user);
     if(!is_array($comps))
         $comps =[];
@@ -682,6 +713,44 @@ add_action('manage_pl_key_posts_custom_column', function ($column_name, $post_ID
             echo $owner->nickname;
             else
                 echo 'Нет';
+            break;
+    }
+}, 10, 2);
+add_filter('manage_pl_orders_posts_columns', function ($defaults){
+    $date = $defaults['date'];
+    unset($defaults['title']);
+    unset($defaults['date']);
+    //$defaults['id']='ID';
+    $defaults['email']='Email';
+    $defaults['prods']='Products';
+    $defaults['total']='Total';
+    $defaults['sttus']='Status';
+    $defaults['date']=$date;
+    return $defaults;
+}, 10);
+add_action('manage_pl_orders_posts_custom_column', function ($column_name, $post_ID){
+    switch ($column_name)
+    {
+        case 'email':
+            the_field('email', $post_ID);
+            break;
+        case 'prods':
+            $prods = get_field('products', $post_ID);
+            $rsz=[];
+            foreach ($prods as $prod)
+                $rsz[]=$prod->post_title;
+            echo implode(', ',$rsz);
+            break;
+        case 'total':
+            the_field('total', $post_ID);echo'$';
+            break;
+        case 'sttus':
+            $st_arr=[
+                'created' => 'Created',
+                'sended' => 'Sended',
+                'payed' => 'Payed',
+            ];
+            echo $st_arr[get_field('sttus', $post_ID)];
             break;
     }
 }, 10, 2);
@@ -778,6 +847,30 @@ add_action( 'admin_init', function (){
             'description'  => __( 'Mailchimp list id' ),
         )
     );
+
+    register_setting(
+        'general',
+        '2co_acc_id',
+        array(
+            /*'show_in_rest' => array(
+                'name' => 'title',
+            ),*/
+            'type'         => 'string',
+            'description'  => __( '2Checkout account number' ),
+        )
+    );
+    register_setting(
+        'general',
+        '2co_secret_word',
+        array(
+            /*'show_in_rest' => array(
+                'name' => 'title',
+            ),*/
+            'type'         => 'string',
+            'description'  => __( '2Checkout secret word' ),
+        )
+    );
+
     add_settings_field(
         'envato_login-id',
         'Envato Login',
@@ -820,6 +913,29 @@ add_action( 'admin_init', function (){
         array(
             'id' => 'mailchimp_list_id-id',
             'option_name' => 'mailchimp_list_id'
+        )
+    );
+
+    add_settings_field(
+        '2co_acc_id-id',
+        '2Checkout account number',
+        'myprefix_setting_callback_function',
+        'general',
+        'default',
+        array(
+            'id' => '2co_acc_id-id',
+            'option_name' => '2co_acc_id'
+        )
+    );
+    add_settings_field(
+        '2co_secret_word-id',
+        '2Checkout secret word',
+        'myprefix_setting_callback_function',
+        'general',
+        'default',
+        array(
+            'id' => '2co_secret_word-id',
+            'option_name' => '2co_secret_word'
         )
     );
 
@@ -1608,6 +1724,43 @@ function dwnl_to_mailchimp (){
     }
     wp_die();
 }
+add_action( 'wp_ajax_create_2co_order', 'create_2co_order');
+add_action( 'wp_ajax_nopriv_create_2co_order', 'create_2co_order');
+function create_2co_order (){
+    $user_email = isset($_REQUEST['email'])?$_REQUEST['email']:false;
+    if(!$user_email)
+    {
+        echo json_encode(['result'=>false,'mes'=>'Enter Email']);
+        wp_die();
+    }
+    $prod_id = isset($_REQUEST['prod_id'])?$_REQUEST['prod_id']:false;
+    $products = get_posts(array(
+        'numberposts'	=> 1,
+        'post_type'		=> 'pl_product',
+        'include'=>[$prod_id],
+    ));
+    if(count($products)) {
+        $price = get_field('price', $products[0]);
+        $order_id = wp_insert_post(array(
+            'post_type' => 'pl_orders',
+            'post_status' => 'publish',
+            'post_author' => 1,
+        ));
+        update_field('email',$user_email,$order_id);
+        update_field('products',[$prod_id],$order_id);
+        update_field('total',100,$order_id);
+        //update_field('sttus','created',$order_id);
+        update_field('sttus','sended',$order_id);
+        echo json_encode(['result'=>true,'mes'=>'Secsess','price'=>$price,'order_id'=>$order_id,'pname'=>$products[0]->post_title]);
+        wp_die();
+    }
+    else
+    {
+        echo json_encode(['result'=>false,'mes'=>'Wrong product']);
+        wp_die();
+    }
+    wp_die();
+}
 add_action( 'pre_get_posts', 'action_function_name_11' );
 function action_function_name_11( $query ) {
     // Действия...
@@ -1624,4 +1777,432 @@ function action_function_name_11( $query ) {
         $query->set('s','');
         //var_dump($query);die;
     }
+    if($query->is_admin&&$query->is_search&&$query->query['post_type']=='pl_orders')
+    {
+        $query->set('meta_query',[
+            'relation'		=> 'AND',
+            array(
+                'key'	 	=> 'email',
+                'value'	  	=> $query->query['s'],
+                'compare' 	=> 'LIKE',
+            ),
+        ]);
+        $query->set('s','');
+        //var_dump($query);die;
+    }
+}
+
+add_filter( 'template_include', function ($template){
+    global $wp_query;
+    if( isset($wp_query->query_vars['socauth']) ){
+        switch ($wp_query->query_vars['socauth'])
+        {
+            case 'google':
+                if (isset($_GET['code'])) {
+                    $params = array(
+                        'client_id' => GOOGLE_CLIENT_ID,
+                        'client_secret' => GOOGLE_CLIENT_SECRET,
+                        'redirect_uri' => home_url('socauth/google/'),
+                        'grant_type' => 'authorization_code',
+                        'code' => $_GET['code']
+                    );
+                    $url = 'https://accounts.google.com/o/oauth2/token';
+                    $curl = curl_init();
+                    curl_setopt($curl, CURLOPT_URL, $url);
+                    curl_setopt($curl, CURLOPT_POST, 1);
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, urldecode(http_build_query($params)));
+                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+                    $result = curl_exec($curl);
+                    curl_close($curl);
+                    $tokenInfo = json_decode($result, true);
+
+                    if (isset($tokenInfo['access_token'])) {
+                        $params['access_token'] = $tokenInfo['access_token'];
+                        $userInfo = json_decode(file_get_contents('https://www.googleapis.com/oauth2/v1/userinfo' . '?' . urldecode(http_build_query($params))), true);
+                        if (isset($userInfo['id'])) {
+                            //$userInfo = $userInfo;
+                            //"email": "stanislav.protasevich@gmail.com",
+                            //"verified_email": true,
+                            //  "name": "Станислав Протасевич",
+                            $user = get_user_by('email', $userInfo['email'] );
+                            if($user)
+                            {
+                                UM()->login()->auth_id = $user->id;
+                                UM()->user()->set( $user->id);
+                            }
+                            else
+                            {
+                                $users = get_users([
+                                    'orderby'      => 'id',
+                                    'order'        => 'DESC',
+                                    'number'=>1,
+                                ]);
+                                if(count($users)>0)
+                                    $unique_userID = $users[0]->ID +1;
+                                $user_login = 'user' . $unique_userID;
+
+                                $global_role = get_option( 'default_role' );
+                                $user_role = apply_filters( 'um_registration_user_role', $global_role, [] );
+                                $user_password = UM()->validation()->generate( 8 );
+                                $userdata = array(
+                                    'user_login'    => $user_login,
+                                    'user_pass'     => $user_password,
+                                    'user_email'    => $userInfo['email'],
+                                    'role'          => $user_role,
+                                    'nickname'      => $userInfo['name'],
+                                );
+
+                                $user_id = wp_insert_user( $userdata );
+                                UM()->user()->remove_cached_queue();
+
+                                um_fetch_user( $user_id );
+                                if ( ! empty( $args['submitted'] ) ) {
+                                    UM()->user()->set_registration_details( $args['submitted'], $args );
+                                }
+
+                                /* save user status */
+                                UM()->user()->set_status( 'approved' );
+                            }
+
+                            if ( ( UM()->options()->get( 'deny_admin_frontend_login' ) && ! isset( $_GET['provider'] ) ) && strrpos( um_user('wp_roles' ), 'administrator' ) !== false ) {
+                                wp_die( __( 'This action has been prevented for security measures.', 'ultimate-member' ) );
+                            }
+
+                            UM()->user()->auto_login( um_user( 'ID' ), false );
+                            do_action( 'um_on_login_before_redirect', um_user( 'ID' ) );
+
+                            // Priority redirect
+                            if ( ! empty( $args['redirect_to']  ) ) {
+                                exit( wp_redirect( $args['redirect_to'] ) );
+                            }
+
+                            // Role redirect
+                            $after_login = um_user( 'after_login' );
+                            if ( empty( $after_login ) ) {
+                                exit( wp_redirect( um_user_profile_url() ) );
+                            }
+
+                            switch ( $after_login ) {
+
+                                case 'redirect_admin':
+                                    exit( wp_redirect( admin_url() ) );
+                                    break;
+
+                                case 'redirect_url':
+
+                                    $redirect_url = apply_filters( 'um_login_redirect_url', um_user( 'login_redirect_url' ), um_user( 'ID' ) );
+                                    exit( wp_redirect( $redirect_url ) );
+                                    break;
+
+                                case 'refresh':
+                                    exit( wp_redirect( UM()->permalinks()->get_current_url() ) );
+                                    break;
+
+                                case 'redirect_profile':
+                                default:
+                                    exit( wp_redirect( um_user_profile_url() ) );
+                                    break;
+
+                            }
+                        }
+                    }
+                }
+                break;
+            case 'facebook':
+                if (isset($_GET['code'])) {
+                    $params = array(
+                        'client_id' => FACEBOOK_CLIENT_ID,
+                        'redirect_uri' => home_url('socauth/facebook/'),
+                        'client_secret' => FACEBOOK_CLIENT_SECRET,
+                        'code' => $_GET['code']
+                    );
+                    $url = 'https://graph.facebook.com/oauth/access_token';
+                    $tokenInfo = null;
+                    //parse_str(file_get_contents($url . '?' . http_build_query($params)), $tokenInfo);
+                    $url = $url . '?' . http_build_query($params);
+                    $curl = curl_init();
+                    curl_setopt($curl, CURLOPT_URL, $url);
+                    //curl_setopt($curl, CURLOPT_POST, 1);
+                    //curl_setopt($curl, CURLOPT_POSTFIELDS, urldecode(http_build_query($params)));
+                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+                    $result = curl_exec($curl);
+                    curl_close($curl);
+                    $tokenInfo = json_decode($result,true);
+                    if (count($tokenInfo) > 0 && isset($tokenInfo['access_token'])) {
+                        $params = array('access_token' => $tokenInfo['access_token'],'fields'=>'id,name,email,verified');
+                        $userInfo = json_decode(file_get_contents('https://graph.facebook.com/me' . '?' . urldecode(http_build_query($params))), true);
+                        if (isset($userInfo['id'])) {
+                            //$userInfo = $userInfo;
+                            //var_dump($userInfo);die;
+                            //[name] => Стас Протасевич
+                            //[email] => stanislav.protasevich@gmail.com
+                            //[verified] => 1
+                            $user = get_user_by('email', $userInfo['email'] );
+                            if($user)
+                            {
+                                UM()->login()->auth_id = $user->id;
+                                UM()->user()->set( $user->id);
+                            }
+                            else
+                            {
+                                $users = get_users([
+                                    'orderby'      => 'id',
+                                    'order'        => 'DESC',
+                                    'number'=>1,
+                                ]);
+                                if(count($users)>0)
+                                    $unique_userID = $users[0]->ID +1;
+                                $user_login = 'user' . $unique_userID;
+
+                                $global_role = get_option( 'default_role' );
+                                $user_role = apply_filters( 'um_registration_user_role', $global_role, [] );
+                                $user_password = UM()->validation()->generate( 8 );
+                                $userdata = array(
+                                    'user_login'    => $user_login,
+                                    'user_pass'     => $user_password,
+                                    'user_email'    => $userInfo['email'],
+                                    'role'          => $user_role,
+                                    'nickname'      => $userInfo['name'],
+                                );
+
+                                $user_id = wp_insert_user( $userdata );
+                                UM()->user()->remove_cached_queue();
+
+                                um_fetch_user( $user_id );
+                                if ( ! empty( $args['submitted'] ) ) {
+                                    UM()->user()->set_registration_details( $args['submitted'], $args );
+                                }
+
+                                /* save user status */
+                                UM()->user()->set_status( 'approved' );
+                            }
+
+                            if ( ( UM()->options()->get( 'deny_admin_frontend_login' ) && ! isset( $_GET['provider'] ) ) && strrpos( um_user('wp_roles' ), 'administrator' ) !== false ) {
+                                wp_die( __( 'This action has been prevented for security measures.', 'ultimate-member' ) );
+                            }
+
+                            UM()->user()->auto_login( um_user( 'ID' ), false );
+                            do_action( 'um_on_login_before_redirect', um_user( 'ID' ) );
+
+                            // Priority redirect
+                            if ( ! empty( $args['redirect_to']  ) ) {
+                                exit( wp_redirect( $args['redirect_to'] ) );
+                            }
+
+                            // Role redirect
+                            $after_login = um_user( 'after_login' );
+                            if ( empty( $after_login ) ) {
+                                exit( wp_redirect( um_user_profile_url() ) );
+                            }
+
+                            switch ( $after_login ) {
+
+                                case 'redirect_admin':
+                                    exit( wp_redirect( admin_url() ) );
+                                    break;
+
+                                case 'redirect_url':
+
+                                    $redirect_url = apply_filters( 'um_login_redirect_url', um_user( 'login_redirect_url' ), um_user( 'ID' ) );
+                                    exit( wp_redirect( $redirect_url ) );
+                                    break;
+
+                                case 'refresh':
+                                    exit( wp_redirect( UM()->permalinks()->get_current_url() ) );
+                                    break;
+
+                                case 'redirect_profile':
+                                default:
+                                    exit( wp_redirect( um_user_profile_url() ) );
+                                    break;
+
+                            }
+                        }
+                    }
+                }
+                break;
+            case 'apple':
+                if (isset($_GET['code'])) {
+
+
+                    $params = array(
+                        'client_id' => APPLE_CLIENT_ID,
+                        'client_secret' => APPLE_CLIENT_SECRET,
+                        'redirect_uri' => home_url('socauth/apple/'),
+                        'grant_type' => 'authorization_code',
+                        'code' => $_GET['code']
+                    );
+                    $url = 'https://appleid.apple.com/auth/token';
+                    $curl = curl_init();
+                    curl_setopt($curl, CURLOPT_URL, $url);
+                    curl_setopt($curl, CURLOPT_POST, 1);
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, urldecode(http_build_query($params)));
+                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+                    $result = curl_exec($curl);
+                    curl_close($curl);
+                    $tokenInfo = json_decode($result, true);
+                    if (isset($tokenInfo['id_token'])) {
+                        jwt_decode($data, $key);
+                    }
+                }
+                break;
+            default:
+
+        }
+    }
+    if( isset($wp_query->query_vars['paycallback']) ){
+        switch ($wp_query->query_vars['paycallback'])
+        {
+            case '2co':
+                file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'2CO_req.log',
+                    "\n\n".date('Y-m-d H:i:s')."\n".json_encode($_REQUEST)."\n",
+                    FILE_APPEND);
+
+                $orders = get_posts(array(
+                    'numberposts'	=> 1,
+                    'post_type'		=> 'pl_orders',
+                    'include'=>[$_REQUEST['merchant_order_id']],
+                ));
+                if(count($orders))
+                {
+                    $order = $orders[0];
+
+                    $hashSecretWord = get_option('2co_secret_word'); //2Checkout Secret Word
+                    $hashSid = get_option('2co_acc_id'); //2Checkout account number
+                    $hashTotal = get_field('total', $order); //Sale total to validate against
+                    $hashOrder = $_REQUEST['order_number']; //2Checkout Order Number
+                    $StringToHash = strtoupper(md5($hashSecretWord . $hashSid . $hashOrder . $hashTotal));
+                    if ($StringToHash == $_REQUEST['key']) {
+                        if($_REQUEST['credit_card_processed']=='Y'){
+                            if($_REQUEST['currency_code']=='USD')
+                            {
+                                $rez_keys =[];
+                                $str_keys =[];
+                                $prods = get_field('products', $order);
+                                foreach ($prods as $prod){
+                                    do{
+                                        $code= generateRandomString(5)."-".generateRandomString(5)."-".generateRandomString(5)."-".generateRandomString(5);
+                                        $keys = get_posts(array(
+                                            'numberposts'	=> 1,
+                                            'post_type'		=> 'pl_key',
+                                            'meta_query'	=> array(
+                                                'relation'		=> 'AND',
+                                                array(
+                                                    'key'	 	=> 'key',
+                                                    'value'	  	=> $code,
+                                                    'compare' 	=> '=',
+                                                ),
+                                            ),
+                                        ));
+                                    }
+                                    while(count($keys));
+                                    $key_id = wp_insert_post( array(
+                                        'post_type'     => 'pl_key',
+                                        'post_status'   => 'publish',
+                                        'post_author'   => 1,
+                                    ));
+                                    update_field('key',$code,$key_id);
+                                    update_field('produnct',$prod->ID,$key_id);
+                                    update_field('is_baned',0,$key_id);
+                                    $rez_keys[]=$key_id;
+                                    $str_keys[]=$code;
+                                }
+                                update_field('keys',$rez_keys,$order);
+                                update_field('sttus','payed',$order);
+                                $email= get_field('email', $order);
+                                $msg="
+                                Your keys:<br/>
+                                ".implode('<br/>',$str_keys)."
+                                ";
+                                wp_mail( $email, 'Purchised codes', $msg,"Content-Type: text/html\r\n" );
+                            }
+                            else
+                            {
+                                file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'2CO_req.log',
+                                    "currency not mach\n",
+                                    FILE_APPEND);
+                            }
+                        }
+                        else
+                        {
+                            file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'2CO_req.log',
+                                "creditcard not apruved\n",
+                                FILE_APPEND);
+                        }
+
+                    } else {
+                        file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'2CO_req.log',
+                            $StringToHash."\nHash Mismatch\n",
+                            FILE_APPEND);
+                    }
+                }
+                else
+                    {
+                        file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'2CO_req.log',
+                            "order not found\n",
+                            FILE_APPEND);
+                    }
+                wp_redirect(home_url());
+            break;
+        }
+    }
+    return $template;
+}, 99 );
+function generate_facebook_auth_link()
+{
+    return 'https://www.facebook.com/dialog/oauth?'.urldecode(http_build_query([
+            'client_id'     => FACEBOOK_CLIENT_ID,
+            'redirect_uri'  => home_url('socauth/facebook/'),
+            'response_type' => 'code',
+            'scope'         => 'email'//,user_birthday
+        ]));
+}
+function generate_apple_auth_link()
+{
+    return 'https://appleid.apple.com/auth/authorize?'.urldecode(http_build_query([
+            'client_id'     => APPLE_CLIENT_ID,
+            'redirect_uri'  => home_url('socauth/apple/'),
+            'state'         => uniqid('ghj_'),
+            'scope'         => 'name email',
+            'response_type' => 'code',
+        ]));
+}
+function generate_google_auth_link()
+{
+    return 'https://accounts.google.com/o/oauth2/auth?'.urldecode(http_build_query([
+            'client_id'     => GOOGLE_CLIENT_ID,
+            'redirect_uri'  => home_url('socauth/google/'),
+            'response_type' => 'code',
+            'scope'         => 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
+        ]));
+}
+function jwt_decode($data, $key)
+{
+    $jwtArr = array_combine(['header', 'payload', 'signature'], explode('.', $data));
+    $header =  json_decode(base64_decode($jwtArr['header']),true);
+    $payload = json_decode(base64_decode($jwtArr['payload']),true);
+    $calculatedHash = hash_hmac( // сами считаем хеш
+        'sha256',
+        $jwtArr['header'] . '.' . $jwtArr['payload'],
+        $key,
+        true);
+    if(base64url_encode($calculatedHash)==$jwtArr['signature'])
+        return $payload;
+    return false;
+}
+function base64url_encode($data)
+{
+    // First of all you should encode $data to Base64 string
+    $b64 = base64_encode($data);
+    // Make sure you get a valid result, otherwise, return FALSE, as the base64_encode() function do
+    if ($b64 === false) {
+        return false;
+    }
+    // Convert Base64 to Base64URL by replacing “+” with “-” and “/” with “_”
+    $url = strtr($b64, '+/', '-_');
+    // Remove padding character from the end of line and return the Base64URL result
+    return rtrim($url, '=');
 }

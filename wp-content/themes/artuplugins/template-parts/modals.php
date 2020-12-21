@@ -368,3 +368,40 @@
         </div>
     </div>
 </div>
+
+<div class="default-modal default-modal--pre-order modal-buy">
+    <div class="default-modal__content"><a class="default-modal__mobile-logo" href="#">
+            <svg width="92" height="20">
+                <use xlink:href="#icon-mobile_logo"></use>
+            </svg></a>
+        <div class="default-modal__close" data-modal-close>
+            <svg width="100%" height="100%">
+                <use xlink:href="#icon-close"></use>
+            </svg>
+        </div>
+        <div class="default-modal__inner">
+            <h2 class="default-modal__title">Enter <span>your email</span></h2>
+            <form class="main-form default-modal__form" name="modal-pre-order-form" novalidate="novalidate">
+                <input type="hidden" name="prod_id" class="prod_id_input">
+                <div class="input-group">
+                    <div class="input-group__label">Your email</div>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="submit-wrapper main-form__submit-wrapper">
+                    <button class="main-form__submit-btn" type="submit">Buy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+        <form action='https://www.2checkout.com/checkout/purchase' method='post' id="2co_form" style="display: none">
+            <input type='hidden' name='sid' value='<?= esc_attr( get_option('2co_acc_id') )?>' />
+            <input type='hidden' name='mode' value='2CO' />
+            <input type='hidden' name='li_0_type' value='product' />
+            <input type='hidden' name='li_0_name' value='Monthly Subscription' class="pname_input" />
+            <input type='hidden' name='li_0_price' value='1.00' class="pprice_input" />
+            <input type='hidden' name='li_0_tangible' value='N' />
+            <input type='hidden' name='merchant_order_id' value='' class="porder_input" />
+            <input type='hidden' name='currency_code' value='USD' />
+            <input type='hidden' name='x_receipt_link_url' value='<?= home_url('paycallback/2co/')?>' />
+        </form>
+</div>
