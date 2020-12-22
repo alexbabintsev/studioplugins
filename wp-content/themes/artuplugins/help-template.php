@@ -75,7 +75,7 @@ get_header();
                         </div>
                     </div>
                 </div>
-                <div class="help-c-footer">
+                <div class="help-c-footer" id="help-c-footer">
                     <div class="help-c-footer__txt-block">
                         <div class="help-c-footer__title"><?= get_field('footer_title'); ?></div>
                         <?= get_field('description'); ?>
